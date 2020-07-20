@@ -23,12 +23,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '$%=*i(yo8y9e9oqcw+7++&g%3etqz#7povs2sgtrh@g5y&z(&e'
+SECRET_KEY = os.getenv("SKEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 if os.environ.get('ENV') == 'PRODUCTION':
     DEBUG = False
-    ALLOWED_HOSTS = ['amelioratenutella.herokuapp.com']
+    ALLOWED_HOSTS = [os.getenv("ALLOWED_HOSTS")]
     # SMTP configuration
     EMAIL_HOST = os.getenv("EMAIL_HOST")
     EMAIL_PORT = os.getenv("EMAIL_PORT")
@@ -103,8 +103,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'condor_db',
-        'USER': 'condor',
-        'PASSWORD': 'Wzk2mpbapo12@',
+        'USER': os.getenv('USER_DB'),
+        'PASSWORD': os.getenv('PASSWORD_DB'),
         'HOST': '',
         'PORT': '5432',
         'ATOMIC_REQUESTS': True,

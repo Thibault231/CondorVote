@@ -15,16 +15,8 @@ class AccountTestCase(TestCase):
     """Class TestCase for tests functions.
 
     Functions:
-    -setUp(self)
-    -test_right_connexion_log_page(self)
-    -test_wrong_connexion_log_page(self)
-    -test_connexion_page(self)
-    -test_deconnexion_log_page(self)
-    -test_deconnexion_unlog_page(self)
-    -test_myaccount_log_page(self)
-    -test_myaccount_unlog_page(self)
-    -test_account_creation_account_page(self)
-    -test_right_account_creation_page(self):
+    -test_user_table_args(self)
+    -test_account_table_args(self)
 
     """
     def setUp(self):

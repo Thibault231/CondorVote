@@ -13,6 +13,7 @@ TESTS = {
     "statusCreate":"C",
     "winners":"(0,0,0)",
     "time1":timezone.now(),
+    "ballot":"0:0",
     "RightStatus": 200,
     "UnfoundStatus": 404,
     "WrongStatus": 302,

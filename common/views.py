@@ -1,3 +1,15 @@
-from django.shortcuts import render
+# coding: utf-8
+"""Run the views for fcommon APP.
+Views:
+-index
+-legal_mentions
+"""
+from django.shortcuts import render, get_object_or_404, get_list_or_404
 
-# Create your views here.
+
+def index(request):
+    pass
+
+
+def legal_mentions(request):
+    pass

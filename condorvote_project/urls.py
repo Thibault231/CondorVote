@@ -1,4 +1,4 @@
-"""condorvote_project URL Configuration
+"""nutella_project URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.0/topics/http/urls/
@@ -13,9 +13,28 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
+from django.conf import settings
+from django.conf.urls import include, url
 from django.urls import path
+from django.contrib import admin
+from django.contrib.auth import views as auth_views
+from food_selector import views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path(
+        'common/',
+        include(('common.urls', 'app_name'), namespace='common')),
+    path('', views.index, name='index'),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        url(
+            r'^__debug__/',
+            include(
+                debug_toolbar.urls,
+                namespace='debug_toolbar')),
+    ] + urlpatterns

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>CondorVote</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+  {% load static %}<!-- Favicons -->
+  <link href="{% static 'common/assets/img/logo.png' %}" rel="icon">
+  <link href="{% static 'common/assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'common/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'common/assets/vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+  <link href="{% static 'common/assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'common/assets/vendor/venobox/venobox.css' %}" rel="stylesheet">
+  <link href="{% static 'common/assets/vendor/owl.carousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+  <link href="{% static 'common/assets/vendor/aos/aos.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'common/assets/css/style.css' %}" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top header-transparent">
+        <div class="container d-flex align-items-center">
+    
+            <div class="row logo mr-auto">
+            <a href="index.html"></a><img src="{% static 'common/assets/img/logo.png' %}" alt="" class="img-fluid"></a>
+            <h1 class="text-light"><a href="index.html"><span>CondorVote</span></a></h1>
+            </div>
+    
+            <nav class="nav-menu d-none d-lg-block">
+            <ul>
+                <li class="active"><a href="{% url 'index' %}">Accueil</a></li>
+                {% if user.is_anonymous %}
+                <li><a href="{% url 'account:connexion' %}">Me connecter</a></li>
+                <li><a href="{% url 'account:account_creation' %}">Créer un compte</a></li>
+                {% endif %} 
+                <li><a href="#team">Voter</a></li>
+                <li class="drop-down"><a href="">Documentation</a>
+                <ul>
+                    <li><a href="#">Le scrutin de Condorcet</a></li>
+                    <li><a href="#">Comment voter</a></li>
+                    <li><a href="#">Créer un bureau de vote</a></li>
+                </ul>
+                </li>
+                {% if user.is_authenticated %}
+                <li><a href="#contact">Créer un bureau</a></li>
+                <li><a href="#services">Me déconnecter</a></li>
+                <li><a href="{% url 'account:myaccount' %}">Mon compte</a></li>
+                {% endif %} 
+               
+    
+            </ul>
+            </nav><!-- .nav-menu -->
+    
+        </div>
+    </header><!-- End Header -->
+
+<main id="main">
+
+    {% block content %}
+    {% endblock %}
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+    <div class="container">
+        <div class="copyright">
+        &copy; Copyright <strong><span>CondorVote</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits legal_mentions">
+            Mentions légales <a href="{% url 'common:legal_mentions' %}">ici</a>
+        </div>
+        <div class="credits">
+        Designed by <a href="https://github.com/Thibault231/CondorVote.git">Th231</a>
+        </div>
+    </div>
+    </footer><!-- End Footer -->
+</main>
+
+<a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'common/assets/vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'common/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'common/assets/vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+  <script src="{% static 'common/assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'common/assets/vendor/waypoints/jquery.waypoints.min.js' %}"></script>
+  <script src="{% static 'common/assets/vendor/counterup/counterup.min.js' %}"></script>
+  <script src="{% static 'common/assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'common/assets/vendor/venobox/venobox.min.js"></script>
+  <script src="{% static 'common/assets/vendor/owl.carousel/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'common/assets/vendor/aos/aos.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'common/assets/js/main.js' %}"></script>
+
+</body>
+
+</html>

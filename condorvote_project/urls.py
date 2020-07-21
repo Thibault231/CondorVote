@@ -23,10 +23,50 @@ from common import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.index, name='index'),
     path(
         'common/',
         include(('common.urls', 'app_name'), namespace='common')),
-    path('', views.index, name='index'),
+    path(
+        'account/',
+        include(('account.urls', 'app_name'), namespace='account')),
+    path(
+        'account/',
+        include(('django.contrib.auth.urls', 'app_name'), namespace='author')),
+    
+    # urls for changing password
+    path(
+        'password_change/done/',
+        auth_views.PasswordChangeDoneView.as_view(
+            template_name='registration/password_change_done.html'),
+        name='password_change_done'),
+    path(
+        'password_change/',
+        auth_views.PasswordChangeView.as_view(
+            template_name='registration/password_change.html'),
+        name='password_change'),
+
+    # urls for reseting password
+    path(
+        'account/password_reset/',
+        auth_views.PasswordResetView.as_view(
+            template_name='registration/password_reset.html'),
+        name="password_reset"),
+    path(
+        'account/password_reset/done/',
+        auth_views.PasswordResetDoneView.as_view(
+            template_name='registration/password_reset_done.html'),
+        name="password_reset_done"),
+    path(
+        'account/reset/<uidb64>/<token>/',
+        auth_views.PasswordResetConfirmView.as_view(
+            template_name='registration/password_reset_confirm.html'),
+        name="password_reset_confirm"),
+    path(
+        'account/reset/done/',
+        auth_views.PasswordResetCompleteView.as_view(
+            template_name='registration/password_reset_complete.html'),
+        name="password_reset_complete")
 ]
 
 if settings.DEBUG:

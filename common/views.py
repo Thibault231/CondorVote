@@ -18,4 +18,42 @@ def index(request):
 
 
 def legal_mentions(request):
-    pass
+    """Rule the legal notice of the website;
+    Arguments:
+    -request {GET}
+    Returns:
+    -template -- legal_mentions.html
+    """
+    return render(request, 'common/legal_mentions.html')
+
+
+def error400(request):
+    """Specific function for testing error templates:
+    400.htlm;
+    Arguments:
+    -request {GET}
+    Returns:
+    -template -- legal_mentions.html
+    """
+    return render(request, '400.html')
+
+def error404(request):
+    """Specific function for testing error templates:
+    404.htlm;
+    Arguments:
+    -request {GET}
+    Returns:
+    -template -- legal_mentions.html
+    """
+    return render(request, '404.html')
+
+
+def error500(request):
+    """Specific function for testing error templates:
+    500.htlm;
+    Arguments:
+    -request {GET}
+    Returns:
+    -template -- legal_mentions.html
+    """
+    return render(request, '500.html')

@@ -1,0 +1,29 @@
+
+{% extends 'common/base2.html' %}
+
+
+{% block content %}<section class="flex-column col-lg-12 text-center" id="accountBox">
+    <h1><br/>Me connecter</h1>
+    <article class="container col-lg-12">
+        <br/><br/>
+        {% if error %}
+        <p><strong>Utilisateur inconnu ou mauvais de mot de passe.</strong></p>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+        Vous êtes connecté, {{ user.username }} !
+        {% else %}
+        <form method="post" action=".">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Se connecter" class="btn btn-outline-food_selector btn-lg btn-block" />
+            <br/>
+            <button class="btn">
+                <a id="resetpass" style="color:black" href="{% url 'password_reset' %}">
+                Mot de passe perdu?</a>
+            </button>
+        </form>
+        {% endif %}
+    <br/><br/>
+    </article>
+</section>{% endblock %}

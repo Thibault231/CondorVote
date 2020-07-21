@@ -1,0 +1,26 @@
+{% extends 'common/base.html' %}
+
+
+{% block content %}<section class="flex-column col-lg-12 text-center" id="creationBox">
+    <h1>Créer un compte</h1>
+    <article class="container col-lg-12">
+        <br/><br/>
+    
+        {% if error_password %}
+        <p><strong>Mot de passe erroné.</strong></p>
+        {% endif %}
+        {% if error_username %}
+        <p><strong>Nom d'utilisateur déjà attribué.</strong></p>
+        {% endif %}
+        {% if error_email %}
+        <p><strong>Un compte est déjà lié à cet email.</strong></p>
+        {% endif %}
+
+        <form method="post" action=".">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input class="btn btn-lg btn-block" type="submit" value="Créer mon compte"  />
+        </form>
+        <br/><br/>
+    </article>
+</section>{% endblock %}

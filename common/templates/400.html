@@ -1,0 +1,15 @@
+{% extends 'common/base2.html' %}  
+{% load static %}
+
+{% block content %}
+<section id="services" class="services">
+    <div class="container">
+        <h1 class="text-uppercase text-white font-weight-bold">Erreur 400</h1>
+        <div class="text-center">
+        <h2>Oups, votre requête est erronée.<br/></h2>
+        <p><img src="{% static 'common/assets/img/400.png' %}" alt="Error 400"/></p>
+        <h3>Essayez avec un autre mot clé ou en modifiant son orthographe.</h3>
+        </div>
+    </div>
+</section>
+{% endblock %}

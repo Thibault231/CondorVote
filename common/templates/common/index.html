@@ -4,7 +4,7 @@
     <!-- ======= Accueil Section ======= -->
     <section id="hero">
     <div class="hero-container" data-aos="fade-up">
-        <h1>Bienvenu sur CondorVote</h1>
+        <h1>Bienvenue sur CondorVote</h1>
         <h2>Votez sans plus attendre en cliquant ci-dessous.</h2>
         <a href="#about" class="btn-get-started scrollto"><i class="bx bx-chevrons-down"></i></a>
     </div>
@@ -23,29 +23,37 @@
                 <p>
                 Mon numméro de ticket:
                 </p>
-                <a href="#" class="about-btn">Je vote <i class="bx bx-chevron-right"></i></a>
+                <form action="{% url 'common:legal_mentions' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="container">
+                        <div class="d-flex flex-column">
+                            <input type="text" name="item_name" maxlength="100" class="item_name" id="item_name">
+                            <button type="submit" class="about-btn">Je vote <i class="bx bx-message-check"></i></button>
+                        </div>
+                    </div>
+                </form>   
             </div>
             </div>
             <div class="col-xl-7 d-flex align-items-stretch">
             <div class="icon-boxes d-flex flex-column justify-content-center">
                 <div class="row">
                 <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="100">
-                    <i class="bx bx-receipt"></i>
+                    <i class="bx bx-smile"></i>
                     <h4>SIMPLE</h4>
                     <p>Un site de vote en ligne simple d'utilisation</p>
                 </div>
                 <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="200">
-                    <i class="bx bx-cube-alt"></i>
+                    <i class="bx bx-right-arrow"></i>
                     <h4>SPECIFIQUE</h4>
                     <p>Un site de vote à destination des établissement scolaire</p>
                 </div>
                 <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="300">
-                    <i class="bx bx-images"></i>
+                    <i class="bx bx-box"></i>
                     <h4>MODULABLE</h4>
                     <p>Créer autant des bureaux de vote adaptés à vos classes</p>
                 </div>
                 <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="400">
-                    <i class="bx bx-shield"></i>
+                    <i class="bx bx-money"></i>
                     <h4>GRATUIT</h4>
                     <p>CondorVote est un projet opensource. Pas besoin de payer pour voter. Encore heureux!</p>
                 </div>

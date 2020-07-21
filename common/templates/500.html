@@ -1,0 +1,15 @@
+{% extends 'common/base2.html' %}  
+{% load static %}
+
+{% block content %}
+<section id="services" class="services">
+    <div class="container">
+        <h1 class="text-uppercase text-white font-weight-bold">Erreur 500</h1>
+        <div class="text-center">
+            <h2>Notre serveur a eu un problème.<br/></h2>
+            <p><img src="{% static 'common/assets/img/500.png' %}" alt="Error 500"/></p>
+            <h3>Nous travaillons à sa résolution.</h3>
+        </div>
+    </div>
+</section>
+{% endblock %}

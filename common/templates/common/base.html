@@ -5,12 +5,12 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Squadfree Bootstrap Template - Index</title>
+  <title>CondorVote</title>
   <meta content="" name="descriptison">
   <meta content="" name="keywords">
 
   {% load static %}<!-- Favicons -->
-  <link href="{% static 'common/assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'common/assets/img/logo.png' %}" rel="icon">
   <link href="{% static 'common/assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
@@ -34,17 +34,18 @@
     <header id="header" class="fixed-top header-transparent">
     <div class="container d-flex align-items-center">
 
-        <div class="logo mr-auto">
+        <div class="row logo mr-auto">
+        <a href="index.html"></a><img src="{% static 'common/assets/img/logo.png' %}" alt="" class="img-fluid"></a>
         <h1 class="text-light"><a href="index.html"><span>CondorVote</span></a></h1>
-        <a href="index.html"><img src="{% static 'assets/img/logo.png' %}" alt="" class="img-fluid"></a>
         </div>
 
         <nav class="nav-menu d-none d-lg-block">
         <ul>
-            <li class="active"><a href="index.html">Accueil</a></li>
-            <li><a href="#about">Me connecter</a></li>
-            <li><a href="#services">Me déconnecter</a></li>
-            <li><a href="#portfolio">Mon compte</a></li>
+            <li class="active"><a href="{% url 'index' %}">Accueil</a></li>
+            {% if user.is_anonymous %}
+            <li><a href="{% url 'account:connexion' %}">Me connecter</a></li>
+            <li><a href="{% url 'account:account_creation' %}">Créer un compte</a></li>
+            {% endif %} 
             <li><a href="#team">Voter</a></li>
             <li class="drop-down"><a href="">Documentation</a>
             <ul>
@@ -53,7 +54,12 @@
                 <li><a href="#">Créer un bureau de vote</a></li>
             </ul>
             </li>
+            {% if user.is_authenticated %}
             <li><a href="#contact">Créer un bureau</a></li>
+            <li><a href="#services">Me déconnecter</a></li>
+            <li><a href="{% url 'account:myaccount' %}">Mon compte</a></li>
+            {% endif %} 
+           
 
         </ul>
         </nav><!-- .nav-menu -->
@@ -81,7 +87,7 @@
         <div class="row">
             <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
             <div class="icon-box" data-aos="fade-up">
-                <div class="icon"><i class="bx bxl-dribbble"></i></div>
+                <div class="icon"><i class="bx bx-calculator"></i></div>
                 <h4 class="title"><a href="">Le scrutin de Condorcet</a></h4>
                 <p class="description">Principes du scrutin de Condorcet et liens utiles</p>
             </div>
@@ -98,7 +104,7 @@
 
             <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
             <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
-                <div class="icon"><i class="bx bx-world"></i></div>
+                <div class="icon"><i class="bx bx-desktop"></i></div>
                 <h4 class="title"><a href="">Créer un bureau de vote.</a></h4>
                 <p class="description">Vous voulez créer des bureaux de votes pour vos classes? Le détail est expliqué dans cette section.</p>
             </div>
@@ -117,12 +123,11 @@
         <div class="copyright">
         &copy; Copyright <strong><span>CondorVote</span></strong>. All Rights Reserved
         </div>
+        <div class="credits legal_mentions">
+            Mentions légales <a href="{% url 'common:legal_mentions' %}">ici</a>
+        </div>
         <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/squadfree-free-bootstrap-template-creative/ -->
-        Designed by <a href="">Th231</a>
+        Designed by <a href="https://github.com/Thibault231/CondorVote.git">Th231</a>
         </div>
     </div>
     </footer><!-- End Footer -->

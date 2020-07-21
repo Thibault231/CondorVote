@@ -1,4 +1,4 @@
-"""nutella_project URL Configuration
+"""condorVote_project URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.0/topics/http/urls/
@@ -18,7 +18,7 @@ from django.conf.urls import include, url
 from django.urls import path
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from food_selector import views
+from common import views
 
 
 urlpatterns = [

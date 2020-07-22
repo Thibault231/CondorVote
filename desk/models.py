@@ -34,7 +34,7 @@ class Candidate(models.Model):
         Returns:
             [str] -- attribute name
         """
-        return "candidate: {0}".format(self.candidate.last_name)
+        return "candidate: {0}".format(self.first_name)
 
 class Desk(models.Model):
     """Model Desk, define the objet that rule a classroom
@@ -74,7 +74,7 @@ class Desk(models.Model):
         Returns:
             [str] -- attribute name
         """
-        return "Desk ID: {0}".format(self.desk.id)
+        return "Desk ID: {0}".format(self.id)
 
 
 class Ticket(models.Model):
@@ -100,4 +100,4 @@ class Ticket(models.Model):
         Returns:
             [str] -- attribute name
         """
-        return "Ticket number: {0}".format(self.ticket.ticket_number)
+        return "Ticket number: {0}".format(self.ticket_number)

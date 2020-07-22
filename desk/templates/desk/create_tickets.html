@@ -1,0 +1,48 @@
+{% extends 'common/base2.html' %}
+{% load static %}
+
+{% block content %}<section class="cta ">
+    <div class="text-center" data-aos="fade-up">
+        <h1>Vos tickets de vote</h1>
+        <article class="container center-block col-lg-12">
+            <br/>        
+        {% if not zero_ticket %}  
+            <h2>Voici la liste de vos tickets de vote</h2>
+            {% if not to_much__tickets %}
+            <h2>Pour des raisons de confidentialité cette liste ne vous sera pas envoyée par mail.</h2>
+            <h2>Réalisez un copier/coller à partir de l'écran<br/><br/></h2>
+            {% endif %}
+
+            <button class="about-btn2" id="end_add">
+                <a style="color:black" href="{% url 'account:myaccount' %}">Retourner sur Mon Compte</a>
+            </button>
+
+            {% if to_much__tickets %}
+            <h2>Le nombre de votants exède la maximum autorisé (1000)</h2>
+            <h2>Seuls 1000 tickets ont été générés.<br/></h2>
+            {% endif %}
+            <div class="row justify-content-center">
+                <h3>Total tickets:&emsp;{{existing_tickets}}</h3>
+                <div class="frame1 col-lg-4">
+                <br/>
+                {% for ticket in tickets_list %}
+                <div class="d-flex flex-column text-center">
+                    <p>&emsp;{{ticket.ticket_number}}&emsp;Code ticket:&emsp;{{ticket.ticket_code}}</p>
+                </div>
+                {% endfor %}
+                </div>
+            </div>
+        
+            <br/><br/>
+            <button class="about-btn2" id="end_add">
+                <a style="color:black" href="{% url 'account:myaccount' %}">Retourner sur Mon Compte</a>
+            </button>
+        {% endif %}
+
+        {% if zero_ticket %}
+        <h2><strong>Aucun ticket de vote n'a été généré car votre nombre de votant est égal à zéro.</strong></h2>
+        <h2>Veuillez ajouter des votant en modifiant le bureau à partir de votre compte.</h2>
+        {% endif %}
+
+{% endblock %}
+        

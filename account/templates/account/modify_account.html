@@ -1,0 +1,29 @@
+{% extends 'common/base2.html' %}
+
+{% block content %}<section class="cta text-center">
+    <h1><br/>Modifier mon compte</h1>
+    <div data-aos="fade-up">
+        <article class="container col-lg-12">
+            <br/><br/>
+        
+        {% if not account_modificate %}
+            {% if error_username %}
+            <p><strong>Nom d'utilisateur déjà attribué.</strong></p>
+            {% endif %}
+
+            <form class="form1" method="post" action=".">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input class="about-btn2" type="submit" value="Modifier mes informations"  />
+            </form>
+            <p>Information: Votre email définissant votre compte, il ne peut être modifié sans supprimer ce dernier.</p>
+            <br/><br/>
+        {% endif %}
+
+        {% if account_modificate %}
+            <h2>Votre compte a bien été modifié<br/><br/></h2>
+        {% endif %}
+            
+        </article>
+    </div>
+</section>{% endblock %}

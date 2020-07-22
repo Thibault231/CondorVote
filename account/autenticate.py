@@ -1,0 +1,62 @@
+# coding: utf-8
+"""Modify Django parameters for
+loging with email instead of username.
+"""
+from django.contrib.auth import get_user_model
+
+
+UserModel = get_user_model()
+
+
+class EmailAuth:
+    """
+    Email authentication.
+    """
+
+    def authenticate(self, request, email=None, password=None, **kwargs):
+        """Define inputs for login
+
+        Keyword Arguments:
+            email {str} -- user's email (default: {None})
+            password {str} -- user's password (default: {None})
+
+        Returns:
+            User -- [user]
+        """
+        if request == "POST":
+            r_method = True
+
+        if email is None:
+            email = kwargs.get(UserModel.EMAIL_FIELD)
+        try:
+            user = UserModel.objects.get(email=email)
+        except UserModel.DoesNotExist:
+            UserModel().set_password(password)
+        else:
+            if user.check_password(password)\
+             and self.user_can_authenticate(user):
+                return user
+        return None
+
+    def user_can_authenticate(self, user):
+        """
+        Reject users with is_active=False. Custom user models that don't have
+        that attribute are allowed.
+        """
+        is_active = getattr(user, "is_active", None)
+        return is_active or is_active is None
+
+    def get_user(self, user_id):
+        """Log user.
+
+        Arguments:
+            user_id {int} -- user's id
+
+        Returns:
+            [User] -- user object
+        """
+        try:
+            user = UserModel.objects.get(pk=user_id)
+        except UserModel.DoesNotExist:
+            return None
+        return user if self.user_can_authenticate(user) else None

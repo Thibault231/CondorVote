@@ -22,11 +22,15 @@ from common import views
 
 
 urlpatterns = [
+    # urls for APPs
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path(
         'common/',
         include(('common.urls', 'app_name'), namespace='common')),
+    path(
+        'desk/',
+        include(('desk.urls', 'app_name'), namespace='desk')),
     path(
         'account/',
         include(('account.urls', 'app_name'), namespace='account')),

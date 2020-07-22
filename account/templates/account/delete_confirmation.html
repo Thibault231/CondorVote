@@ -1,17 +1,17 @@
-{% extends 'common/base.html' %}
+{% extends 'common/base2.html' %}
 
 
-{% block content %}<section class="flex-column col-lg-12 text-center" id="accountBox">
-    <h1 class="bg-moufri">Suppression de compte</h1>
-    <article class="container col-lg-12 bg-roichoco">
+{% block content %}<section class="cta flex-column col-lg-12 text-center" id="accountBox">
+    <h1 >Supprimer mon compte</h1>
+    <article class="container col-lg-12">
         
         <h2><br/><br/>Attention, '{{ user.username }}'', vous allez supprimer définitivement votre compte!</h2>
         <p><br/><br/>Etes vous sûre de vouloir continuer?</p>
         <div class="row d-flex justify-content-center">
-            <button class="btn-danger" id="delete2">
+            <button class="about-btn4" id="delete2">
                 <a style="color:black" href="{% url 'account:delete_user' %}">Supprimer mon compte</a>
             </button>
-            <button class="btn bg-bonrig" id="notdelete">
+            <button class="about-btn3" id="notdelete">
                 <a style="color:black" href="{% url 'account:myaccount' %}">Retourner sur Mon compte</a>
             </button>
         </div>

@@ -1,47 +1,56 @@
 {% extends 'common/base.html' %}
 
 {% block content %}
-<section class="row text-center col-lg-12" id="accountBox">
-    <h1 class="col-lg-12 bg-moufri">Mon compte<br/></h1>
-    <article class="container d-flex flex-column col-sm-12 col-lg-6">
-        <br/><br/>
-        <h2>Mes informations</h2>
-        <br/><br/>
-        <div class="text-left">
-            <p><button class="btn ">Pseudo:</button>         {{user.username}}</p>
-            <p><button class="btn ">Prénom:</button>         {{user.first_name}}</p>
-            <p><button class="btn ">Nom:</button>            {{user.last_name}}</p>
-            <p><button class="btn ">Email:</button>          {{user.email}}</p>
-            <p><button class="btn ">Etablissement:</button>  {{user.account.school}}</p>
-            <p><button class="btn ">Département:</button>    {{user.account.departement}}</p>
-            <br/><br/>
-        </div>
-        <h2>Gestion de mes informations</h2>
-        <div class="text-left">
-            <br/><br/>
-            <p><button class="btn bg-bonrig">
-                <a id="changepassword" style="color:black" href="{% url 'password_change' %}">
-                Changer mon mot de passe</a>
-            </button></p>
-            <p><button class="btn bg-bonrig" id='delete'>
-                <a style="color:black" href="{% url 'account:delete_confirmation' %}">
-                Supprimer mon compte</a>
-            </button></p>
-            <p><button class="btn bg-bonrig" id='delete'>
-                <a style="color:black" href="{% url 'account:delete_confirmation' %}">
-                Modifier mon compte</a>
-            </button></p>
-        </div>
-    </article>
+<section id="about d-flex justify-content-around" class="about">
+    <div class="row text-center col-lg-12">
+        <h1 class="col-lg-12">Mon compte<br/><br/></h1>
+        <article class="container d-flex flex-column col-sm-12 col-lg-4 frame1">
+            <div class="section-title" data-aos="fade-in" data-aos-delay="100">
+                <h2>Mes informations<br/><br/></h2>
+            </div>
+            <div class="text-left">
+                <p><button class="about-btn3">Pseudo:</button>         {{user.username}}</p>
+                <p><button class="about-btn3">Prénom:</button>         {{user.first_name}}</p>
+                <p><button class="about-btn3">Nom:</button>            {{user.last_name}}</p>
+                <p><button class="about-btn3">Email:</button>          {{user.email}}</p>
+                <p><button class="about-btn3">Etablissement:</button>  {{user.account.school}}</p>
+                <p><button class="about-btn3">Département:</button>    {{user.account.departement}}</p>
+                <br/><br/>
+            </div>
+        </article>
 
-    <article class="container col-sm-12 col-lg-6">
-        <br/><br/>
-        <h2>Mes bureaux de votes</h2>
-        {% if latest_substitute %}
-        <br/><br/>
-        <div class="d-flex flex-column col-lg-12">
+        <article class="container col-sm-12 col-lg-6 frame1">
+            <div class="section-title" data-aos="fade-in" data-aos-delay="100">
+                <h2>Mes bureaux de votes <br/><br/></h2>
+                    <button class="about-btn2 align-self-center" id='delete'>
+                        <a style="color:black" href="{% url 'desk:display_desk_list' %}">
+                        Voir mes bureaux de vote</a>
+                    </button>
+            </div>         
+        </article>
+    </div>
+    <br/><br/>
+    <div class="container text-center frame2">
+        <div class="section-title" data-aos="fade-in" data-aos-delay="100">
+            <h2><br/>Gestion de mes informations<br/><br/></h2>
         </div>
-        {% endif %}           
-    </article>
+        <div class="container">
+            <div class="d-flex justify-content-around">
+               
+                <p><button class="about-btn2">
+                    <a id="changepassword" style="color:black" href="{% url 'password_change' %}">
+                    Changer mon mot de passe</a>
+                </button></p>
+                <p><button class="about-btn2" id='delete'>
+                    <a style="color:black" href="{% url 'account:delete_confirmation' %}">
+                    Supprimer mon compte</a>
+                </button></p>
+                <p><button class="about-btn2" id='modify'>
+                    <a style="color:black" href="{% url 'account:modify_account' %}">
+                    Modifier mon compte</a>
+                </button></p>
+            </div>
+        </div>
+    </div>
 </section>
 {% endblock %}

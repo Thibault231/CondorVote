@@ -1,8 +1,11 @@
 # coding: utf-8
-"""Run the views for fcommon APP.
+"""Run the views for common APP.
 Views:
--index
--legal_mentions
+-index(request)
+-legal_mentions(request)
+-error400(request)
+-error404(request)
+-error500(request)
 """
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 

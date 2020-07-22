@@ -55,8 +55,8 @@
                 </ul>
                 </li>
                 {% if user.is_authenticated %}
-                <li><a href="#contact">Créer un bureau</a></li>
-                <li><a href="#services">Me déconnecter</a></li>
+                <li><a href="{% url 'desk:create_desk' %}">Créer un bureau</a></li>
+                <li><a href="{% url 'account:deconnexion' %}">Me déconnecter</a></li>
                 <li><a href="{% url 'account:myaccount' %}">Mon compte</a></li>
                 {% endif %} 
                
@@ -98,7 +98,7 @@
   <script src="{% static 'common/assets/vendor/waypoints/jquery.waypoints.min.js' %}"></script>
   <script src="{% static 'common/assets/vendor/counterup/counterup.min.js' %}"></script>
   <script src="{% static 'common/assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
-  <script src="{% static 'common/assets/vendor/venobox/venobox.min.js"></script>
+  <script src="{% static 'common/assets/vendor/venobox/venobox.min.js' %}"></script>
   <script src="{% static 'common/assets/vendor/owl.carousel/owl.carousel.min.js' %}"></script>
   <script src="{% static 'common/assets/vendor/aos/aos.js' %}"></script>
 

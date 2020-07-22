@@ -1,0 +1,77 @@
+{% extends 'common/base.html' %}
+
+
+{% block content %}<section id="hero">
+    <div class="text-center" data-aos="fade-up">
+        <h1><br/>Mes bureaux de vote</h1>
+        <h3><br/>Vous disposez de {{desk_number}} bureau(x) de vote.<br/><br/></h3>
+        <article class="row col-lg-12">      
+            
+            <div class="frame2 col-lg-4">
+                <h2><br/>Bureaux non ouverts</h2>
+                {% for desk in desks_list %}
+                    {% if desk.status == "C" %}
+                        <li class="d-flex flex-column">
+                            <p>Etablissement: {{desk.school}}</p>
+                            <p>Nom du bureau: {{desk.school_class}}</p>
+                            <p>Nombre de votant: {{desk.number_voters}}</p>
+                            <p>Date de création: {{desk.opening_vote}}</p>
+                            <button class="about-btn2">
+                                <a style="color:black" href="{% url 'account:myaccount' %}">Modifier le bureau</a>
+                            </button>
+                            <button class="about-btn2">
+                                <a style="color:black" href="{% url 'account:myaccount' %}">Ouvrir le bureau pour le vote</a>
+                            </button>
+                            <button class="about-btn2">
+                                <a style="color:black" href="{% url 'account:myaccount' %}">Supprimer le bureau</a>
+                            </button>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="frame2 col-lg-4">
+                <h2><br/>Bureaux ouverts</h2>
+                {% for desk in desks_list %}
+                    {% if desk.status == "O" %}
+                        <div class="d-flex flex-column text-center">
+                            <p>Etablissement: {{desk.school}}</p>
+                            <p>Nom du bureau: {{desk.school_class}}</p>
+                            <p>Nombre de votant: {{desk.number_voters}}</p>
+                            <p>Date de création: {{desk.opening_vote}}</p>
+                            <button class="about-btn2" id="end_add">
+                                <a style="color:black" href="{% url 'account:myaccount' %}">Clôturer le bureau</a>
+                            </button>
+                            <button class="about-btn3" id="end_add">
+                                <a style="color:black" href="{% url 'account:myaccount' %}">Supprimer le bureau</a>
+                            </button>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="frame2 col-lg-4">
+                <h2><br/>Bureaux clôturés</h2>
+                {% for desk in desks_list %}
+                    {% if desk.status == "E" %}
+                        <div class="d-flex flex-column text-center">
+                            <p>Etablissement: {{desk.school}}</p>
+                            <p>Nom du bureau: {{desk.school_class}}</p>
+                            <p>Nombre de votant: {{desk.number_voters}}</p>
+                            <p>Date de création: {{desk.opening_vote}}</p>
+                            <p>Date de clôture: {{desk.closing_vote}}</p>
+                            <button class="about-btn2" id="end_add">
+                                <a style="color:black" href="{% url 'account:myaccount' %}">Résultat du vote</a>
+                            </button>
+                            <button class="about-btn3" id="end_add">
+                                <a style="color:black" href="{% url 'account:myaccount' %}">Supprimer le bureau</a>
+                            </button>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+        </article>
+    </div>
+</section>
+{% endblock %}

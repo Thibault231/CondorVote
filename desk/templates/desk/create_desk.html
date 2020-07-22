@@ -1,0 +1,36 @@
+{% extends 'common/base2.html' %}
+{% load static %}
+
+{% block content %}<section id="hero">
+    <div class="hero-container" data-aos="fade-up">
+        <h1><br/><br/>Créer un nouveau bureau</h1>
+        <article class="container col-lg-12">
+            <br/><br/>
+            
+            {% if not desk_complete %}
+            <h2><strong>Veuillez compléter tous les champs avant de valider.</strong></h2>
+            {% if existing_desk %}
+                <h2>Un bureau de vote de ce nom existe déjà.</h2>
+            {% endif %}
+            <form class="form1" method="post" action=".">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input class="about-btn2" type="submit" value="Créer le bureau"  />
+            </form>
+            {% endif %}
+
+            
+
+            {% if desk_complete %}
+            <h2><strong>Le bureau de vote a bien été créé.<br/></strong></h2>
+            <button class="about-btn3" id="notdelete">
+                <a style="color:black" href="{% url 'desk:add_candidates' desk_id=new_desk %}">Continuer</a>
+            </button>
+            {% endif %}
+
+            
+
+            <br/><br/>
+        </article>
+    </div>
+</section>{% endblock %}

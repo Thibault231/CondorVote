@@ -1,17 +1,20 @@
 # coding: utf-8
-"""Run the views for food_selector APP.
+"""Run the views for Account APP.
 Views:
 -myaccount(request):@login_required
--count_creation(request)
+-account_creation(request)
 -connexion(request)
 -deconnexion(request):@login_required
+-delete_user(request):@login_required
+-delete_confirmation(request):@login_required
+-modify_account(request):@login_required
 """
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from account.models import Account
-from .forms import ConnexionForm, CountCreationForm
+from .forms import ConnexionForm, CountCreationForm, CountModificationForm
 
 
 @login_required
@@ -173,4 +176,50 @@ def delete_user(request):
     except ValueError:
         print(request, "The user not found")
     return render(request, 'account/delete_done.html')
+
+
+@login_required
+def modify_account(request):
+    """Manage the account modification.
+    Arguments:
+    -request {POST}
+    Returns:
+    -template -- account_modify.html
+    -template -- myaccount.html when done
+    """
+    user = request.user
+    error_username = False
+    account_modificate = False
+
+    if request.method == "POST":
+        form = CountModificationForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data["username"]
+            first_name = form.cleaned_data["first_name"]
+            last_name = form.cleaned_data["last_name"]
+            school = form.cleaned_data["school"]
+            departement = form.cleaned_data["departement"]
+
+            user_control = User.objects.filter(username=username)
+            if not user_control:
+                    user.username=username,
+                    user.first_name=first_name
+                    user.last_name=last_name
+                    user.account.school=school
+                    user.account.departement=departement
+                    user.save()
+
+                    account_modificate = True
+            else:
+                error_username = True
+    else:
+        form = CountModificationForm()
+
+    context = {
+        "account_modificate": account_modificate,
+        "error_username": error_username,
+        "form": form
+    }
+
+    return render(request, 'account/modify_account.html', context)
 

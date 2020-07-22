@@ -15,6 +15,9 @@ urlpatterns = [
         'account_creation/',
         views.account_creation, name='account_creation'),
     path(
+        'modify_account/',
+        views.modify_account, name='modify_account'),
+    path(
         'delete_confirmation/',
         views.delete_confirmation, name='delete_confirmation'),
 ]

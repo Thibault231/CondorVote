@@ -1,0 +1,13 @@
+{% extends 'common/base2.html' %}
+
+
+{% block content %}<section class="cta text-center">
+
+    <h1><br/>Suppression de bureau de vote<br/><br/></h1>
+        <h3>Le bureau {{desk_school_class}} de l'établissement {{desk_school}} a bien été supprimé .<br/><br/></h3>
+
+        <button class="about-btn3" id="end_add">
+            <a style="color:black" href="{% url 'desk:display_desk_list' %}">Retour à mes bureaux de vote</a>
+        </button>
+</section>
+{% endblock %}

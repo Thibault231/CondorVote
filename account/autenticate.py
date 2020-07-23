@@ -7,7 +7,6 @@ from django.contrib.auth import get_user_model
 
 UserModel = get_user_model()
 
-
 class EmailAuth:
     """
     Email authentication.
@@ -23,9 +22,6 @@ class EmailAuth:
         Returns:
             User -- [user]
         """
-        if request == "POST":
-            r_method = True
-
         if email is None:
             email = kwargs.get(UserModel.EMAIL_FIELD)
         try:
@@ -36,7 +32,6 @@ class EmailAuth:
             if user.check_password(password)\
              and self.user_can_authenticate(user):
                 return user
-        return None
 
     def user_can_authenticate(self, user):
         """
@@ -56,7 +51,7 @@ class EmailAuth:
             [User] -- user object
         """
         try:
-            user = UserModel.objects.get(pk=user_id)
+            user = UserModel._default_manager.get(pk=user_id)
         except UserModel.DoesNotExist:
             return None
         return user if self.user_can_authenticate(user) else None

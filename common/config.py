@@ -38,3 +38,9 @@ TESTS2 = {
         [-1, -1, -1, -1,  0,  0],
         [-1, -1, -1, -1,  0,  0]])
 }
+
+TESTS3 = {
+    "StatusCreate": "C",
+    "StatusOpen": "O",
+    "StatusClose": "E",
+}

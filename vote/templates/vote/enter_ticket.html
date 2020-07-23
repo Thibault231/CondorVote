@@ -1,0 +1,31 @@
+{% extends 'common/base2.html' %}
+
+
+{% block content %}<section id="about " class="about">
+    <div class="container text-center">
+        <div class="content">
+            {%  if not validate_ticket %}
+            <h3>Entrez le numéro de votre ticket ci-dessous</h3>
+            <h4>{{message}}</h4>
+            <p>Mon numéro de ticket:</p>
+            <form action="." method="POST">
+                <strong>
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                </strong>
+                <input class="about-btn2" type="submit" value="Valider le ticket"  />
+            </form>
+
+            {% endif %} 
+            {%  if validate_ticket %}
+                <h3>{{message}}</h3>
+                <br/><br/>
+                <button class="about-btn2">
+                    <a style="color:black" href="{% url 'vote:vote' vote_id=new_vote.id %}">Passer au vote!!!</a>
+                </button>
+                <br/><br/>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

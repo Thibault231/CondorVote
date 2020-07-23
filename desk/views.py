@@ -1,16 +1,9 @@
 # coding: utf-8
 """Run the views for Desk APP.
 Views:
--create_desk(request):@login_required
--add_candidates(request, desk_id):@login_required
--create_tickets(request, desk_id):@login_required
--display_desk_list(request):@login_required
--delete_desk(request, desk_id):@login_required
--open_desk(request, desk_id):@login_required
--close_desk(request, desk_id):@login_required
--display_active_desk(request, desk_id):@login_required
--delete_candidate(request, candidate_id, desk_id):@login_required
--add_voters(request, desk_id):@login_required
+-create_desk(request)
+-vote(request)
+-enter_ticket(request)
 """
 import random, string
 from django.utils import timezone
@@ -18,7 +11,6 @@ from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from desk.models import Desk, Ticket, Candidate
-from account.models import Account
 from desk.forms import DeskCreationForm, AddCandidateForm, AddVotersForm
 
 @login_required
@@ -343,10 +335,11 @@ def display_active_desk(request, desk_id):
     Returns:
     -template -- desk/display_active_desk.html
     -context {"desk": desk, "winners", "status",
-        "candidates_list"}
+        "tickets_list", "candidates_list"}
     """
     desk = get_object_or_404(Desk, id=desk_id)
     candidates_list = Candidate.objects.filter(desk=desk_id)
+    tickets_list = Ticket.objects.filter(desk_tickets=desk_id)
     winners = "Baba, 5: victoires, score: 12"
     
     if desk.status=="C":
@@ -359,6 +352,7 @@ def display_active_desk(request, desk_id):
     "desk": desk,
     "winners": winners,
     "status":status,
+    "tickets_list": tickets_list,
     "candidates_list":candidates_list
     }
     return render(request, 'desk/display_active_desk.html', context)

@@ -23,7 +23,7 @@
                 <p>
                 Mon numéro de ticket:
                 </p>
-                <form action="{% url 'common:legal_mentions' %}" method="POST">
+                <form action="{% url 'vote:enter_ticket' %}" method="POST">
                     {% csrf_token %}
                     <div class="container">
                         <div class="d-flex flex-column">

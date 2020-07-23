@@ -46,7 +46,7 @@
             <li><a href="{% url 'account:connexion' %}">Me connecter</a></li>
             <li><a href="{% url 'account:account_creation' %}">Créer un compte</a></li>
             {% endif %} 
-            <li><a href="#team">Voter</a></li>
+            <li><a href="{% url 'vote:enter_ticket' %}">Voter</a></li>
             <li class="drop-down"><a href="">Documentation</a>
             <ul>
                 <li><a href="#">Le scrutin de Condorcet</a></li>

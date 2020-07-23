@@ -21,36 +21,38 @@
 
         <article class="container col-sm-12 col-lg-6 frame1">
             <div class="section-title" data-aos="fade-in" data-aos-delay="100">
-                <h2>Mes bureaux de votes <br/><br/></h2>
-                    <button class="about-btn2 align-self-center" id='delete'>
+                <h2>Gestion de mes informations <br/><br/></h2>
+                    <h1 class="about-btn2 align-self-center" id='delete'>
                         <a style="color:black" href="{% url 'desk:display_desk_list' %}">
                         Voir mes bureaux de vote</a>
                     </button>
-            </div>         
-        </article>
-    </div>
-    <br/><br/>
-    <div class="container text-center frame2">
-        <div class="section-title" data-aos="fade-in" data-aos-delay="100">
-            <h2><br/>Gestion de mes informations<br/><br/></h2>
-        </div>
-        <div class="container">
-            <div class="d-flex justify-content-around">
-               
-                <p><button class="about-btn2">
-                    <a id="changepassword" style="color:black" href="{% url 'password_change' %}">
-                    Changer mon mot de passe</a>
-                </button></p>
-                <p><button class="about-btn2" id='delete'>
-                    <a style="color:black" href="{% url 'account:delete_confirmation' %}">
-                    Supprimer mon compte</a>
-                </button></p>
-                <p><button class="about-btn2" id='modify'>
-                    <a style="color:black" href="{% url 'account:modify_account' %}">
-                    Modifier mon compte</a>
-                </button></p>
             </div>
-        </div>
-    </div>
+
+            <br/><br/>
+            <div class="container text-center frame2">
+                <div class="section-title" data-aos="fade-in" data-aos-delay="100">
+                    <h2><br/>Gestion de mon compte<br/><br/></h2>
+                </div>
+                <div class="container">
+                    <div class="d-flex justify-content-around">
+                    
+                        <p><button class="about-btn2">
+                            <a id="changepassword" style="color:black" href="{% url 'password_change' %}">
+                            Changer mon mot de passe</a>
+                        </button></p>
+                        <p><button class="about-btn2" id='delete'>
+                            <a style="color:black" href="{% url 'account:delete_confirmation' %}">
+                            Supprimer mon compte</a>
+                        </button></p>
+                        <p><button class="about-btn2" id='modify'>
+                            <a style="color:black" href="{% url 'account:modify_account' %}">
+                            Modifier mon compte</a>
+                        </button></p>
+                    </div>
+                </div>
+            </div>
+
+        </article>
+    </div>  
 </section>
 {% endblock %}

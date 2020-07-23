@@ -1,8 +1,10 @@
 # coding: utf-8
 """[summary]Unitary tests for desk app's
-functions.
+models.
 Tests:
 -test_vote_table_args(self)
+-test_candidate_table_args(self)
+-test_ticket_table_args(self)
 """
 from django.contrib.auth.models import User
 from django.test import RequestFactory, TestCase
@@ -10,7 +12,7 @@ from django.urls import reverse
 from common.config import TESTS
 from desk.models import Desk, Ticket, Candidate
 from desk.models import Desk
-# from common.config import TESTS
+from common.config import TESTS
 
 
 class AccountTestCase(TestCase):

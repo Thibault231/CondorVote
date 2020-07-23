@@ -1,0 +1,30 @@
+{% extends 'common/base2.html' %}
+{% load static %}
+
+{% block content %}<section id="hero">
+    <div class="hero-container" data-aos="fade-up">
+        <h1><br/><br/>Ajouter les candidats</h1>
+        <article class="container col-lg-12">
+            <br/>
+            <h2>Votre bureau compte actuellement {{desk.tickets_amount}} électeurs</h2>
+            {% if not adding_voters%}
+            <h2 class="text-danger"><br/>{{message }}<br/><br/></h2>
+            <form class="form1" method="post" action=".">
+                <strong>
+                {% csrf_token %}
+                {{ form.as_p }}</strong>
+                <br/><br/>
+                <input class="about-btn3" type="submit" value="Valider nouveau nombre d'électeur"  />
+            </form>
+            {% endif %}
+
+            {% if adding_voters%}
+            <h2 class="text-info"><br/>Les électeurs ont bien été ajoutés<br/><br/></h2>
+            <button class="about-btn2" id="end_add">
+                <a style="color:black" href="{% url 'desk:create_tickets' desk_id=desk.id %}">Générer les nouveaux tickets de vote</a>
+            </button>
+            {% endif %}
+            <br/><br/>
+            </article>
+        </div>
+    </section>{% endblock %}

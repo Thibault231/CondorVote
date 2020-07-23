@@ -2,31 +2,35 @@
 """Run the views for Desk APP.
 Views:
 -create_desk(request):@login_required
--modify_desk(request):@login_required
--start_desk(request):@login_required
--close_desk(request):@login_required
--delete_desk(request):@login_required
+-add_candidates(request, desk_id):@login_required
+-create_tickets(request, desk_id):@login_required
 -display_desk_list(request):@login_required
--display_active_desk(request):@login_required
+-delete_desk(request, desk_id):@login_required
+-open_desk(request, desk_id):@login_required
+-close_desk(request, desk_id):@login_required
+-display_active_desk(request, desk_id):@login_required
+-delete_candidate(request, candidate_id, desk_id):@login_required
+-add_voters(request, desk_id):@login_required
 """
 import random, string
-
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, get_list_or_404
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from desk.models import Desk, Ticket, Candidate
 from account.models import Account
-from desk.forms import DeskCreationForm, AddCandidateForm
+from desk.forms import DeskCreationForm, AddCandidateForm, AddVotersForm
 
 @login_required
 def create_desk(request):
-    """Front page of web site.
+    """Create a new desk for a connected 
+    user.
     Arguments:
     -request {GET}
     Returns:
-    -template -- index.html
+    -template -- create_desk.html
+    -context ("form", "new_desk",
+        "existing_desk","desk_complete")
     """
     desk_complete = False
     user = request.user
@@ -45,6 +49,7 @@ def create_desk(request):
             
             desk_control = Desk.objects.filter(school=school, school_class=school_class)
             if not desk_control:
+               
                 new_desk = Desk.objects.create(
                     school = school,
                     school_class = school_class,
@@ -55,12 +60,12 @@ def create_desk(request):
                     tickets_amount = tickets_amount,
                     status = "C"
                 )
-                if open_vote==1:
-                    new_desk.status.add("O")
-                
-                user.account.desk_link.add(new_desk)
+                if int(open_vote)==1:
+                    new_desk.status = "O"
+                    new_desk.save()
 
-                new_desk.save()
+                print("open_vote=   :", new_desk.status)
+                user.account.desk_link.add(new_desk)
                 user.account.save()
                 new_desk_id = new_desk.id
                 adding_candidate = True
@@ -78,13 +83,19 @@ def create_desk(request):
 
     return render(request, 'desk/create_desk.html', context)
 
+
 @login_required
 def add_candidates(request, desk_id):
-    """Front page of web site.
+    """Add candidates to a specific desk
+    for a connected user.
     Arguments:
     -request {GET}
+    -desk_id {int}
     Returns:
-    -template -- index.html
+    -template -- desk/add_candidates.html
+    -context {"form", "double_candidate",
+        "adding_candidate", "new_candidate",
+        "desk_id","number_candidate"}
     """
     adding_candidate = False
     double_candidate = False
@@ -140,13 +151,18 @@ def add_candidates(request, desk_id):
     }
     return render(request, 'desk/add_candidates.html', context)
 
+
 @login_required
 def create_tickets(request, desk_id):
-    """Front page of web site.
+    """Create a specifif amount of tickets for
+    a specific desk. Need a connected user.
     Arguments:
     -request {GET}
+    -desk_id {int}
     Returns:
-    -template -- index.html
+    -template -- desk/create_tickets.html
+    -context {"desk", "tickets_list", "existing_tickets",
+        "zero_ticket", "to_much_tickets"}
     """
     desk = get_object_or_404(Desk, id=desk_id)
     existing_tickets = len(Ticket.objects.filter(desk_tickets=desk))
@@ -179,33 +195,251 @@ def create_tickets(request, desk_id):
     }
     return render(request, 'desk/create_tickets.html', context)
 
+
 @login_required
 def display_desk_list(request):
+    """Display an ordered list of the user's
+    desks. Need a loged user.
+    Arguments:
+    -request {GET}
+    Returns:
+    -template -- desk/display_desk_list.html
+    -context {desk_list_c", "desk_list_o",
+        "desk_list_e", "desk_number"}
+    """
     user = request.user
-    desk_list = [Desk.objects.filter(account=user.id)]
-    print(desk_list[0])
+    desk_list = Desk.objects.filter(account=user.account.id)
+    desk_list_c = []
+    desk_list_o = []
+    desk_list_e = []
+
+    for desk in desk_list:
+        if desk.status=="C":
+            desk_list_c.append(desk)
+        elif desk.status=="O":
+            desk_list_o.append(desk)
+        elif desk.status=="E":
+            desk_list_e.append(desk)
+
     context = {
-        "desk_list": desk_list,
+        "desk_list_c": desk_list_c,
+        "desk_list_o": desk_list_o,
+        "desk_list_e": desk_list_e,
         "desk_number": len(desk_list),
     }
     return render(request, 'desk/display_desk_list.html', context)
 
-@login_required
-def modify_desk(request):
-    pass
 
 @login_required
-def start_desk(request):
-    pass
+def delete_desk(request, desk_id):
+    """Delete a specific desk of a connected user.
+    Arguments:
+    -request {GET}
+    -desk_id {int}
+    Returns:
+    -template -- desk/delete_desk.html
+    -context {"desk_school", "desck_school_class"}
+    """
+    desk = get_object_or_404(Desk, id=desk_id)
+    desk_school = desk.school
+    desk_scholl_class = desk.school_class
+    desk.delete()
+    context = {
+        "desk_school": desk_school,
+        "desck_school_class": desk_scholl_class  
+    }
+    return render(request, 'desk/delete_desk.html', context)
+
 
 @login_required
-def close_desk(request):
-    pass
+def open_desk(request, desk_id):
+    """Open a created unopend desk to voters.
+    Need a connected user.
+    Arguments:
+    -request {GET}
+    -desk_id {int}
+    Returns:
+    -template -- desk/display_desk_list.html
+    -context {""desk_list_c": desk_list_c,
+        "desk_list_o", "desk_list_e", "desk_number""}
+    """
+    desk = get_object_or_404(Desk, id=desk_id)
+    if desk.status == "C":
+        desk.status = "O"
+        desk.save()
+    
+    user = request.user
+    desk_list = Desk.objects.filter(account=user.account.id)
+    desk_list_c = []
+    desk_list_o = []
+    desk_list_e = []
+
+    for desk in desk_list:
+        if desk.status=="C":
+            desk_list_c.append(desk)
+        elif desk.status=="O":
+            desk_list_o.append(desk)
+        elif desk.status=="E":
+            desk_list_e.append(desk)
+
+    context = {
+        "desk_list_c": desk_list_c,
+        "desk_list_o": desk_list_o,
+        "desk_list_e": desk_list_e,
+        "desk_number": len(desk_list),
+        "desk_status":desk.status,
+    }
+    return render(request, 'desk/display_desk_list.html', context, )
+
 
 @login_required
-def delete_desk(request):
-    pass
+def close_desk(request, desk_id):
+    """Close an opened desk to voters.
+    Need a connected user.
+    Arguments:
+    -request {GET}
+    -desk_id {int}
+    Returns:
+    -template -- desk/display_desk_list.html
+    -context {""desk_list_c": desk_list_c,
+        "desk_list_o", "desk_list_e", "desk_number""}
+    """
+    desk = get_object_or_404(Desk, id=desk_id)
+    if desk.status == "O":
+        desk.status = "E"
+        desk.save()
+    
+    user = request.user
+    desk_list = Desk.objects.filter(account=user.account.id)
+    desk_list_c = []
+    desk_list_o = []
+    desk_list_e = []
+
+    for desk in desk_list:
+        if desk.status=="C":
+            desk_list_c.append(desk)
+        elif desk.status=="O":
+            desk_list_o.append(desk)
+        elif desk.status=="E":
+            desk_list_e.append(desk)
+
+    context = {
+        "desk_list_c": desk_list_c,
+        "desk_list_o": desk_list_o,
+        "desk_list_e": desk_list_e,
+        "desk_number": len(desk_list),
+        "desk_status":desk.status,
+    }
+    return render(request, 'desk/display_desk_list.html', context)
+
 
 @login_required
-def display_active_desk(request):
-    pass
+def display_active_desk(request, desk_id):
+    """Displays all details of a specific desk.
+    Need a connected user.
+    Arguments:
+    -request {GET}
+    -desk_id {int}
+    Returns:
+    -template -- desk/display_active_desk.html
+    -context {"desk": desk, "winners", "status",
+        "candidates_list"}
+    """
+    desk = get_object_or_404(Desk, id=desk_id)
+    candidates_list = Candidate.objects.filter(desk=desk_id)
+    winners = "Baba, 5: victoires, score: 12"
+    
+    if desk.status=="C":
+        status = "Créé/Non ouvert"
+    elif desk.status=="O":
+        status = "Ouvert"
+    elif desk.status=="E":
+        status = "clôturé"
+    context = {
+    "desk": desk,
+    "winners": winners,
+    "status":status,
+    "candidates_list":candidates_list
+    }
+    return render(request, 'desk/display_active_desk.html', context)
+
+
+@login_required
+def delete_candidate(request, candidate_id, desk_id):
+    """Delete a specific candidate of a specific desk.
+    Need a connected user.
+    Arguments:
+    -request {GET}
+    -candidate_id {int}
+    -desk_id {int}
+    Returns:
+    -template -- desk/display_active_desk.html
+    -context {"desk", "winners", "status", "candidates_list"}
+    """
+    candidate = get_object_or_404(Candidate, id=candidate_id)
+    candidate.delete()
+    print("ok")
+
+    desk = get_object_or_404(Desk, id=desk_id)
+    candidates_list = Candidate.objects.filter(desk=desk_id)
+    winners = "Baba, 5: victoires, score: 12"
+
+    if desk.status=="C":
+        status = "Créé/Non ouvert"
+    elif desk.status=="O":
+        status = "Ouvert"
+    elif desk.status=="E":
+        status = "clôturé"
+    context = {
+    "desk": desk,
+    "winners": winners,
+    "status":status,
+    "candidates_list":candidates_list
+    }
+    return render(request, 'desk/display_active_desk.html', context)
+
+
+@login_required
+def add_voters(request, desk_id):
+    """Change the tickets_amount parameter
+    of a specific desk and generate new tickets.
+    Need a connected user.
+    Arguments:
+    -request {GET}
+    -desk_id {int}
+    Returns:
+    -template -- desk/add_voters.html
+    -context {"desk", "form", "adding_voters",
+        "message"}
+    """
+    desk = get_object_or_404(Desk, id=desk_id)
+    adding_voters = False
+    message = ""
+
+    if request.method == "POST":
+        form = AddVotersForm(request.POST)
+        double_candidate = False
+        if form.is_valid():
+            tickets_amount = form.cleaned_data["tickets_amount"]
+            if tickets_amount > 0:
+                desk.tickets_amount = tickets_amount
+                desk.save()
+                existing_tickets_list = Ticket.objects.filter(desk_tickets=desk)
+                for ticket in existing_tickets_list:
+                    ticket.delete()
+                adding_voters = True
+            else:
+                message = "Veuillez indiquer un nombre supérieur à zéro"
+                form = AddVotersForm()
+        else:
+            form = AddVotersForm()
+    else:
+        form = AddVotersForm()
+    
+    context = {
+        "desk": desk,
+        "form": form,
+        "adding_voters": adding_voters,
+        "message":message,
+    }
+    return render(request, 'desk/add_voters.html', context)

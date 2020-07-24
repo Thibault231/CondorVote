@@ -15,8 +15,8 @@
                 <p><button class="about-btn3">Etablissement:</button>           {{desk.school}}</p>
                 <p><button class="about-btn3">Nom du bureau:</button>                  {{desk.school_class}}</p>
                 <p><button class="about-btn3">Status:</button>                  {{status}}</p>
-                <p><button class="about-btn3">Nombre de votants:</button>        {{desk.tickets_amount}}</p>
-                {% if desk.status == "O" %}
+                <p><button class="about-btn3">Nombre d'électeurs:</button>        {{desk.tickets_amount}}</p>
+                {% if desk.status == "C" %}
                 <p><button class="about-btn3">Date de création:</button>        {{desk.opening_vote}}</p>
                 {% endif %}
                 {% if desk.status == "O" %}
@@ -93,7 +93,7 @@
 
     <article class="container d-flex flex-column col-lg-10 frame1">
         <div class="section-title" data-aos="fade-in" data-aos-delay="100">
-            <h2><br/>Les tickets restants du bureau<br/><br/></h2>
+            <h2><br/>Tickets restants du bureau : {{remaining_tickets}}/{{desk.tickets_amount}}<br/><br/></h2>
         </div>
         <ul class="text-center">
             {% for ticket in tickets_list %}

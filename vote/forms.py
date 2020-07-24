@@ -10,9 +10,3 @@ class EnterTicketForm(forms.Form):
     for a vote object creation.
     """
     ticket = forms.CharField(max_length=75)
-
-class EnterTicketForm(forms.Form):
-    """Formular Class Form.
-    Formular use for creating a new ballot.
-    """
-    ticket = forms.CharField(max_length=75)

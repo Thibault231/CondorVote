@@ -28,4 +28,4 @@ class AddVotersForm(forms.Form):
     Used in account templates and views for adding voters to an
     existing desk.
     """
-    tickets_amount = forms.IntegerField(label="Nouveau mombre d'électeurs:     ")
+    tickets_amount = forms.IntegerField(label="Nouveau nombre d'électeurs:     ")

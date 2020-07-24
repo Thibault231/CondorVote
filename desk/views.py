@@ -258,6 +258,7 @@ def open_desk(request, desk_id):
     desk = get_object_or_404(Desk, id=desk_id)
     if desk.status == "C":
         desk.status = "O"
+        desk.opening_vote = timezone.now()
         desk.save()
     
     user = request.user
@@ -299,6 +300,7 @@ def close_desk(request, desk_id):
     desk = get_object_or_404(Desk, id=desk_id)
     if desk.status == "O":
         desk.status = "E"
+        desk.closing_vote = timezone.now()
         desk.save()
     
     user = request.user
@@ -353,6 +355,7 @@ def display_active_desk(request, desk_id):
     "winners": winners,
     "status":status,
     "tickets_list": tickets_list,
+    "remaining_tickets": len(tickets_list),
     "candidates_list":candidates_list
     }
     return render(request, 'desk/display_active_desk.html', context)

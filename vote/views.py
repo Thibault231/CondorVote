@@ -16,7 +16,7 @@ from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.contrib.auth.models import User
 from desk.models import Desk, Ticket, Candidate
 from vote.models import Vote
-from vote.forms import EnterTicketForm, VoteForm
+from vote.forms import EnterTicketForm
 
 def enter_ticket(request):
     """Display a window  to log
@@ -48,7 +48,7 @@ def enter_ticket(request):
                 validate_ticket = True
             else:
                 message = "Aucun bureau de vote ne correspond à votre ticket."
-            right_ticket.delete()
+            #  right_ticket.delete()
     else:
         form = EnterTicketForm()
     context = {
@@ -69,16 +69,26 @@ def vote(request, vote_id):
     -template -- vote/create_vote.html
     -context ()
     """
-    new_ballot = True
+    new_ballot = False
+    vote = Vote.objects.get(id=vote_id)
+    candidates_list = Candidate.objects.filter(desk=vote.desk_votes)
+    message=""
+
     if request.method == "POST":
-        form = VoteForm(request.POST)
-        if form.is_valid():
-            ticket = form.cleaned_data["ticket"]
-        else:
-            form = VoteForm()
+        ballot = []
+        message = "Votre vote a bien été enregistré."
+        for element in request.POST:
+            ballot.append([element, request.POST.get(element)])
+        ballot = ballot[1:]
+        vote.ballot = list.copy(ballot)
+        print(vote.ballot, type(vote.ballot[1])), 
+        vote.save()          
     else:
-            form = VoteForm()
+        message = "Indiquez une valeur entre 1 et {} pour chaque candidat.".format(len(candidates_list))
     context = {
         "new_ballot": new_ballot,
+        "message": message,
+        "candidates_list": candidates_list,
+        "number_candidates": len(candidates_list),
     }
     return render(request, 'vote/vote.html', context)

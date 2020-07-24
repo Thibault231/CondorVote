@@ -4,14 +4,27 @@
 {% block content %}<section id="about " class="about">
     <div class="container text-center">
         <div class="content">
-            {%  if not validate_ticket %}
-            <h3>Compléter le bulletin de vote</h3>
-            <h4>{{message}}</h4>
-            <p>Mon numéro de ticket:</p>
-            <form action="." method="POST">
-                {% csrf_token %}
-                {{ form.as_p }}
-            </form>   
+
+            
+            <h3>Mon bulletin de vote</h3>
+            <h4>{{message}}<br/><br/></h4>
+            
+            {%  if not new_ballot %}
+            <p> Le numéro indique l'ordre de préférence<br/></p>
+            <div class="d-flex justify-content-center">
+                <form class="col-lg-6 text-right" action="." method="post">
+                    {% csrf_token %}
+                    {% for candidate in candidates_list %}
+                        <label for={{candidate.id}}>{{candidate.first_name}} {{candidate.first_name}}: </label>
+                        <input id={{candidate.id}} type="number" name={{candidate.id}} value="1" min=1 max={{number_candidates}}>
+                        <br/>
+                    {% endfor %}
+                    <br/> 
+                    <input class="about-btn3" type="submit" value="Valider mon vote">
+                </form>
+            </div>
+            {% endif %}
+   
         </div>
     </div>
 </section>

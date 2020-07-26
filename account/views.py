@@ -27,9 +27,8 @@ def myaccount(request):
     -template -- myaccount.html
     """
     user = request.user
-    account = Account.objects.get(user=user)
     try:
-        1==1
+        1 == 1
         desk_list = True
     except IndexError:
         desk_list = False
@@ -81,7 +80,7 @@ def account_creation(request):
                             school=school,
                             departement=departement,
                         )
-                       
+
                         login(request, user)
 
                         return render(request, 'account/myaccount.html')
@@ -202,14 +201,14 @@ def modify_account(request):
 
             user_control = User.objects.filter(username=username)
             if not user_control:
-                    user.username=username,
-                    user.first_name=first_name
-                    user.last_name=last_name
-                    user.account.school=school
-                    user.account.departement=departement
-                    user.save()
+                user.username = username
+                user.first_name = first_name
+                user.last_name = last_name
+                user.account.school = school
+                user.account.departement = departement
+                user.save()
 
-                    account_modificate = True
+                account_modificate = True
             else:
                 error_username = True
     else:
@@ -222,4 +221,3 @@ def modify_account(request):
     }
 
     return render(request, 'account/modify_account.html', context)
-

@@ -7,16 +7,16 @@ Models:
 -Ticket
 """
 from django.db import models
-from django.contrib.auth.models import User
+
 
 # Create your models here.
 class Candidate(models.Model):
     """Model Candidate, contain all candidates of all desks.
     Arguments:
-    -first_name 
-    -last_name 
+    -first_name
+    -last_name
     -school
-    -classroom 
+    -classroom
     """
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
@@ -36,6 +36,7 @@ class Candidate(models.Model):
         """
         return "candidate: {0}".format(self.first_name)
 
+
 class Desk(models.Model):
     """Model Desk, define the objet that rule a classroom
     election.
@@ -54,7 +55,7 @@ class Desk(models.Model):
     -votes = link one to many. List of ballots
     """
     school = models.CharField(max_length=50)
-    school_class = models.CharField(max_length= 20)
+    school_class = models.CharField(max_length=20)
     opening_vote = models. DateTimeField()
     closing_vote = models. DateTimeField()
     status = models.CharField(max_length=1)

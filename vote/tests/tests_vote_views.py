@@ -2,13 +2,13 @@
 """[summary]Unitary tests for result.views file
 functions.
 """
-from django.contrib.auth.models import User
 from django.test import RequestFactory, TestCase
 from django.urls import reverse
+from django.contrib.auth.models import User
 from desk.models import Desk, Ticket, Candidate
 from vote.models import Vote
 from account.models import Account
-from common.config import TESTS, TESTS2
+from common.config import TESTS
 
 
 class AccountTestCase(TestCase):
@@ -17,34 +17,34 @@ class AccountTestCase(TestCase):
     Functions:
     -test_desk_table_args(self)
     -test_candidate_table_args(self)
-    -test_ticket_table_args(self)   
+    -test_ticket_table_args(self)
 
     """
-    
+
     def setUp(self):
         """Create self objects for running tests
         """
         self.factory = RequestFactory()
         self.desk = Desk.objects.create(
-            school = TESTS['school'],
-            school_class = TESTS['name1'],
-            opening_vote = TESTS['time1'],
-            closing_vote = TESTS['time1'],
-            status = TESTS['statusCreate'],
-            winners = TESTS['winners'],
-            number_voters = TESTS['number1']+1,
-            tickets_amount = TESTS['number1']
+            school=TESTS['school'],
+            school_class=TESTS['name1'],
+            opening_vote=TESTS['time1'],
+            closing_vote=TESTS['time1'],
+            status=TESTS['statusCreate'],
+            winners=TESTS['winners'],
+            number_voters=TESTS['number1']+1,
+            tickets_amount=TESTS['number1']
             )
         self.ticket = Ticket.objects.create(
-            ticket_number = TESTS['number1'],
-            ticket_code = TESTS['number1']+1,
-            desk_tickets = self.desk
-            )
+            ticket_number=TESTS['number1'],
+            ticket_code=TESTS['number1']+1,
+            desk_tickets=self.desk
+        )
         self.candidate = Candidate.objects.create(
-            first_name = TESTS['name1'],
-            last_name = TESTS['name1'],
-            school = TESTS['school'],
-            classroom = TESTS['name2']
+            first_name=TESTS['name1'],
+            last_name=TESTS['name1'],
+            school=TESTS['school'],
+            classroom=TESTS['name2']
         )
         self.user = User.objects.create_user(
             username=TESTS['name1'],
@@ -55,40 +55,50 @@ class AccountTestCase(TestCase):
             )
         self.account = Account.objects.create(
             user=self.user,
-            school = TESTS['school'],
-            departement = TESTS['departement'],
+            school=TESTS['school'],
+            departement=TESTS['departement'],
             )
         self.vote = Vote.objects.create(
-            ballot="0", 
+            ballot="0",
             desk_votes=self.desk,
             )
-        
-    def test_accessGET_log_enter_ticket_page(self):
+
+    def test_access_get_log_enter_ticket_page(self):
         """Test access on the page enter_tickets of an
         anonymous user with GET method and right args.
         """
         response = self.client.get(reverse('vote:enter_ticket'))
         self.assertEqual(response.status_code, TESTS['RightStatus'])
- 
-    def test_rightPOST_log_enter_ticket_page(self):
+
+    def test_right_post_log_enter_ticket_page(self):
         """Test access on the page enter_tickets of an
         anonymous user with POST method and right args.
         Enter a right ticket number.
         """
-        response = self.client.post(reverse('vote:enter_ticket'), {'ticket': TESTS['number1']+1})
-        self.assertEqual(response.status_code, TESTS['RightStatus'])
-        self.assertEqual(response.context['message'], "Votre ticket est validé. Vous pouvez voter.")
-    
-    def test_wrongPOST_log_enter_ticket_page(self):
+        response = self.client.post(
+            reverse('vote:enter_ticket'),
+            {'ticket': TESTS['number1']+1})
+        self.assertEqual(
+            response.status_code,
+            TESTS['RightStatus'])
+        self.assertEqual(
+            response.context['message'],
+            "Votre ticket est validé. Vous pouvez voter.")
+
+    def test_wrong_post_log_enter_ticket_page(self):
         """Test access on the page enter_tickets of an
         anonymous user with POST method and right args.
         Enter a wrong ticket number.
         """
-        response = self.client.post(reverse('vote:enter_ticket'), {'ticket': TESTS['number1']})
+        response = self.client.post(
+            reverse('vote:enter_ticket'),
+            {'ticket': TESTS['number1']})
         self.assertEqual(response.status_code, TESTS['RightStatus'])
-        self.assertEqual(response.context['message'], "Aucun bureau de vote ne correspond à votre ticket.")
+        self.assertEqual(
+            response.context['message'],
+            "Aucun bureau de vote ne correspond à votre ticket.")
 
-    def test_accessGET_log_vote_page(self):
+    def test_access_get_log_vote_page(self):
         """Test access on the page vote of a
         connected user with GET method and right args.
         The user's ballot has already been completed.
@@ -100,7 +110,7 @@ class AccountTestCase(TestCase):
         response = self.client.get(reverse('vote:vote', args=(vote.id, )))
         self.assertEqual(response.status_code, TESTS['RightStatus'])
 
-    def test_accessGET2_log_vote_page(self):
+    def test_access_get_2_log_vote_page(self):
         """Test access on the page vote of a
         connected user with GET method and right args.
         The user's ballot has never been completed.
@@ -113,9 +123,11 @@ class AccountTestCase(TestCase):
             password=TESTS['name1'])
         response = self.client.get(reverse('vote:vote', args=(vote.id, )))
         self.assertEqual(response.status_code, TESTS['RightStatus'])
-        self.assertEqual(response.context['message'], "Vous avez déjà utilisé votre ticket pour voter.")
+        self.assertEqual(
+            response.context['message'],
+            "Vous avez déjà utilisé votre ticket pour voter.")
 
-    def test_accessPOST_log_vote_page(self):
+    def test_access_post_log_vote_page(self):
         """Test access on the page vote of a
         connected user with POST method and right args.
         """
@@ -125,8 +137,10 @@ class AccountTestCase(TestCase):
             password=TESTS['name1'])
         response = self.client.post(reverse('vote:vote', args=(vote.id, )))
         self.assertEqual(response.status_code, TESTS['RightStatus'])
-        self.assertEqual(response.context['message'], "Votre vote a bien été enregistré.")
-    
+        self.assertEqual(
+            response.context['message'],
+            "Votre vote a bien été enregistré.")
+
     def test_access_unlog_vote_page(self):
         """Test access on the page vote of an
         ananymous user with GET method and right args

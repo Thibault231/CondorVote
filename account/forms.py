@@ -27,6 +27,7 @@ class CountCreationForm(forms.Form):
     password2 = forms.CharField(
         label="Repeat Password:", widget=forms.PasswordInput)
 
+
 class CountModificationForm(forms.Form):
     """Formular Class Form.
     Used in account templates and views for account modification.

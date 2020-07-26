@@ -8,6 +8,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from desk.models import Desk
 
+
 # Create your models here.
 class Account(models.Model):
     """Model Account
@@ -36,5 +37,3 @@ class Account(models.Model):
             [str] -- attribute name
         """
         return "Account of: {0}".format(self.user.username)
-
-

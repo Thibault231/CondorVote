@@ -35,17 +35,18 @@ class AccountTestCase(TestCase):
     """
     def setUp(self):
         """Create self objects for running tests
-        """                       
+        """
+
         self.factory = RequestFactory()
         self.desk = Desk.objects.create(
-            school = TESTS['school'],
-            school_class = TESTS['name1'],
-            opening_vote = TESTS['time1'],
-            closing_vote = TESTS['time1'],
-            status = TESTS['statusCreate'],
-            winners = TESTS['winners'],
-            number_voters = TESTS['number1'],
-            tickets_amount = TESTS['number1']
+            school=TESTS['school'],
+            school_class=TESTS['name1'],
+            opening_vote=TESTS['time1'],
+            closing_vote=TESTS['time1'],
+            status=TESTS['statusCreate'],
+            winners=TESTS['winners'],
+            number_voters=TESTS['number1'],
+            tickets_amount=TESTS['number1']
             )
         self.user = User.objects.create_user(
             username=TESTS['name1'],
@@ -56,8 +57,8 @@ class AccountTestCase(TestCase):
             )
         self.account = Account.objects.create(
             user=self.user,
-            school = TESTS['school'],
-            departement = TESTS['departement'],
+            school=TESTS['school'],
+            departement=TESTS['departement'],
             )
 
     def test_right_connexion_log_page(self):

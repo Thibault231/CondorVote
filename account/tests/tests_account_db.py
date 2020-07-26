@@ -4,7 +4,6 @@ functions.
 """
 from django.contrib.auth.models import User
 from django.test import RequestFactory, TestCase
-from django.urls import reverse
 from common.config import TESTS
 from account.models import Account
 from desk.models import Desk
@@ -24,14 +23,14 @@ class AccountTestCase(TestCase):
         """
         self.factory = RequestFactory()
         self.desk = Desk.objects.create(
-            school = TESTS['school'],
-            school_class = TESTS['name1'],
-            opening_vote = TESTS['time1'],
-            closing_vote = TESTS['time1'],
-            status = TESTS['statusCreate'],
-            winners = TESTS['winners'],
-            number_voters = TESTS['number1'],
-            tickets_amount = TESTS['number1']
+            school=TESTS['school'],
+            school_class=TESTS['name1'],
+            opening_vote=TESTS['time1'],
+            closing_vote=TESTS['time1'],
+            status=TESTS['statusCreate'],
+            winners=TESTS['winners'],
+            number_voters=TESTS['number1'],
+            tickets_amount=TESTS['number1']
             )
         self.user = User.objects.create_user(
             username=TESTS['name1'],
@@ -42,10 +41,9 @@ class AccountTestCase(TestCase):
             )
         self.account = Account.objects.create(
             user=self.user,
-            school = TESTS['school'],
-            departement = TESTS['departement'],
+            school=TESTS['school'],
+            departement=TESTS['departement'],
             )
-
 
     def test_user_table_args(self):
         """[Tests the user's account creation with
@@ -58,7 +56,7 @@ class AccountTestCase(TestCase):
         self.assertEqual(user.email, TESTS['name1']+'@gmail.com')
 
     def test_account_table_args(self):
-        """[Tests the links between user account and 
+        """[Tests the links between user account and
         'Account_account' table.]
         """
         user = self.user
@@ -66,14 +64,16 @@ class AccountTestCase(TestCase):
         desk = self.desk
         account.desk_link.add(desk)
         desk_list = list(account.desk_link.all())
-        
+
         self.assertEqual(account.user, user)
         self.assertEqual(account.school, TESTS['school'])
         self.assertEqual(account.departement, TESTS['departement'])
         self.assertEqual(desk_list[0], desk)
 
-def test_account_display_args(self):
+    def test_account_display_args(self):
         """Test the way an account object is displayed.
         """
         account = self.account
-        self.assertEqual(str(account), "Account of: {0}".format(self.user.username))
+        self.assertEqual(
+            str(account),
+            "Account of: {0}".format(self.user.username))

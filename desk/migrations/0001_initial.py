@@ -15,7 +15,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Candidate',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID'
+                    )
+                ),
                 ('first_name', models.CharField(max_length=50)),
                 ('last_name', models.CharField(max_length=50)),
                 ('school', models.CharField(max_length=50)),
@@ -28,7 +36,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Desk',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID'
+                    )
+                ),
                 ('school', models.CharField(max_length=50)),
                 ('school_class', models.CharField(max_length=20)),
                 ('opening_vote', models.DateTimeField()),
@@ -46,10 +62,24 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Ticket',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID'
+                    )
+                ),
                 ('ticket_number', models.IntegerField()),
                 ('ticket_code', models.CharField(max_length=20)),
-                ('desk_tickets', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='desk.Desk')),
+                (
+                    'desk_tickets',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='desk.Desk'
+                    )
+                ),
             ],
             options={
                 'verbose_name': 'ticket',

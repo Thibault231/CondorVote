@@ -21,7 +21,7 @@ class ViewsTestCase(TestCase):
         """
         response = self.client.get(reverse('documentation:voter_infos'))
         self.assertEqual(response.status_code, TESTS['RightStatus'])
-    
+
     def test_organizer_infos_page(self):
         """Test right view for documentation:organizer_infos.
         """

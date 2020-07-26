@@ -12,11 +12,11 @@ Views:
 -delete_candidate(request, candidate_id, desk_id):@login_required
 -add_voters(request, desk_id):@login_required
 """
-from django.shortcuts import render, get_object_or_404, get_list_or_404
-from django.contrib.auth.models import User
+from django.shortcuts import render, get_object_or_404
 from desk.models import Desk, Ticket, Candidate
 from vote.models import Vote
 from vote.forms import EnterTicketForm
+
 
 def enter_ticket(request):
     """Display a window  to log
@@ -42,8 +42,8 @@ def enter_ticket(request):
                 right_ticket = right_ticket[0]
                 desk = Desk.objects.get(ticket=right_ticket.id)
                 new_vote = Vote.objects.create(
-                    ballot = "0",
-                    desk_votes = desk,
+                    ballot="0",
+                    desk_votes=desk,
                 )
                 new_vote.save()
                 desk.number_voters += 1
@@ -53,7 +53,7 @@ def enter_ticket(request):
                 right_ticket.delete()
             else:
                 message = "Aucun bureau de vote ne correspond à votre ticket."
-            
+
     else:
         form = EnterTicketForm()
     context = {
@@ -63,6 +63,7 @@ def enter_ticket(request):
         "validate_ticket": validate_ticket,
     }
     return render(request, 'vote/enter_ticket.html', context)
+
 
 def vote(request, vote_id):
     """Create a new vote formular for a voter
@@ -77,9 +78,9 @@ def vote(request, vote_id):
         "number_candidates")
     """
     new_ballot = False
-    vote = get_object_or_404(Vote, id=vote_id)
-    candidates_list = Candidate.objects.filter(desk=vote.desk_votes)
-    message=""
+    new_vote = get_object_or_404(Vote, id=vote_id)
+    candidates_list = Candidate.objects.filter(desk=new_vote.desk_votes)
+    message = ""
 
     if request.method == "POST":
         ballot = []
@@ -87,15 +88,17 @@ def vote(request, vote_id):
         for element in request.POST:
             ballot.append([element, request.POST.get(element)])
         ballot = ballot[1:]
-        vote.ballot = list.copy(ballot)
-        vote.save()
-        new_ballot = True         
-    elif vote.ballot =="0":
-        message = "Indiquez une valeur entre 1 et {} pour chaque candidat.".format(len(candidates_list))  
+        new_vote.ballot = list.copy(ballot)
+        new_vote.save()
+        new_ballot = True
+    elif new_vote.ballot == "0":
+        message = "Indiquez une valeur\
+            entre 1 et {} pour chaque candidat.".format(
+                len(candidates_list))
     else:
         message = "Vous avez déjà utilisé votre ticket pour voter."
         new_ballot = True
-       
+
     context = {
         "new_ballot": new_ballot,
         "message": message,

@@ -7,6 +7,7 @@ from django.contrib.auth import get_user_model
 
 UserModel = get_user_model()
 
+
 class EmailAuth:
     """
     Email authentication.
@@ -51,7 +52,7 @@ class EmailAuth:
             [User] -- user object
         """
         try:
-            user = UserModel._default_manager.get(pk=user_id)
+            user = UserModel.objects.get(pk=user_id)
         except UserModel.DoesNotExist:
             return None
         return user if self.user_can_authenticate(user) else None

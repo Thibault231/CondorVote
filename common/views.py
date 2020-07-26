@@ -7,8 +7,7 @@ Views:
 -error404(request)
 -error500(request)
 """
-from django.shortcuts import render, get_object_or_404, get_list_or_404
-from vote.forms import EnterTicketForm
+from django.shortcuts import render
 
 
 def index(request):
@@ -30,6 +29,7 @@ def legal_mentions(request):
     """
     return render(request, 'common/legal_mentions.html')
 
+
 def error400(request):
     """Specific function for testing error templates:
     400.htlm;
@@ -39,6 +39,7 @@ def error400(request):
     -template -- legal_mentions.html
     """
     return render(request, '400.html')
+
 
 def error404(request):
     """Specific function for testing error templates:

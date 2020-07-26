@@ -4,6 +4,7 @@ templates and views.
 """
 from django import forms
 
+
 class EnterTicketForm(forms.Form):
     """Formular Class Form.
     Used in index template and vote APP templates and views

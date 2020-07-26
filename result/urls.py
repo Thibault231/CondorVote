@@ -8,5 +8,8 @@ from . import views
 
 urlpatterns = [
     path('result//<desk_id>/', views.result, name='result'),
-    path('result_details//<desk_id>/', views.result_details, name='result_details'),
+    path(
+        'result_details//<desk_id>/',
+        views.result_details,
+        name='result_details'),
 ]

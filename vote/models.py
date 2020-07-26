@@ -5,8 +5,8 @@ Models:
 -Vote
 """
 from django.db import models
-from django.contrib.auth.models import User
 from desk.models import Desk
+
 
 # Create your models here.
 class Vote(models.Model):

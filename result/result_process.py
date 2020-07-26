@@ -1,23 +1,26 @@
 # coding: utf-8
 import numpy as np
-from vote.models import Vote
+
 
 def create_ballots_list(votes_list):
     ballots_list = []
     for vote in votes_list:
-        if vote.ballot=="0":
+        if vote.ballot == "0":
             vote.delete()
         else:
             vote_ballot = vote.ballot
-            vote_ballot = vote_ballot.replace("[","").replace("]","").replace("'","").replace(" ","")
+            vote_ballot = vote_ballot.replace(
+                "[", "").replace(
+                    "]", "").replace(
+                        "'", "").replace(" ", "")
             vote_ballot = vote_ballot.split(',')
             new_ballot = []
-            candidates_id_list = []
             for element in vote_ballot:
-                if vote_ballot.index(element)%2:
+                if vote_ballot.index(element) % 2:
                     new_ballot.append(int(element))
             ballots_list.append(new_ballot)
     return ballots_list
+
 
 def create_table(n_candidates):
     """[Creaye a zeros matrix sized n_candidates*n_candidates
@@ -34,7 +37,7 @@ def create_table(n_candidates):
 
 
 def calculate_duals(vote, vote_matrix):
-    """[calculate from all ballots the numbers of victories for 
+    """[calculate from all ballots the numbers of victories for
     candidates vs each others.]
 
     Args:
@@ -56,7 +59,7 @@ def calculate_duals(vote, vote_matrix):
             elif candidate > challenger:
                 vote_matrix[candidate_rank, challenger_rank] -= 1
                 vote_matrix[challenger_rank, candidate_rank] += 1
-                
+
             elif candidate == challenger:
                 vote_matrix[challenger_rank, candidate_rank] += 0
                 vote_matrix[candidate_rank, challenger_rank] -= 0
@@ -67,7 +70,7 @@ def calculate_duals(vote, vote_matrix):
 
 def calculate_victories(vote_matrix):
     """[Recalculate the vote_matrix to give the general result of each
-    dual for candidates vs each others. 
+    dual for candidates vs each others.
     1=victory, 0=equality, -1=defeat ]
 
     Args:
@@ -80,7 +83,7 @@ def calculate_victories(vote_matrix):
     victories_matrix = np.copy(vote_matrix)
     victories_matrix[victories_matrix < 0] = -1
     victories_matrix[victories_matrix > 0] = 1
-    return  victories_matrix
+    return victories_matrix
 
 
 def calculate_winner(victories_matrix, vote_matrix):
@@ -88,27 +91,29 @@ def calculate_winner(victories_matrix, vote_matrix):
     victories ]
 
     Args:
-        victories_matrix ([matrix]): [matrix of candidates victories vs each others]
+        victories_matrix ([matrix]): [matrix of candidates
+                                    victories vs each others]
         vote_matrix ([matrix]): [matrix of candidates scores vs each others]
-    
+
     Returns:
-        [list]: [list of tupples. Each tupple give (number of victories,candidate-number,
+        [list]: [list of tupples. Each tupple give
+        (number of victories,candidate-number,
         candidate-score) for each winner.]
     """
     winner_list = []
     result_list = []
 
-    for row in  victories_matrix:
+    for row in victories_matrix:
         candidate_score = sum(row)
         result_list.append(candidate_score)
     if result_list:
         winner_score = max(result_list)
-    
+
     for rank, score in enumerate(result_list):
         if score == winner_score:
             total_votes = sum(vote_matrix[rank])
             winner_list.append([int(score), int(rank), int(total_votes)])
-    winner_list = sorted(winner_list, key=lambda column:column[2])
+    winner_list = sorted(winner_list, key=lambda column: column[2])
 
     return(winner_list)
 
@@ -124,7 +129,8 @@ def candidates_duals(votes_list, n_candidates):
     Returns:
         [matrix]: [matrix of candidates scores vs each others]
         [matrix]: [matrix of candidates victories vs each others]
-        [list]: [list of tupples. Each tupple give (number of victories,candidate-number,
+        [list]: [list of tupples. Each tupple give
+        (number of victories,candidate-number,
         candidate-score) for each winner.]
     """
 

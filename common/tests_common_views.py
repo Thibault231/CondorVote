@@ -26,18 +26,22 @@ class ViewsTestCase(TestCase):
         """
         response = self.client.get(reverse('common:legal_mentions'))
         self.assertEqual(response.status_code, TESTS['RightStatus'])
-    
+
     def test_error400_page(self):
         """Test access to template 400.html.
         """
         response = self.client.get(reverse('common:error400'))
         self.assertEqual(response.status_code, TESTS['RightStatus'])
-    
+
     def test_error404_page(self):
         """Test access to template 404.html.
         """
-        response = self.client.get(reverse('common:error404'))
-        self.assertEqual(response.status_code, TESTS['RightStatus'])
+        response = self.client.get(
+            reverse('common:error404')
+        )
+        self.assertEqual(
+            response.status_code, TESTS['RightStatus']
+        )
 
     def test_error500_page(self):
         """Test access to template 500.html.

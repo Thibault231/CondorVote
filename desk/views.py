@@ -5,17 +5,18 @@ Views:
 -vote(request)
 -enter_ticket(request)
 """
-import random, string
+import random
+import string
 from django.utils import timezone
-from django.shortcuts import render, get_object_or_404, get_list_or_404
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from desk.models import Desk, Ticket, Candidate
 from desk.forms import DeskCreationForm, AddCandidateForm, AddVotersForm
 
+
 @login_required
 def create_desk(request):
-    """Create a new desk for a connected 
+    """Create a new desk for a connected
     user.
     Arguments:
     -request {GET}
@@ -36,32 +37,32 @@ def create_desk(request):
             school_class = form.cleaned_data["school_class"]
             tickets_amount = form.cleaned_data["tickets_amount"]
             open_vote = form.cleaned_data["opening_vote"]
-            
-            
-            desk_control = Desk.objects.filter(school=school, school_class=school_class)
+
+            desk_control = Desk.objects.filter(
+                school=school,
+                school_class=school_class
+            )
             if not desk_control:
-               
                 new_desk = Desk.objects.create(
-                    school = school,
-                    school_class = school_class,
-                    closing_vote = timezone.now(),
-                    opening_vote = timezone.now(),
-                    winners = "(0,0,0)",
-                    number_voters = 0,
-                    tickets_amount = tickets_amount,
-                    status = "C"
+                    school=school,
+                    school_class=school_class,
+                    closing_vote=timezone.now(),
+                    opening_vote=timezone.now(),
+                    winners="(0,0,0)",
+                    number_voters=0,
+                    tickets_amount=tickets_amount,
+                    status="C"
                 )
-                if int(open_vote)==1:
+                if int(open_vote) == 1:
                     new_desk.status = "O"
                     new_desk.save()
 
                 user.account.desk_link.add(new_desk)
                 user.account.save()
                 new_desk_id = new_desk.id
-                adding_candidate = True
                 desk_complete = True
             else:
-                existing_desk = True    
+                existing_desk = True
     else:
         form = DeskCreationForm()
     context = {
@@ -95,21 +96,21 @@ def add_candidates(request, desk_id):
     if request.method == "POST":
         form = AddCandidateForm(request.POST)
         double_candidate = False
-        
+
         if form.is_valid():
             first_name = form.cleaned_data["first_name"]
             last_name = form.cleaned_data["last_name"]
 
             candidate_control = Candidate.objects.filter(
-                first_name = first_name, last_name = last_name,
+                first_name=first_name, last_name=last_name,
                 school=desk.school, classroom=desk.school_class)
 
             if not candidate_control:
                 new_candidate = Candidate.objects.create(
-                    first_name = first_name,
-                    last_name = last_name,
-                    school = desk.school,
-                    classroom = desk.school_class
+                    first_name=first_name,
+                    last_name=last_name,
+                    school=desk.school,
+                    classroom=desk.school_class
                 )
                 new_candidate.save()
                 desk.candidates.add(new_candidate)
@@ -117,7 +118,8 @@ def add_candidates(request, desk_id):
                 adding_candidate = True
             else:
                 desk_control = Desk.objects.filter(
-                candidates=candidate_control[0])
+                    candidates=candidate_control[0]
+                )
                 if not desk_control:
                     new_candidate = candidate_control[0]
                     desk.candidates.add(new_candidate)
@@ -130,10 +132,10 @@ def add_candidates(request, desk_id):
 
     form = AddCandidateForm()
     number_candidates = len(Candidate.objects.all().filter(desk=desk))
-    
+
     context = {
         "form": form,
-        "double_candidate":double_candidate,
+        "double_candidate": double_candidate,
         "adding_candidate": adding_candidate,
         "new_candidate": new_candidate,
         "desk_id": desk_id,
@@ -160,22 +162,35 @@ def create_tickets(request, desk_id):
     to_much_tickets = False
     ticket_number = 0
     tickets_list = []
-    if existing_tickets==0:
+    if existing_tickets == 0:
         for ticket in range(desk.tickets_amount):
             ticket_number += 1
-            base_ticket_code = "".join(random.choices(string.ascii_letters + string.digits, k=12))
+            base_ticket_code = "".join(
+                random.choices(
+                    string.ascii_letters + string.digits,
+                    k=12
+                )
+            )
 
             new_ticket = Ticket.objects.create(
-                ticket_number = ticket_number,
-                ticket_code = "".join([base_ticket_code, str(ticket_number), str(desk_id)]),
-                desk_tickets = desk
+                ticket_number=ticket_number,
+                ticket_code="".join(
+                    [
+                        base_ticket_code,
+                        str(ticket_number),
+                        str(desk_id)
+                    ]
+                ),
+                desk_tickets=desk
             )
             new_ticket.save()
             tickets_list.append(new_ticket)
-            existing_tickets = len(Ticket.objects.all().filter(desk_tickets=desk))
+            existing_tickets = len(
+                Ticket.objects.all().filter(desk_tickets=desk)
+            )
     else:
         tickets_list = Ticket.objects.all().filter(desk_tickets=desk)
-    
+
     context = {
         "desk": desk,
         "tickets_list": tickets_list,
@@ -204,11 +219,11 @@ def display_desk_list(request):
     desk_list_e = []
 
     for desk in desk_list:
-        if desk.status=="C":
+        if desk.status == "C":
             desk_list_c.append(desk)
-        elif desk.status=="O":
+        elif desk.status == "O":
             desk_list_o.append(desk)
-        elif desk.status=="E":
+        elif desk.status == "E":
             desk_list_e.append(desk)
 
     context = {
@@ -233,8 +248,6 @@ def delete_desk(request, desk_id):
     desk = Desk.objects.filter(id=desk_id)
     if desk:
         desk = desk[0]
-        desk_school = desk.school
-        desk_scholl_class = desk.school_class
         desk.delete()
 
     user = request.user
@@ -244,11 +257,11 @@ def delete_desk(request, desk_id):
     desk_list_e = []
 
     for desk in desk_list:
-        if desk.status=="C":
+        if desk.status == "C":
             desk_list_c.append(desk)
-        elif desk.status=="O":
+        elif desk.status == "O":
             desk_list_o.append(desk)
-        elif desk.status=="E":
+        elif desk.status == "E":
             desk_list_e.append(desk)
 
     context = {
@@ -256,7 +269,7 @@ def delete_desk(request, desk_id):
         "desk_list_o": desk_list_o,
         "desk_list_e": desk_list_e,
         "desk_number": len(desk_list),
-        "message": "Le bureau de vote a bien été supprimé!",  
+        "message": "Le bureau de vote a bien été supprimé!",
     }
     return render(request, 'desk/display_desk_list.html', context)
 
@@ -278,7 +291,7 @@ def open_desk(request, desk_id):
         desk.status = "O"
         desk.opening_vote = timezone.now()
         desk.save()
-    
+
     user = request.user
     desk_list = Desk.objects.filter(account=user.account.id)
     desk_list_c = []
@@ -286,11 +299,11 @@ def open_desk(request, desk_id):
     desk_list_e = []
 
     for desk in desk_list:
-        if desk.status=="C":
+        if desk.status == "C":
             desk_list_c.append(desk)
-        elif desk.status=="O":
+        elif desk.status == "O":
             desk_list_o.append(desk)
-        elif desk.status=="E":
+        elif desk.status == "E":
             desk_list_e.append(desk)
 
     context = {
@@ -298,7 +311,7 @@ def open_desk(request, desk_id):
         "desk_list_o": desk_list_o,
         "desk_list_e": desk_list_e,
         "desk_number": len(desk_list),
-        "desk_status":desk.status,
+        "desk_status": desk.status,
     }
     return render(request, 'desk/display_desk_list.html', context, )
 
@@ -320,7 +333,7 @@ def close_desk(request, desk_id):
         desk.status = "E"
         desk.closing_vote = timezone.now()
         desk.save()
-    
+
     user = request.user
     desk_list = Desk.objects.filter(account=user.account.id)
     desk_list_c = []
@@ -328,11 +341,11 @@ def close_desk(request, desk_id):
     desk_list_e = []
 
     for desk in desk_list:
-        if desk.status=="C":
+        if desk.status == "C":
             desk_list_c.append(desk)
-        elif desk.status=="O":
+        elif desk.status == "O":
             desk_list_o.append(desk)
-        elif desk.status=="E":
+        elif desk.status == "E":
             desk_list_e.append(desk)
 
     context = {
@@ -340,7 +353,7 @@ def close_desk(request, desk_id):
         "desk_list_o": desk_list_o,
         "desk_list_e": desk_list_e,
         "desk_number": len(desk_list),
-        "desk_status":desk.status,
+        "desk_status": desk.status,
     }
     return render(request, 'desk/display_desk_list.html', context)
 
@@ -361,21 +374,21 @@ def display_active_desk(request, desk_id):
     candidates_list = Candidate.objects.filter(desk=desk_id)
     tickets_list = Ticket.objects.filter(desk_tickets=desk_id)
     winners = desk.winners
-    
-    if desk.status=="C":
+
+    if desk.status == "C":
         status = "Créé/Non ouvert"
-    elif desk.status=="O":
+    elif desk.status == "O":
         status = "Ouvert"
-    elif desk.status=="E":
+    elif desk.status == "E":
         status = "clôturé"
 
     context = {
-    "desk": desk,
-    "winners": winners,
-    "status":status,
-    "tickets_list": tickets_list,
-    "remaining_tickets": len(tickets_list),
-    "candidates_list":candidates_list
+        "desk": desk,
+        "winners": winners,
+        "status": status,
+        "tickets_list": tickets_list,
+        "remaining_tickets": len(tickets_list),
+        "candidates_list": candidates_list
     }
     return render(request, 'desk/display_active_desk.html', context)
 
@@ -400,17 +413,17 @@ def delete_candidate(request, candidate_id, desk_id):
     candidates_list = Candidate.objects.filter(desk=desk_id)
     winners = "Baba, 5: victoires, score: 12"
 
-    if desk.status=="C":
+    if desk.status == "C":
         status = "Créé/Non ouvert"
-    elif desk.status=="O":
+    elif desk.status == "O":
         status = "Ouvert"
-    elif desk.status=="E":
+    elif desk.status == "E":
         status = "clôturé"
     context = {
-    "desk": desk,
-    "winners": winners,
-    "status":status,
-    "candidates_list":candidates_list
+        "desk": desk,
+        "winners": winners,
+        "status": status,
+        "candidates_list": candidates_list
     }
     return render(request, 'desk/display_active_desk.html', context)
 
@@ -434,13 +447,14 @@ def add_voters(request, desk_id):
 
     if request.method == "POST":
         form = AddVotersForm(request.POST)
-        double_candidate = False
         if form.is_valid():
             tickets_amount = form.cleaned_data["tickets_amount"]
             if tickets_amount > 0:
                 desk.tickets_amount = tickets_amount
                 desk.save()
-                existing_tickets_list = Ticket.objects.filter(desk_tickets=desk)
+                existing_tickets_list = Ticket.objects.filter(
+                    desk_tickets=desk
+                )
                 for ticket in existing_tickets_list:
                     ticket.delete()
                 adding_voters = True
@@ -451,11 +465,11 @@ def add_voters(request, desk_id):
             form = AddVotersForm()
     else:
         form = AddVotersForm()
-    
+
     context = {
         "desk": desk,
         "form": form,
         "adding_voters": adding_voters,
-        "message":message,
+        "message": message,
     }
     return render(request, 'desk/add_voters.html', context)

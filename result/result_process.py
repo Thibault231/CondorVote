@@ -1,6 +1,24 @@
 # coding: utf-8
 import numpy as np
- 
+from vote.models import Vote
+
+def create_ballots_list(votes_list):
+    ballots_list = []
+    for vote in votes_list:
+        if vote.ballot=="0":
+            vote.delete()
+        else:
+            vote_ballot = vote.ballot
+            vote_ballot = vote_ballot.replace("[","").replace("]","").replace("'","").replace(" ","")
+            vote_ballot = vote_ballot.split(',')
+            new_ballot = []
+            candidates_id_list = []
+            for element in vote_ballot:
+                if vote_ballot.index(element)%2:
+                    new_ballot.append(int(element))
+            ballots_list.append(new_ballot)
+    return ballots_list
+
 def create_table(n_candidates):
     """[Creaye a zeros matrix sized n_candidates*n_candidates
     that wil be used to store vote's results.]
@@ -83,18 +101,19 @@ def calculate_winner(victories_matrix, vote_matrix):
     for row in  victories_matrix:
         candidate_score = sum(row)
         result_list.append(candidate_score)
+    if result_list:
+        winner_score = max(result_list)
     
-    winner_score = max(result_list)
     for rank, score in enumerate(result_list):
         if score == winner_score:
             total_votes = sum(vote_matrix[rank])
-            winner_list.append((int(score), int(rank), int(total_votes)))
+            winner_list.append([int(score), int(rank), int(total_votes)])
     winner_list = sorted(winner_list, key=lambda column:column[2])
 
     return(winner_list)
 
 
-def candidates_duals(vote_list, n_candidates):
+def candidates_duals(votes_list, n_candidates):
     """[Main function that rules the calculation of the result
     for Condorcet vote  from the ballots list.]
 
@@ -108,8 +127,10 @@ def candidates_duals(vote_list, n_candidates):
         [list]: [list of tupples. Each tupple give (number of victories,candidate-number,
         candidate-score) for each winner.]
     """
+
     vote_matrix = create_table(n_candidates)
-    for vote in vote_list:
+    ballots_list = create_ballots_list(votes_list)
+    for vote in ballots_list:
         vote_matrix = calculate_duals(vote, vote_matrix)
     victories_matrix = calculate_victories(vote_matrix)
     winner_list = calculate_winner(victories_matrix, vote_matrix)

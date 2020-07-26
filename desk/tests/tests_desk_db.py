@@ -80,7 +80,6 @@ class AccountTestCase(TestCase):
         self.assertEqual(candidate.last_name, TESTS['name1'])
         self.assertEqual(candidate.school, TESTS['school'])
         self.assertEqual(candidate.classroom, TESTS['name2'])
-    
 
     def test_ticket_table_args(self):
         """[Tests 'Desk_ticket' table arguments and its
@@ -92,3 +91,21 @@ class AccountTestCase(TestCase):
         self.assertEqual(ticket.ticket_number, TESTS['number1'])
         self.assertEqual(ticket.ticket_code, TESTS['number1']+1)
         self.assertEqual(ticket.desk_tickets, desk)
+
+def test_candidate_display_args(self):
+        """Test the way a candidate object is displayed.
+        """
+        candidate = self.candidate
+        self.assertEqual(str(candidate), "candidate: {0}".format(self.first_name))
+
+def test_desk_display_args(self):
+        """Test the way a desk object is displayed.
+        """
+        desk = self.desk
+        self.assertEqual(str(desk), "Desk ID: {0}".format(self.id))
+
+def test_ticket_display_args(self):
+        """Test the way a ticket object is displayed.
+        """
+        ticket = self.ticket
+        self.assertEqual(str(ticket), "Ticket number: {0}".format(self.ticket_number))

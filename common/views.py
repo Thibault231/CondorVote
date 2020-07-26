@@ -30,7 +30,6 @@ def legal_mentions(request):
     """
     return render(request, 'common/legal_mentions.html')
 
-
 def error400(request):
     """Specific function for testing error templates:
     400.htlm;

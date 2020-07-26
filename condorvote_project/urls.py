@@ -35,6 +35,9 @@ urlpatterns = [
         'vote/',
         include(('vote.urls', 'app_name'), namespace='vote')),
     path(
+        'result/',
+        include(('result.urls', 'app_name'), namespace='result')),
+    path(
         'account/',
         include(('account.urls', 'app_name'), namespace='account')),
     path(

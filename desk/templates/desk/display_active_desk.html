@@ -3,7 +3,7 @@
 
 {% block content %}<section class="cta">
     <div class="text-center">
-        <h1><br/>Bureaux de vote: {{desk.school_class}}</h1>
+        <h1><br/>Bureaux de vote:&emsp;{{desk.school_class}}</h1>
         <br/><br/>
     </div>
     <div class="row" data-aos="fade-up">
@@ -11,26 +11,26 @@
             <div class="section-title" data-aos="fade-in" data-aos-delay="100">
                 <h2><br/>Etat du bureau<br/><br/></h2>
             </div>
-            <div class="text-left">
-                <p><button class="about-btn3">Etablissement:</button>           {{desk.school}}</p>
-                <p><button class="about-btn3">Nom du bureau:</button>                  {{desk.school_class}}</p>
-                <p><button class="about-btn3">Status:</button>                  {{status}}</p>
-                <p><button class="about-btn3">Nombre d'électeurs:</button>        {{desk.tickets_amount}}</p>
+            <div class="text-left"><p class="section-title2"></p>
+                <div class="row d-flex justify-content-start"><div class="about-info2 col-lg-4">Etablissement</div><p class="col-lg-4">{{desk.school}}</p></div>
+                <div class="row d-flex justify-content-start"><div class="about-info2 col-lg-4">Nom du bureau</div><p class="col-lg-4">{{desk.school_class}}</p></div>
+                <div class="row d-flex justify-content-start"><div class="about-info2 col-lg-4">Status</div><p class="col-lg-4">{{status}}</p></div>
+                <div class="row d-flex justify-content-start"><div class="about-info2 col-lg-4">Nombre d'électeurs</div><p class="col-lg-4">{{desk.tickets_amount}}</p></div>
                 {% if desk.status == "C" %}
-                <p><button class="about-btn3">Date de création:</button>        {{desk.opening_vote}}</p>
+                <div class="row d-flex justify-content-start"><div class="about-info2 col-lg-4">Date de création</div><p class="col-lg-4">{{desk.opening_vote}}</p></div>
                 {% endif %}
                 {% if desk.status == "O" %}
-                <p><button class="about-btn3">Date d'ouverture:</button>         {{desk.opening_vote}}</p>
-                <p><button class="about-btn3">Bulletins déposés:</button>        {{desk.number_voters}}</p>
+                <div class="row d-flex justify-content-start"><div class="about-info2 col-lg-4">Date d'ouverture</div><p class="col-lg-4">{{desk.opening_vote}}</p></div>
+                <div class="row d-flex justify-content-start"><div class="about-info2 col-lg-4">Bulletins déposés</div><p class="col-lg-4">{{desk.number_voters}}</p></div>
                 {% endif %}
                 {% if desk.status == "E" %}
-                <p><button class="about-btn3">Date d'ouverture:</button>         {{desk.opening_vote}}</p>
-                <p><button class="about-btn3">Date de clôture:</button>          {{desk.closing_vote}}</p>
-                <p><button class="about-btn3">Bulletins déposés:</button>        {{desk.number_voters}}</p>
-                <p><button class="about-btn3">Elu(s):</button>                   {{winners}}</p>
-                <button class="about-btn2" id="end_add">
-                    <a style="color:black" href="{% url 'account:myaccount' %}">Résultats détaillé</a>
-                </button>
+                <div class="row d-flex justify-content-start"><div class="about-info2 col-lg-4">Date d'ouverture</div><p class="col-lg-4">{{desk.opening_vote}}</p></div>
+                <div class="row d-flex justify-content-start"><div class="about-info2 col-lg-4">Date de clôture</div><p class="col-lg-4">{{desk.closing_vote}}</p></div>
+                <div class="row d-flex justify-content-start"><div class="about-info2 col-lg-4">Bulletins déposés</div><p class="col-lg-4">{{desk.number_voters}}</p></div>
+                <div class="row d-flex justify-content-start"><div class="about-info2 col-lg-4">Vainqueur(s)</div><p class="col-lg-4">{{winners}}</p></div>
+                <div class="row d-flex justify-content-center"><button class="about-btn2" id="end_add">
+                    <a style="color:black" href="{% url 'result:result_details' desk_id=desk.id %}">Résultats détaillés</a>
+                </button></div>
                 {% endif %}
                 <br/><br/>
             </div>
@@ -41,7 +41,7 @@
                 <h2><br/>Liste des candidats<br/><br/></h2>
             </div>
             {% for candidate in candidates_list %}
-            <li class="text-center">
+            <li class="text-center" style="list-style-type: none;">
                 <div class="col-lg-12">
                 <div class="icon-boxes d-flex flex-column justify-content-center">
                     <div class="col-flg-12 icon-box row" data-aos="fade-up" data-aos-delay="100">

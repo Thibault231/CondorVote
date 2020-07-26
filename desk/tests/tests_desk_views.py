@@ -10,7 +10,6 @@ from django.urls import reverse
 from common.config import TESTS
 from account.models import Account
 from desk.models import Desk, Ticket, Candidate
-from desk.models import Desk
 from common.config import TESTS, TESTS3
 
 

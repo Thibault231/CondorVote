@@ -5,16 +5,17 @@
     <div class="text-center" data-aos="fade-up">
         <h1><br/>Mes bureaux de vote</h1>
         <h3><br/>Vous disposez de {{desk_number}} bureau(x) de vote.<br/><br/></h3>
+        <h2 class="text-warning">{{message}}</h2>
         <article class="row col-lg-12">      
             
             <div class="frame2 col-lg-4">
                 <h2><br/>Bureaux non ouverts</h2>
                 {% for desk in desk_list_c %}
-               <section id="services" class="services">
+               <section id="services2" class="services2">
                      <a href="{% url 'desk:display_active_desk' desk_id=desk.id %}"><div class="container">
                         <div class="row">
                             <div class="col-lg-11 d-flex align-items-stretch mb-5 mb-lg-0">
-                                <div class="icon-box" data-aos="fade-up">
+                                <div class="icon-box create" data-aos="fade-up">
                                     <div class="icon">
                                         <i class="bx bx-upload"></i>
                                     </div>
@@ -37,20 +38,20 @@
             <div class="frame2 col-lg-4">
                 <h2><br/>Bureaux ouverts</h2>
                 {% for desk in desk_list_o %}
-                <section id="services" class="services">
+                <section id="services2" class="services2">
                     <a href="{% url 'desk:display_active_desk' desk_id=desk.id %}"><div class="container">
                         <div class="row">
                             <div class="col-lg-12 d-flex align-items-stretch mb-5 mb-lg-0">
-                                <div class="icon-box" data-aos="fade-up">
+                                <div class="icon-box open" data-aos="fade-up">
                                     <div class="icon">
                                         <i class="bx bx-door-open"></i>
                                     </div>
                                     <h4 class="title"><a href="">Etablissement: {{desk.school}}</a></h4>
-                                    <p class="description">Nom du bureau: {{desk.school_class}}</p>
-                                    <button class="about-btn2" id="end_add">
+                                    <h4 class="title">Nom du bureau: {{desk.school_class}}</h4>
+                                    <button class="about-btn2">
                                         <a style="color:black" href="{% url 'desk:close_desk' desk_id=desk.id %}">Clôturer le bureau</a>
                                     </button>
-                                    <button class="about-btn4" id="end_add">
+                                    <button class="about-btn4">
                                         <a style="color:black" href="{% url 'desk:delete_desk' desk_id=desk.id %}">Supprimer le bureau</a>
                                     </button>
                                 </div>
@@ -64,18 +65,18 @@
             <div class="frame2 col-lg-4">
                 <h2><br/>Bureaux clôturés</h2>
                 {% for desk in desk_list_e %}
-                <section id="services" class="services">
+                <section id="services2" class="services2">
                     <a href="{% url 'desk:display_active_desk' desk_id=desk.id %}"><div class="container">
                         <div class="row">
-                            <div class="col-lg-12 d-flex align-items-stretch mb-5 mb-lg-0">
-                                <div class="icon-box" data-aos="fade-up">
+                            <div class="col-lg-11 d-flex align-items-stretch mb-5 mb-lg-0">
+                                <div class="icon-box close" data-aos="fade-up">
                                     <div class="icon">
                                         <i class="bx bx-fingerprint"></i>
                                     </div>
                                     <h4 class="title"><a href="">Etablissement: {{desk.school}}</a></h4>
-                                    <p class="description">Nom du bureau: {{desk.school_class}}</p>
+                                    <h4 class="title">Nom du bureau: {{desk.school_class}}</h4>
                                     <button class="about-btn2" id="end_add">
-                                        <a style="color:black" href="{% url 'account:myaccount' %}">Résultats</a>
+                                        <a style="color:black" href="{% url 'result:result' desk_id=desk.id %}">Résultats</a>
                                     </button>
                                     <button class="about-btn4" id="end_add">
                                         <a style="color:black" href="{% url 'desk:delete_desk' desk_id=desk.id %}">Supprimer le bureau</a>

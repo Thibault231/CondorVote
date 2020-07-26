@@ -47,6 +47,7 @@ else:
 # Application definition
 
 INSTALLED_APPS = [
+    'documentation.apps.DocumentationConfig'
     'account.apps.AccountConfig',
     'common.apps.CommonConfig',
     'desk.apps.DeskConfig',

@@ -49,9 +49,9 @@
                 <li><a href="{% url 'vote:enter_ticket' %}">Voter</a></li>
                 <li class="drop-down"><a href="">Documentation</a>
                 <ul>
-                    <li><a href="#">Le scrutin de Condorcet</a></li>
-                    <li><a href="#">Comment voter</a></li>
-                    <li><a href="#">Créer un bureau de vote</a></li>
+                    <li><a href="{% url 'documentation:condorcet_infos' %}">Le scrutin de Condorcet</a></li>
+                    <li><a href="{% url 'documentation:voter_infos' %}">Comment voter</a></li>
+                    <li><a href="{% url 'documentation:organizer_infos' %}">Créer un bureau de vote</a></li>
                 </ul>
                 </li>
                 {% if user.is_authenticated %}

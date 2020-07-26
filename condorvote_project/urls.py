@@ -32,6 +32,9 @@ urlpatterns = [
         'desk/',
         include(('desk.urls', 'app_name'), namespace='desk')),
     path(
+        'documentation/',
+        include(('documentation.urls', 'app_name'), namespace='documentation')),
+    path(
         'vote/',
         include(('vote.urls', 'app_name'), namespace='vote')),
     path(

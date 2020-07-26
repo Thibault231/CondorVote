@@ -1,10 +1,110 @@
-{% extends 'common/base.html' %}  
+{% extends 'common/base2.html' %}  
+{% load static %}
 
-{% block contentUp %}
-
+{% block content %}
 <section id="about" class="about">
     <div class="container">
-        <div class="no-gutters">
+        <div class="infos">
+            <h1>Le scrutin de Condorcet? C'est quoi?</h1>
+            <article>
+                <h2>Le scrutin de Condorcet</h2>
+                <h3>Principe:</h3>
+                <p>Le scrutin de Condorcet est un mode de scrutin d'élection à un seul tour.<br/>
+                Le principe de l'élection, ou principe de Condorcet est le suivant:<br/>
+                "Si une alternative est préférée à toute autre par une majorité, alors elle doit être élue."
+                Le procédé pour les électeurs est de remplir un bulletin en ordonnant les candidats par ordre de préférence.
+                Les égalités de préférences sont permise et théoriquement vous pouvez même oublier de classer
+                un candidat (C'est qui celui là? Connait pas!).</p>
+                <h3>Calcul des résultats:</h3>
+                <p>
+                A la fin de la phase de vote on compare pour chaque bulletin le rang des candidats les uns par rapport aux autres.
+                On dit que l'on réalise les duels entre les candidats.
+                <ul>
+                <li>Si le candidat est mieux placé qu'un concurrent, alors il marque un point.</li>
+                <li>S'il est moins bien placé il perd un point.</li>
+                <li>S'il est exaeco il ne marque pas de point.</li>
+                </ul></p>
+
+                <p>A la fin du calcul des duels on obtient un tableau indiquant les scores des candidats les uns par rapport aux autres.</p>
+                <p><img src="{% static 'documentation/img/cod_info_1.png' %}" alt="score matrice" class="score-matrix"></p>
+                <p>On peut alors définir pour chaque duel qui est le candidat vainqueur (score positif dans la cellule du tableau),
+                perdant (score négatif dans la cellule du tableau ) ou exeaco (score null dans la cellule du tableau).</p>
+                <p><img src="{% static 'documentation/img/cod_info_2.png' %}" alt="victoires matrice" class="victories-matrix"></p>
+                <p>Le grand vainqueur de l'élection est celui qui possède le plus de victoires par rapport à ses concurrents.
+                Ici le candidat "BABA Aurum".</p>
+
+
+                <h3>Le paradoxe de Condorcet:</h3>
+                <p>Malheureusement il peut arriver que des candidats soient vainqueurs exaeco. 
+                    C'est à dire qu'il n'y a pas de préférence de la part des votant par rapport aux uns ou aux autres 
+                    (cela n'est pas forcement le cas pour un exeaco d'un scrutin uninominal par contre cf
+                    <a href="#propriétés">"les propriétés du scrutin de Condorcet")</a>.<br/><br/>
+                    Cela peut se produire pour des cas de 3 ou 5 vainqueurs; au dela la probabilité d'égalité existe mais est très très faible.
+                    Plus le nombre d'électeurs est important plus la probabilité d'égalité diminue cependant.<br/><br/>
+                    Comment les séparer déslors? <br/>
+                    Plusieurs méthodes existent, dont notemment le scrutin randommisé de Condorcet qui élit systématiquement un seul vainqueur.<br/>
+                    Si vous ne voulez pas vous embêter vous pouvez tout simplement tirer au sort. Et oui c'est une véritable égalité!
+                    Si vous voulez un vainqueur, en appeler au hasard mettra tout le monde d'accord.<br/><br/>
+                    Sur Condorvote nous avons fait le choix de vous laisser le choix. (Héhé! Pas folle la guêpe).<br/>
+                    Nous vous affichons le groupe des vainqueurs, s'il existe, avec le tableau des scores et des victoires.<br/>
+                    A vous de voir comment élir le vainqueur parmis l'ensemble des candidats préférés de vos électeurs: leurs scores, 
+                    leur âge, le hasard, etc.</p>
+            </article>
+
+            <article>
+                <h2 id="propriétés">Les propriétés scrutin de Condorcet</h2>
+                <h3>L'indépendance aux alternatives non pertinentes</h3>
+                <p>Cette propriété du scrutin de Condorcet garantit que l'ordre de classement relatif des candidats ne dépend pas
+                de la présence ou de l'absence d'autres candidats.<br/>
+                En effet tous les candidats étant présents et ordonnés dans les bulletins de vote, si un petit candidat proche
+                idéologiquement d'un autre se présente, alors il ne modifiera pas la préférence des électeurs pour ce dernier par rapport aux autres.<br/>
+                De même si un candidat détesté ou adoré par les électeurs se présente, alors il se positionnera en tête ou en queue
+                des listes électorales sans modifier l'ordre de préférence des électeurs pour les autres candidats.<br/><br/>
+                Notons que cette propriété n'est pas garantit par le srcutin uninominale,
+                car les électeurs ont un choix à faire entre les candidatset un nouveau candidat peut syphoner les voix des autres, 
+                modifiant de ce fait l'ordre des préférences.</p>
+                
+                <h3>Absence de dilemme du vote utile</h3>
+                <p>Cette propriété découle de la précédentee.<br/>
+                Si l'ordre relatif des candidats n'est pas modifié par la présence d'un tiers, alors peu importe qu'un camps présente un seul ou
+                une dizaine de candidats.<br/>
+                Ces derniers seront toujours placés avant ou aprés ceux des autres camps, selon la préférence des électeurs.<br/>
+                Un petit candidat n'a donc pas d'intérêt à faire des alliances et donc des compromis sur ses idées lorsqu'il se présente à une élection.<br/>
+                De la même manière, un électeur n'a pas d'intérêt à placer un gros candidat avant un plus petit qu'il préfère,
+                au motif qu'il aurait plus de voix, donc de chance de se faire élire.<br/>
+                Il doit simplement mettre le gros candidat avant ceux des autres camps qu'il aime moins.<br/><br/>
+                Cette propriété est totalement absence du scrutin uninominal. Cela génère a minima une homogénéisation des discours politiques
+                d'un même camps lorsqu'il s'adresse aux électeurs, ainsi qu'une polarisation des discours politiques laissant peu de place aux alternatives.</p>
+                
+                <h3>Probabilité nulle d'élire un candidat qui n'en bat aucun autre en duel</h3>
+                <p>Cette propriété garantit qu'un candidat qui n'est jamais préféré aux autres, ne peu jamais être élu,
+                    quelque soit le cas de figure. Le pire sénario étant une égalité entre des candidats étant autant préférés
+                    par les électeurs.<br/><br/>
+                    Cela n'est pas le cas pour le scrutin uninominal où le vainqueur est rarement le préféré des électeurs et où
+                    le pire candidat peu être élu selon certaines configurations de l'élection.</p>
+            </article>
+
+            <article>
+                <h2>Liens utiles</h2>
+                <h3>Le scrutin de Condorcet sur Youtube</h3>
+                <p>Sciences4all et la série sur<a href="https://www.youtube.com/watch?v=wKimU8jy2a8">
+                    <strong>"La démocratie sous l'angle de la théorie des jeux"</strong></a>.
+                </p>
+                <p>Monsieur Phi et ses épisodes <a href="https://www.youtube.com/watch?v=hI89r4LqaCc">
+                    <strong>"Le principde de Condorcet"</strong></a>.
+                </p>
+                <p>Sciences étonnantes avec son excellent épisode <a href=" https://www.youtube.com/watch?v=ZoGH7d51bvc">
+                    <strong>"Réformons l'élection présidentielle"</strong></a>.
+                </p>
+               
+                <h3>Le scrutin de Condorcet sur Wikipedia</h3>
+                <p>Wikipedia 'of course!' <a href="https://fr.wikipedia.org/wiki/M%C3%A9thode_de_Condorcet">
+                    <strong>cliquez ici</strong></a> pour rejoindre la page dédiée au vote de Condorcet.
+                </p>
+                <p>Vous pouvez jeter un coup d'oeil à une de ses déclinaisons: <a href="https://fr.wikipedia.org/wiki/Scrutin_de_Condorcet_randomis%C3%A9">
+                    <strong>le scrutin randomisé de Condorcet</strong></a> .
+                </p>
+            </article>
         </div>
     </div>
 </section>

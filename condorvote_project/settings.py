@@ -47,11 +47,11 @@ else:
 # Application definition
 
 INSTALLED_APPS = [
-    'documentation.apps.DocumentationConfig'
     'account.apps.AccountConfig',
     'common.apps.CommonConfig',
     'desk.apps.DeskConfig',
     'result.apps.ResultConfig',
+    'documentation.apps.DocumentationConfig',
     'command.apps.CommandConfig',
     'vote.apps.VoteConfig',
     'django.contrib.admin',

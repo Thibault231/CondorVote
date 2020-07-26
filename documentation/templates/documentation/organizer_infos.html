@@ -1,10 +1,118 @@
-{% extends 'common/base.html' %}  
+{% extends 'common/base2.html' %} 
+{% load static %} 
 
-{% block contentUp %}
-
+{% block content %}
 <section id="about" class="about">
     <div class="container">
-        <div class="no-gutters">
+        <div class="infos">
+            <h1><br/>Comment créer un bureau de vote?</h1>
+            <p> &emsp;Félicitation, vous vous lancer dans la création d'un élection de type "scrutin de Condorcet"!<br/>
+                Vous allez voir cela n'a rien de compliqué.</p>
+            <article>
+                <h2>La création du bureau de vote:</h2>
+                <h3>Etape 1: Le compte organisateur</h3>
+                <p>&emsp; &emsp;Créer un bureau de vote vous devez obligatoirement disposer d'un compte organisateur.
+                    Pour cela cliquez sur l'onglet: <strong>"créer un compte"</strong> dans la barre de menu et remplissez le formulaire quis 'affiche à l'écran.</p>
+                <p><img src="{% static 'documentation/img/org_info_1.png' %}" alt="créer un compte" class="create-account"></p>
+                <p>C'est bon vous disposez d'un compte organisateur!</p>
+                <br/><br/>
+
+                <h3>Etape 2: Création du bureau</h3>
+                <p> &emsp; &emsp;A présent, lorsque vous serez connecté un nouvel onglet est présent dans la barre de menu: <strong>"Créer un bureau"</strong>.<br/>
+                Allez-y cliquez dessus, ne soyez pas timide.<br/>
+                Et voilà un formulaire s'affiche qu'il vous faut remplir.</p>
+                <p><img src="{% static 'documentation/img/org_info_2.png' %}" alt="créer le bureau" class="desk-formular"></p>
+                <p>Etablissement: Cela correspond à l'organisation pour laquelle vous créez le bureau.
+                    Plusieurs élections peuvent se dérouler au sein d'un établissement, alors autant le noter!<br/>
+                    Exemple: Société Arcadia300,  Collège Marquis de Condorcet.</p>
+            
+                <p>Nom du bureau: Il s'agit du nom de votre bureau, celui par lequel les électeurs l'appèleront.<br/>
+                Exemple: Election du personnel, Election des 6emeA.<br/><br/>
+                Nombre d'électeurs: Ce champs correspond au... nombre d'électeurs.<br/>
+                Oui pas besoin de vous faire un dessin je pense, cependant la quantité de tickets créés dépendra de ce nombre.<br/><br/>
+                Ouvrir le bureau: Attention, ce point est un peu plus délicat.<br/>
+                Si vous selectionnez <strong>"non"</strong> le bureau de vote sera créé avec une quantité de ticket correspondant au nombre d'électeur. 
+                Si des changements survenaient, un bureau "non ouvert" peu être modifié depuis votre espace <strong>"Mon compte"</strong>.
+                Tant que le bureau est fermé aucun électeur ne peut voter.<br/><br/>
+                Si vous selectionnez <strong>"oui"</strong> alors le bureau de vote sera ouvert au vote. Vous ne pourrez plus le modifier, ni changer la quantité de tickets.<br/><br/>
+                Il ne vous reste plus qu'à valider.<br/>
+                Bravo! Votre bureau de vote vient d'être créé.<br/>
+                Etape suivant "les candidats".</p>
+
+                <h3>Etape 3: Les candidats:</h3>
+                <p>&emsp; &emsp;Une nouvelle fenêtre s'affiche et vous demande de renseigner les noms et prénom des candidats de l'élection.</p>
+                <p><img src="{% static 'documentation/img/org_info_3.png' %}" alt="ajouter des candidats" class="add-candidates"></p>
+                <p>Notez que Condorvote n'accepte qu'un seul candidat pour un même ensemble "nom"-"prénom" pour un même bureau.<br/>
+                D'un autre côté comment feriez vous la différence en les candidats 'BABA Aurum' et 'BABA Aurum'?<br/><br/>
+                Cliquez sur "Ajouter" aprés avoir renseigné chaque candidat puis sur "J'ai fini d'ajouter des candidat" lorsque vous avez terminé.<br/>
+                On arrive à la fin.</p>
+
+                <h3>Etape 4: Les tickets:</h3>
+                <p>&emsp; &emsp;Ceci est la dernière étape.<br/>
+                Une quantité de tickets correspondant au nombre d'électeurs s'affiche à l'écran.</p>
+                <p><img src="{% static 'documentation/img/org_info_4.png' %}" alt="affichages des tickets" class="display-tickets"></p>
+                <p>Pour des raisons de sécurité les tickets ne sont disponibles que sur cet écran ou sur celui de votre espace <strong>"Mon compte"</strong>.<br/>
+                Réalisez donc un copier-coller des tickets que vous pourrez ensuite distribuer à vos électeurs.<br/><br/>
+                Rmq: Le nombre de tickets est pour l'instant limité à 1000 sur Condorvote mais cela est appelé à changer.</p>
+            </article>
+
+            <article>
+                <h2>Ajouter des tickets de vote:</h2>
+                <p>&emsp;&emsp;Les tickets de vote sont spécifiques d'un bureau. Ils sont générés à sa création
+                    et détruit à chaque fois qu'un électeur l'utilise pour déposer son bulletin.<br/>
+                    Si vous choisissez de modifier le nombre de tickets (en ajouter ou en supprimer) alors
+                    <strong> tous les tickets actuels seront tous supprimés</strong> et un <strong> nouveau jeu de tickets sera créé</strong> et rattaché au bureau de vote.<br/>
+                    Nous vous conseillons donc de bien vérifier le nombre d'électeurs de votre bureau avant
+                    de leur distribuer leurs tickets car chaque modification nécessitera de leur en redistribuer un nouveau.<br/><br/>
+                    Il est a noter qu'un nombre trop important de tickets par rapport au nombre réel d'électeurs/votant
+                    n'a aucune influence sur le mécanisme de vote. Ainsi n'hésitez pas à gonfler un peu le nombre de tickets
+                    de vote si vous craingnez d'en manquer. Mieux vaut trop que pas assez dans ce cas.</p>
+            </article>
+
+            <article>
+                <h2>La gestion du bureau:</h2>
+                <p>&emsp;&emsp;Pour gérer vos bureaux de vote rendez vous sur votre espace organisateur en cliquant
+                sur l'onglet "Mon espace" de la barre de menu.<br/>
+                Depuis votre espace selectionnez "Voir mes bureaux de vote".</p>
+                <p><img src="{% static 'documentation/img/org_info_5.png' %}" alt="Voir mes bureau" class="see-my-desks"></p>
+                <p>Une fenêtre s'affiche avec les cartes de vos bureaux classés en trois catégories:<br/>
+                "Non ouverts", "Ouverts" et "Clôturés".</p>
+                <p><img src="{% static 'documentation/img/org_info_6.png' %}" alt="Types de bureaux" class="desks-types"></p>
+                <p>Il est possible de supprimer directement un bureau en cliquant sur le bouton "supprimer" ou
+                de lui faire changer de catégories de la gauche vers la droite uniquement.
+                (Vous ne vouliez quand même pas trucquer vos élections petits malins si?)<br/><br/>
+                Pour ouvrir un bureau non ouvert cliquez sur le bouton "Ouvrir le bureau" de sa carte.</p>
+                <p><img src="{% static 'documentation/img/org_info_7.png' %}" alt="Ouvrir le bureaux" class="open-desk"></p>
+                <p>Pour clôturer un bureau ouvert cliquez sur le bouton "Clôturer" de sa carte.</p>
+                <p><img src="{% static 'documentation/img/org_info_8.png' %}" alt="Fermer le bureaux" class="close-desk"></p>
+                <p>Enfin pour connaître les résultats d'un bureau clôturé cliquez surle bouton "Résultats" de sa carte.</p>
+                <p><img src="{% static 'documentation/img/org_info_9.png' %}" alt="Resultat bureaux" class="result-desk"></p>
+                <p>Si vous souhaitez avoir plus de détails sur un bureau (date de création, nombre d'électeur, les tickets, etc.)
+                cliquez directement sur sa carte.<br/>
+                Un fenêtre de détail du bureau de vote s'affiera alors</p>
+                <p><img src="{% static 'documentation/img/org_info_10.png' %}" alt="Détails bureaux" class="detail-desk"></p>
+                <p>En fonction du status de votre bureau, des options de modification seront alors disponibles.</p>
+            </article>
+
+            <article>
+                <h2>Les résultats et résultats détaillés de l'élection:</h2>
+                <p>&emsp;&emsp;Enfin vos électeurs ont tous votés et l'échéance de la fin des élections est arrivée.<br/>
+                    Vous êtes impatient de connaître les résultats!<br/>
+                    Pensez à bien clôturer le bureau de vote depuis la fenêtre de gestion des bureau de votre espace utilisateur.<br/>
+                    Une fois le bureau clos vous pouvez consulter les résultats deux manières:<br/><br/>
+                    1-Directement dans  la fenêtre de gestion des bureaux de votre espace utilisateur.</p>
+                <p>Cliquez sur <strong>"Résultats"</strong> et c'est parti, le(s) vainqueur(s) sont affichés à l'écran.</p>
+                <p><img src="{% static 'documentation/img/org_info_11.png' %}" alt="résultats simple" class="simple-results"></p>
+                <p>2-Depuis la fenêtre de détails du bureau de vote</p>
+                <p>Les vainqueurs sont brièvement affichés dans cette fenêtre mais vous pouvez aussi accéder
+                au détails des résultats en selectionant <strong>"Résultats détaillés"</strong>.</p>
+                <p><img src="{% static 'documentation/img/org_info_12.png' %}" alt="résultats complets" class="total-results"></p>
+                <p>Dans ce cas seront affichés:<br/>
+                &emsp;-le ou les vainqueur(s) avec leurs scores et leurs victoires.<br/>
+                &emsp;-le tableau des scores des candidats les uns par rapport aux autres.<br/>
+                &emsp;-le tableau des victoires des candidats les uns par rapport aux autres.<br/><br/>
+                Pour plus de précisions sur l'analyse des résultats d'un scrutin de Condorcet <a href="{% url 'documentation:condorcet_infos' %}">cliquez ici</a>.</p>
+            </article>
         </div>
     </div>
 </section>

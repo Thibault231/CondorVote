@@ -44,20 +44,19 @@ For running this program on the web connect to https://.
 ### On local:
 For running it localy:
     1-Install Postgre SQL and create a: database "condor_db" / a superuser "condor".
-    2-Install the requirements.txt settings.
+    2-Install the requirements.txt settings in a virtual environment.
     3-Create a file .env like ./condorvote_project/.env
         You have to put inside the fallowing global variables:
         SKEY=                   "your secret key".
         ALLOWED_HOSTS=          "url of the web site for production".
         USER_DB=                "condor" or the name of postgres super user.
         PASSWORD_DB=            "the password for postgreSQL database."
-        EMAIL_HOST=             "your email for smtp service" for production only.
+        EMAIL_HOST=             "your email service" for production only.
         EMAIL_PORT=             "587" for production only.
-        EMAIL_HOST_USER=""
-        EMAIL_HOST_PASSWORD=""
+        EMAIL_HOST_USER=        "your email for smtp functionality" for production only.
+        EMAIL_HOST_PASSWORD=    "your email password for smtp functionality" for production only.
 
     4-Create tables within your database using the command "python manage.py migrate" in the consol.
-    5-Insert datas in nutella database using the command "python manage.py init_db".
     5-Finally run the program with the command "python manage.py runserver".
 The home page is being displayed at local port:8000.
 
@@ -65,7 +64,7 @@ The home page is being displayed at local port:8000.
 T.Salgues.
 
 # LICENCE:
-Projet_8_DjangoNutella is a public project with a public licence.
+Condorvote is a public project with a public licence.
 For more information read the file: license
 
 # CONVENTIONS:
@@ -95,14 +94,14 @@ For more information read the file: license
     When adding new APP or any modification to initial APP's, please put your tests in the "tests" folder of the appropriate APP. 
 
 ## Constants:
-    Global constants are contained in te config.py file in "food_selector" folder.
+    Global constants are contained in te config.py file in "common/" folder.
     When adding constants, please respect the type "dict" of those module's objects.
     
 
 # CONTRIBUTIONs:
-Source code is on https://github.com/Thibault231/P_8_django_nutella.
+Source code is on https://github.com/Thibault231/CondorVote.git.
 Use a  CONTRIBUTING.md type file to contribute.
 
 # CREDITS:
-Special thanks for Cyril.C, Openclassrooms and OpenFoodFact.
+Special thanks for Cyril.C, Openclassrooms and Sciences4all.
 

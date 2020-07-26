@@ -6,7 +6,9 @@ from django.contrib.auth.models import User
 from django.test import RequestFactory, TestCase
 from django.urls import reverse
 import numpy as np
-from common.config import TESTS2
+from vote.models import Vote
+from desk.models import Desk
+from common.config import TESTS2, TESTS
 from result.result_process import candidates_duals
 # from common.config import TESTS
 
@@ -23,12 +25,45 @@ class AccountTestCase(TestCase):
     def setUp(self):
         """Create self objects for running tests
         """
-        x1 = [1, 2, 3, 4, 5, 6]
-        x2 = [2, 4, 3, 3, 1, 6]
-        x3 = [6, 6, 6, 1, 2, 3]
-        x4 = [2, 1, 3, 3, 4, 5]
-        x5 = [1, 1, 3, 3, 4, 5]
-        self.vote_list = [x1, x2, x3, x4, x5]
+        self.factory = RequestFactory()
+        self.desk = Desk.objects.create(
+            school = TESTS['school'],
+            school_class = TESTS['name1'],
+            opening_vote = TESTS['time1'],
+            closing_vote = TESTS['time1'],
+            status = TESTS['statusCreate'],
+            winners = TESTS['winners'],
+            number_voters = TESTS['number1']+1,
+            tickets_amount = TESTS['number1']
+            )
+        x1 = "[a, 1, a, 2, a, 3, a, 4, a, 5, a, 6]"
+        x2 = "[a, 2, a, 4, a, 3, a, 3, a, 1, a, 6]"
+        x3 = "[a, 6, a, 6, a, 6, a, 1, a, 2, a, 3]"
+        x4 = "[a, 2, a, 1, a, 3, a, 3, a, 4, a, 5]"
+        x5 = "[a, 1, a,1, a, 3, a, 3, a, 4, a, 5]"
+
+        self.vote1 = Vote.objects.create(
+            ballot=x1, 
+            desk_votes=self.desk,
+            ) 
+        
+        self.vote2 = Vote.objects.create(
+            ballot=x2, 
+            desk_votes=self.desk,
+            )
+        self.vote3 = Vote.objects.create(
+            ballot=x3, 
+            desk_votes=self.desk,
+            )
+        self.vote4 = Vote.objects.create(
+            ballot=x4, 
+            desk_votes=self.desk,
+            )
+        self.vote5 = Vote.objects.create(
+            ballot=x5, 
+            desk_votes=self.desk,
+            )
+        self.vote_list = [self.vote1, self.vote2, self.vote3, self.vote4, self.vote5]
         self.n_candidates = 6 
     
     def test_matrixs_args(self):

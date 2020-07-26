@@ -7,7 +7,7 @@
 
             
             <h3>Mon bulletin de vote</h3>
-            <h4>{{message}}<br/><br/></h4>
+            <h4><strong>{{message}}</strong><br/><br/></h4>
             
             {%  if not new_ballot %}
             <p> Le numéro indique l'ordre de préférence<br/></p>
@@ -23,6 +23,13 @@
                     <input class="about-btn3" type="submit" value="Valider mon vote">
                 </form>
             </div>
+            {% endif %}
+            {%  if new_ballot %}
+                <h4>Attendez que l'organisateur de l'élection clôture le bureau<br/>pour connaître les résultats.<br/><br/></h4>
+                <a href="{% url 'index' %}" ><div class="about-btn">
+                    <h1>Retourner à l'acceuil</h1>
+                </div></a>
+
             {% endif %}
    
         </div>

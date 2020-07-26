@@ -26,7 +26,8 @@ def enter_ticket(request):
     -request {GET}
     Returns:
     -template -- vote/enter_ticket.html
-    -context ()
+    -context ("form", "message", "new_vote",
+        "validate_ticket")
     """
     message = ""
     validate_ticket = False
@@ -36,19 +37,23 @@ def enter_ticket(request):
         form = EnterTicketForm(request.POST)
         if form.is_valid():
             ticket = form.cleaned_data["ticket"]
-            right_ticket = Ticket.objects.get(ticket_code=ticket)
+            right_ticket = Ticket.objects.filter(ticket_code=ticket)
             if right_ticket:
+                right_ticket = right_ticket[0]
                 desk = Desk.objects.get(ticket=right_ticket.id)
                 new_vote = Vote.objects.create(
                     ballot = "0",
                     desk_votes = desk,
                 )
                 new_vote.save()
+                desk.number_voters += 1
+                desk.save()
                 message = "Votre ticket est validé. Vous pouvez voter."
                 validate_ticket = True
+                right_ticket.delete()
             else:
                 message = "Aucun bureau de vote ne correspond à votre ticket."
-            #  right_ticket.delete()
+            
     else:
         form = EnterTicketForm()
     context = {
@@ -65,12 +70,14 @@ def vote(request, vote_id):
     user.
     Arguments:
     -request {GET}
+    -vote_id (int)
     Returns:
     -template -- vote/create_vote.html
-    -context ()
+    -context ("new_ballot", "message", "candidates_list",
+        "number_candidates")
     """
     new_ballot = False
-    vote = Vote.objects.get(id=vote_id)
+    vote = get_object_or_404(Vote, id=vote_id)
     candidates_list = Candidate.objects.filter(desk=vote.desk_votes)
     message=""
 
@@ -81,10 +88,14 @@ def vote(request, vote_id):
             ballot.append([element, request.POST.get(element)])
         ballot = ballot[1:]
         vote.ballot = list.copy(ballot)
-        print(vote.ballot, type(vote.ballot[1])), 
-        vote.save()          
+        vote.save()
+        new_ballot = True         
+    elif vote.ballot =="0":
+        message = "Indiquez une valeur entre 1 et {} pour chaque candidat.".format(len(candidates_list))  
     else:
-        message = "Indiquez une valeur entre 1 et {} pour chaque candidat.".format(len(candidates_list))
+        message = "Vous avez déjà utilisé votre ticket pour voter."
+        new_ballot = True
+       
     context = {
         "new_ballot": new_ballot,
         "message": message,

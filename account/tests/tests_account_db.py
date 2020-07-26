@@ -57,7 +57,6 @@ class AccountTestCase(TestCase):
         self.assertEqual(user.last_name, TESTS['name1'])
         self.assertEqual(user.email, TESTS['name1']+'@gmail.com')
 
-
     def test_account_table_args(self):
         """[Tests the links between user account and 
         'Account_account' table.]
@@ -72,4 +71,9 @@ class AccountTestCase(TestCase):
         self.assertEqual(account.school, TESTS['school'])
         self.assertEqual(account.departement, TESTS['departement'])
         self.assertEqual(desk_list[0], desk)
-        
+
+def test_account_display_args(self):
+        """Test the way an account object is displayed.
+        """
+        account = self.account
+        self.assertEqual(str(account), "Account of: {0}".format(self.user.username))

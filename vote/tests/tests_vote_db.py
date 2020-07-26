@@ -38,7 +38,7 @@ class AccountTestCase(TestCase):
             )
 
 
-    def test_desk_table_args(self):
+    def test_vote_table_args(self):
         """[Tests 'Vote_vote' table arguments and its
         links with 'Desk_desk' table.]
         """
@@ -47,3 +47,9 @@ class AccountTestCase(TestCase):
         
         self.assertEqual(vote.ballot, TESTS['ballot'])
         self.assertEqual(vote.desk_votes, desk)
+    
+    def test_vote_display_args(self):
+        """Test the way a vote object is displayed.
+        """
+        vote = self.vote
+        self.assertEqual(str(vote), "Vote ID: {0}".format(vote.id))

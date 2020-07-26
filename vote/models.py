@@ -30,4 +30,4 @@ class Vote(models.Model):
         Returns:
             [str] -- attribute name
         """
-        return "Vote ID: {0}".format(self.vote.id)
+        return "Vote ID: {0}".format(self.id)

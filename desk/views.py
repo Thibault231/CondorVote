@@ -35,7 +35,6 @@ def create_desk(request):
             school = form.cleaned_data["school"]
             school_class = form.cleaned_data["school_class"]
             tickets_amount = form.cleaned_data["tickets_amount"]
-            number_candidate = form.cleaned_data["number_candidate"]
             open_vote = form.cleaned_data["opening_vote"]
             
             
@@ -56,7 +55,6 @@ def create_desk(request):
                     new_desk.status = "O"
                     new_desk.save()
 
-                print("open_vote=   :", new_desk.status)
                 user.account.desk_link.add(new_desk)
                 user.account.save()
                 new_desk_id = new_desk.id
@@ -229,18 +227,38 @@ def delete_desk(request, desk_id):
     -request {GET}
     -desk_id {int}
     Returns:
-    -template -- desk/delete_desk.html
+    -template -- desk/display_desk_list.html
     -context {"desk_school", "desck_school_class"}
     """
-    desk = get_object_or_404(Desk, id=desk_id)
-    desk_school = desk.school
-    desk_scholl_class = desk.school_class
-    desk.delete()
+    desk = Desk.objects.filter(id=desk_id)
+    if desk:
+        desk = desk[0]
+        desk_school = desk.school
+        desk_scholl_class = desk.school_class
+        desk.delete()
+
+    user = request.user
+    desk_list = Desk.objects.filter(account=user.account.id)
+    desk_list_c = []
+    desk_list_o = []
+    desk_list_e = []
+
+    for desk in desk_list:
+        if desk.status=="C":
+            desk_list_c.append(desk)
+        elif desk.status=="O":
+            desk_list_o.append(desk)
+        elif desk.status=="E":
+            desk_list_e.append(desk)
+
     context = {
-        "desk_school": desk_school,
-        "desck_school_class": desk_scholl_class  
+        "desk_list_c": desk_list_c,
+        "desk_list_o": desk_list_o,
+        "desk_list_e": desk_list_e,
+        "desk_number": len(desk_list),
+        "message": "Le bureau de vote a bien été supprimé!",  
     }
-    return render(request, 'desk/delete_desk.html', context)
+    return render(request, 'desk/display_desk_list.html', context)
 
 
 @login_required
@@ -342,7 +360,7 @@ def display_active_desk(request, desk_id):
     desk = get_object_or_404(Desk, id=desk_id)
     candidates_list = Candidate.objects.filter(desk=desk_id)
     tickets_list = Ticket.objects.filter(desk_tickets=desk_id)
-    winners = "Baba, 5: victoires, score: 12"
+    winners = desk.winners
     
     if desk.status=="C":
         status = "Créé/Non ouvert"
@@ -350,6 +368,7 @@ def display_active_desk(request, desk_id):
         status = "Ouvert"
     elif desk.status=="E":
         status = "clôturé"
+
     context = {
     "desk": desk,
     "winners": winners,

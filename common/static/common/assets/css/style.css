@@ -1613,3 +1613,34 @@ Section Ajoutée
 .td, th  {
   border: 1px solid black;
 }
+
+/*--------------------------------------------------------------
+# Infos
+--------------------------------------------------------------*/
+
+.infos {
+
+}
+
+.infos h1 {
+  font-size: 4vw;
+  text-align: center;
+}
+
+.infos h2 {
+  text-decoration: underline;
+  font-size: 3vw;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  text-align: center;
+}
+
+.infos h3 {
+  text-decoration: underline dotted;
+  font-size: 2vw;
+  margin-bottom: 2%;
+}
+
+.infos p {
+  font-size: 1vw;
+}

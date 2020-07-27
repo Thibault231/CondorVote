@@ -1,4 +1,3 @@
-
 SECRET_KEY = os.getenv("SKEY")
 DEBUG = False
 ALLOWED_HOSTS = [os.getenv("ALLOWED_HOSTS")]

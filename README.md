@@ -24,7 +24,7 @@ A vote-desk has ever the following attributs:
     *candidates
 
 Each vote-desk can be modify and colsulted from the organizer's space, clicking "My account".
-The elections results are calculate after the organizer close the desk-vote and select "result" in its  organizer's space.
+The elections results are calculated after the organizer close the desk-vote and select "result" in its  organizer's space.
 
 
 For organizer login an email adress and a password are required.

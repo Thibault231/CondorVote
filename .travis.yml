@@ -15,4 +15,4 @@ services:
 env: DJANGO_SETTINGS_MODULE=condorvote_project.travis
 
 script:
-  - python ./manage.py test
+  - python manage.py test

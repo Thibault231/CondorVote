@@ -12,7 +12,7 @@ before_script:
 services:
   - postgresql
 
-env: DJANGO_SETTINGS_MODULE=condorvote_project.travis
+env: DJANGO_SETTINGS_MODULE=condorvote_project.settings.travis
 
 script:
-  - python manage.py test
+  - python ./manage.py test

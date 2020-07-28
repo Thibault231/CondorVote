@@ -17,18 +17,7 @@
                 {{ form.as_p }}
                 <input class="about-btn2" type="submit" value="Créer le bureau"  />
             </form>
-            {% endif %}
-
-            
-
-            {% if desk_complete %}
-            <h2><strong>Le bureau de vote a bien été créé.<br/></strong></h2>
-            <button class="about-btn3" id="notdelete">
-                <a style="color:black" href="{% url 'desk:add_candidates' desk_id=new_desk %}">Continuer</a>
-            </button>
-            {% endif %}
-
-            
+            {% endif %}           
 
             <br/><br/>
         </article>

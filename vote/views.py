@@ -12,7 +12,7 @@ Views:
 -delete_candidate(request, candidate_id, desk_id):@login_required
 -add_voters(request, desk_id):@login_required
 """
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from desk.models import Desk, Ticket, Candidate
 from vote.models import Vote
 from vote.forms import EnterTicketForm
@@ -51,9 +51,11 @@ def enter_ticket(request):
                 message = "Votre ticket est validé. Vous pouvez voter."
                 validate_ticket = True
                 right_ticket.delete()
+                return redirect ('/vote/{}/'.format(new_vote.id))
             else:
                 message = "Aucun bureau de vote ne correspond à votre ticket."
-
+        else:
+                message = "Aucun bureau de vote ne correspond à votre ticket."
     else:
         form = EnterTicketForm()
     context = {

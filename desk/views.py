@@ -8,7 +8,7 @@ Views:
 import random
 import string
 from django.utils import timezone
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from desk.models import Desk, Ticket, Candidate
 from desk.forms import DeskCreationForm, AddCandidateForm, AddVotersForm
@@ -61,8 +61,16 @@ def create_desk(request):
                 user.account.save()
                 new_desk_id = new_desk.id
                 desk_complete = True
+                return redirect (
+                    '/desk/add_candidates/{}/'.format(new_desk.id)
+                )
             else:
+                old_desk = desk_control[0]
                 existing_desk = True
+                return redirect (
+                    '/desk/add_candidates/{}/'.format(old_desk.id)
+                )
+
     else:
         form = DeskCreationForm()
     context = {
@@ -162,6 +170,7 @@ def create_tickets(request, desk_id):
     to_much_tickets = False
     ticket_number = 0
     tickets_list = []
+
     if existing_tickets == 0:
         for ticket in range(desk.tickets_amount):
             ticket_number += 1
@@ -214,22 +223,9 @@ def display_desk_list(request):
     """
     user = request.user
     desk_list = Desk.objects.filter(account=user.account.id)
-    desk_list_c = []
-    desk_list_o = []
-    desk_list_e = []
-
-    for desk in desk_list:
-        if desk.status == "C":
-            desk_list_c.append(desk)
-        elif desk.status == "O":
-            desk_list_o.append(desk)
-        elif desk.status == "E":
-            desk_list_e.append(desk)
 
     context = {
-        "desk_list_c": desk_list_c,
-        "desk_list_o": desk_list_o,
-        "desk_list_e": desk_list_e,
+        "desk_list": desk_list,
         "desk_number": len(desk_list),
     }
     return render(request, 'desk/display_desk_list.html', context)
@@ -252,22 +248,9 @@ def delete_desk(request, desk_id):
 
     user = request.user
     desk_list = Desk.objects.filter(account=user.account.id)
-    desk_list_c = []
-    desk_list_o = []
-    desk_list_e = []
-
-    for desk in desk_list:
-        if desk.status == "C":
-            desk_list_c.append(desk)
-        elif desk.status == "O":
-            desk_list_o.append(desk)
-        elif desk.status == "E":
-            desk_list_e.append(desk)
 
     context = {
-        "desk_list_c": desk_list_c,
-        "desk_list_o": desk_list_o,
-        "desk_list_e": desk_list_e,
+        "desk_list": desk_list,
         "desk_number": len(desk_list),
         "message": "Le bureau de vote a bien été supprimé!",
     }
@@ -294,22 +277,9 @@ def open_desk(request, desk_id):
 
     user = request.user
     desk_list = Desk.objects.filter(account=user.account.id)
-    desk_list_c = []
-    desk_list_o = []
-    desk_list_e = []
-
-    for desk in desk_list:
-        if desk.status == "C":
-            desk_list_c.append(desk)
-        elif desk.status == "O":
-            desk_list_o.append(desk)
-        elif desk.status == "E":
-            desk_list_e.append(desk)
 
     context = {
-        "desk_list_c": desk_list_c,
-        "desk_list_o": desk_list_o,
-        "desk_list_e": desk_list_e,
+        "desk_list": desk_list,
         "desk_number": len(desk_list),
         "desk_status": desk.status,
     }
@@ -336,22 +306,9 @@ def close_desk(request, desk_id):
 
     user = request.user
     desk_list = Desk.objects.filter(account=user.account.id)
-    desk_list_c = []
-    desk_list_o = []
-    desk_list_e = []
-
-    for desk in desk_list:
-        if desk.status == "C":
-            desk_list_c.append(desk)
-        elif desk.status == "O":
-            desk_list_o.append(desk)
-        elif desk.status == "E":
-            desk_list_e.append(desk)
-
+    
     context = {
-        "desk_list_c": desk_list_c,
-        "desk_list_o": desk_list_o,
-        "desk_list_e": desk_list_e,
+        "desk_list": desk_list,
         "desk_number": len(desk_list),
         "desk_status": desk.status,
     }

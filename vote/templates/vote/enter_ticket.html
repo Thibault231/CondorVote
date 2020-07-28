@@ -15,16 +15,7 @@
                 </strong>
                 <input class="about-btn2" type="submit" value="Valider le ticket"  />
             </form>
-
             {% endif %} 
-            {%  if validate_ticket %}
-                <h3>{{message}}</h3>
-                <br/><br/>
-                <button class="about-btn2">
-                    <a style="color:black" href="{% url 'vote:vote' vote_id=new_vote.id %}">Passer au vote!!!</a>
-                </button>
-                <br/><br/>
-            {% endif %}
         </div>
     </div>
 </section>

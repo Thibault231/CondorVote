@@ -430,4 +430,3 @@ def add_voters(request, desk_id):
         "message": message,
     }
     return render(request, 'desk/add_voters.html', context)
-

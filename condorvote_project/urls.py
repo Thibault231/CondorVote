@@ -26,11 +26,14 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path(
-        'common/',
-        include(('common.urls', 'app_name'), namespace='common')),
+        'api/',
+        include(('rest_framework.urls', 'app_name'), namespace='api')),
     path(
         'command/',
         include(('command.urls', 'app_name'), namespace='command')),
+    path(
+        'common/',
+        include(('common.urls', 'app_name'), namespace='common')),
     path(
         'desk/',
         include(('desk.urls', 'app_name'), namespace='desk')),

@@ -145,10 +145,11 @@
   <script src="{% static 'common/assets/vendor/venobox/venobox.min.js' %}"></script>
   <script src="{% static 'common/assets/vendor/owl.carousel/owl.carousel.min.js' %}"></script>
   <script src="{% static 'common/assets/vendor/aos/aos.js' %}"></script>
+  
 
   <!-- Template Main JS File -->
   <script src="{% static 'common/assets/js/main.js' %}"></script>
-
+  {% block javascript %}{% endblock%}
 </body>
 
 </html>

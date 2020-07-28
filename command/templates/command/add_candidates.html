@@ -6,16 +6,10 @@
         <h1><br/><br/>Ajouter les candidats</h1>
         <article class="container col-lg-12">
             <br/><br/>
-        {% if adding_candidate %}
-        <h2>Le candidat {{new_candidate.first_name}} {{new_candidate.last_name}} a bien été ajouté<br/></h2>
-        {% endif %}
-
-        {% if double_candidate %}
-        <h2>Erreur: Le candidat {{new_candidate.first_name}} {{new_candidate.last_name}} a déjà été ajouté<br/></h2>
-        {% endif %}
+        <h2 id="message"></h2>
 
         <h2>Votre bureau compte actuellement {{number_candidate}} candidats</h2>
-        <form class="form1 justify-content-center " id="form_candidate" method="post" action=".">
+        <form id="form_candidate" class="form1 justify-content-center "  method="post" action="">
             {% csrf_token %}
             {{ form.as_p }}
             <div class="row">
@@ -23,6 +17,7 @@
             </div>
         </form>
         <br/><br/>
+
         <button class="about-btn2" id="end_add">
             <a style="color:black" href="{% url 'desk:create_tickets' desk_id=desk_id %}">J'ai fini d'ajouter des candidats</a>
         </button>
@@ -30,6 +25,3 @@
         </article>
     </div>
 </section>{% endblock %}
-
-{% block javascript %}<script src="{% static 'desk/assets/js/add_candidate.js' %}"></script>
-{% endblock%}

@@ -29,6 +29,9 @@ urlpatterns = [
         'common/',
         include(('common.urls', 'app_name'), namespace='common')),
     path(
+        'command/',
+        include(('command.urls', 'app_name'), namespace='command')),
+    path(
         'desk/',
         include(('desk.urls', 'app_name'), namespace='desk')),
     path(

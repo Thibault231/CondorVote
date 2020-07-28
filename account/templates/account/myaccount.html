@@ -21,34 +21,35 @@
       
         <article class="article-account container col-md-10 col-lg-6 frame1">
             <div class="section-title" data-aos="fade-in" data-aos-delay="100">
-                <h2>Gestion de mes informations<br/></h2>
-                    <h1 class="about-btn2 align-self-center" id='delete'>
-                        <a style="color:black" href="{% url 'desk:display_desk_list' %}">
+                <h2>Gestion de mes informations<br/></h2> <br/>
+                    <h1 class="about-btn2 align-self-center">
+                       <a style="color:black" href="{% url 'desk:display_desk_list' %}">
                         Voir mes bureaux de vote</a>
-                    </button>
+                    </h1>
             </div>
 
-            <br/><br/>
+            <br/>
             <div class="container text-center frame2">
                 <div class="section-title" data-aos="fade-in" data-aos-delay="100">
                     <h2><br/>Gestion de mon compte<br/><br/></h2>
                 </div>
                 <div class="container">
                     <div class="d-flex justify-content-around">
-                    
-                        <p><button class="about-btn2">
+                        <button class="about-btn6">
                             <a id="changepassword" style="color:black" href="{% url 'password_change' %}">
                             Changer mon mot de passe</a>
-                        </button></p>
-                        <p><button class="about-btn2" id='delete'>
+                        </button>
+                        <button class="about-btn6" id='delete'>
                             <a style="color:black" href="{% url 'account:delete_confirmation' %}">
                             Supprimer mon compte</a>
-                        </button></p>
-                        <p><button class="about-btn2" id='modify'>
+                        </button>
+                        <button class="about-btn6" id='modify'>
                             <a style="color:black" href="{% url 'account:modify_account' %}">
                             Modifier mon compte</a>
-                        </button></p>
+                        </button>
+                        
                     </div>
+                    <br/><br/>
                 </div>
             </div>
 

@@ -7,7 +7,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from vote.models import Vote
 from desk.models import Desk, Candidate
-from result.result_process import candidates_duals
+from result.result_process import candidates_duals, lists_for_template
 
 
 @login_required
@@ -85,20 +85,17 @@ def result_details(request, desk_id):
             )
         )
 
-    victories_matrix = victories_matrix.tolist()
-    for element in victories_matrix:
-        candidate_name = candidates_names_list[victories_matrix.index(element)]
-        element.insert(0, candidate_name)
+    template_lists = lists_for_template(
+        victories_matrix, vote_matrix, candidates_names_list
+        )
 
-    vote_matrix = vote_matrix.tolist()
-    for element in vote_matrix:
-        candidate_name = candidates_names_list[vote_matrix.index(element)]
-        element.insert(0, candidate_name)
 
     context = {
-        "vote_matrix": vote_matrix,
-        "victories_matrix": victories_matrix,
+        "vote_matrix": template_lists[0],
+        "victories_matrix": template_lists[1],
         "candidates_list": candidates_list,
+        "total_score_list": template_lists[2],
+        "total_victories_list": template_lists[3],
         "winners_list": winner_list,
         "message": len(winner_list),
     }

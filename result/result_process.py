@@ -103,8 +103,9 @@ def calculate_winner(victories_matrix, vote_matrix):
     winner_list = []
     result_list = []
 
+    victories_matrix = victories_matrix.tolist()
     for row in victories_matrix:
-        candidate_score = sum(row)
+        candidate_score = row.count(1)
         result_list.append(candidate_score)
     if result_list:
         winner_score = max(result_list)
@@ -142,3 +143,53 @@ def candidates_duals(votes_list, n_candidates):
     winner_list = calculate_winner(victories_matrix, vote_matrix)
 
     return vote_matrix, victories_matrix, winner_list
+
+def lists_for_template(victories_matrix, vote_matrix, candidates_names_list):
+    """Function that rules transform matrix to list
+    and add candidate's names.
+    It also convert numéric result in letters.
+
+    Args:
+        vote_list ([list]): [list of all ballots]
+        n_candidates ([int]): [number of candidates]
+
+    Returns:
+        [list]: [List of lists. Each list give
+        dual result vs each winner.]
+        [list]: [List of lists. Each list give
+        score of a candidate vs each others.]
+        [list]: [List of total score for each
+        candidate.]
+    """
+    
+    victories_matrix = victories_matrix.tolist()
+    for element in victories_matrix:
+        candidate_name = candidates_names_list[victories_matrix.index(element)]
+        element.insert(0, candidate_name)
+    
+    victories_list=[]
+    for row in victories_matrix:
+        victories_list_element = []
+        for element in row:
+            if element == 1:
+                victories_list_element.append('V')
+            elif element == 0:
+                victories_list_element.append('N')
+            elif element == -1:
+                victories_list_element.append('D')
+            else:
+                victories_list_element.append(element)
+        victories_list.append(victories_list_element)
+
+    total_victories_list =[]
+    for row in victories_list:
+        total_victories_list.append(row.count('V'))
+
+    vote_list = vote_matrix.tolist()
+    total_score_list = []
+    for element in vote_list:
+        total_score_list.append(sum(element))
+        candidate_name = candidates_names_list[vote_list.index(element)]
+        element.insert(0, candidate_name)
+
+    return victories_list, vote_list, total_score_list, total_victories_list

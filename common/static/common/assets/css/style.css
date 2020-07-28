@@ -584,7 +584,6 @@ section {
 }
 
 .about .icon-boxes .icon-box p {
-  font-size: 15px;
   color: #848484;
 }
 
@@ -780,7 +779,6 @@ section {
   padding: 15px 0 0 0;
   margin: 0 0 0 60px;
   font-family: "Raleway", sans-serif;
-  font-size: 14px;
   color: #49788c;
 }
 
@@ -1240,7 +1238,6 @@ section {
 .contact .info-box p {
   padding: 0;
   line-height: 24px;
-  font-size: 14px;
   margin-bottom: 0;
 }
 
@@ -1381,7 +1378,6 @@ section {
 }
 
 #footer .footer-top .footer-info p {
-  font-size: 14px;
   line-height: 24px;
   margin-bottom: 0;
   font-family: "Raleway", sans-serif;
@@ -1507,12 +1503,12 @@ section {
 }
 
 /*--------------------------------------------------------------
-Section Ajoutée
+Section Forms
 --------------------------------------------------------------*/
 .form1{
   font: bold 120%;
   text-align: left;
-  padding-left: 30%;
+  padding-left: 40%;
   color: rgb(252, 54, 54);
 }
 
@@ -1528,6 +1524,9 @@ Section Ajoutée
   box-shadow: rgba(0,0,0,0.4) 10px 10px inset;
 }
 
+/*--------------------------------------------------------------
+Section Forms
+--------------------------------------------------------------*/
 .about-btn2 {
   margin-bottom: 30px;
   display: inline-block;
@@ -1581,6 +1580,27 @@ Section Ajoutée
 .about-btn4:hover {
   background: #f83d3d;
 }
+
+.about-btn5 {
+	width:85px;
+	height:85px;
+  background: linear-gradient(#aaaaaa, rgb(45, 24, 167));
+  margin-left: 10%;
+	box-shadow:2px 2px 8px #aaa;
+	font:bold 13px Arial;
+	border-radius:50%;
+  color:rgb(14, 13, 13);
+}
+
+.about-btn5 i {
+  font: bold;
+  font-size: 18px;
+  position: absolute;
+  right: 18px;
+  top: 9px;
+}
+
+
 
 .about-info2 {
   margin-bottom: 30px;
@@ -1641,6 +1661,14 @@ Section Ajoutée
   margin-bottom: 2%;
 }
 
-.infos p {
-  font-size: 1vw;
+/*--------------------------------------------------------------
+# Myaccount
+--------------------------------------------------------------*/
+
+.article-account {
+  margin-top: 3%;
+}
+
+p {
+  font-size: 15px;
 }

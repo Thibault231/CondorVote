@@ -27,11 +27,7 @@ def myaccount(request):
     -template -- myaccount.html
     """
     user = request.user
-    try:
-        1 == 1
-        desk_list = True
-    except IndexError:
-        desk_list = False
+    desk_list = True 
     context = {
         'user': user,
         'desk_list': desk_list
@@ -50,6 +46,7 @@ def account_creation(request):
     error_password = False
     error_username = False
     error_email = False
+    error_method = False
     if request.method == "POST":
         form = CountCreationForm(request.POST)
         if form.is_valid():
@@ -82,19 +79,24 @@ def account_creation(request):
                         )
 
                         login(request, user)
-
-                        return render(request, 'account/myaccount.html')
-
-                    error_email = True
-
+                        context = {
+                            'message': "User create",
+                        }
+                        return render(request, 'account/myaccount.html', context)
+                    else:
+                        error_email = True
                 else:
                     error_username = True
             else:
                 error_password = True
+        else:
+            error_password = True
     else:
+        error_method = True
         form = CountCreationForm()
 
     context = {
+        "error_method": error_method,
         "error_password": error_password,
         "error_username": error_username,
         "error_email": error_email,
@@ -112,7 +114,10 @@ def connexion(request):
     Returns:
     -template -- connexion.html
     """
-    error = False
+    error_user = False
+    error_formular = False
+    error_method = False
+    message = ""
     user = 0
     if request.method == "POST":
         form = ConnexionForm(request.POST)
@@ -122,13 +127,20 @@ def connexion(request):
             user = authenticate(email=email, password=password)
             if user:
                 login(request, user)
+                message = "User connected"
             else:
-                error = True
+                error_user = True
+        else:
+            error_formular = True
     else:
+        error_method = True
         form = ConnexionForm()
 
     context = {
-        "error": error,
+        "error_user": error_user,
+        "error_method": error_method,
+        "error_formular": error_formular,
+        "message": message,
         "user": user,
         "form": form
     }
@@ -168,12 +180,9 @@ def delete_user(request):
     Returns:
     -template -- delete_done.html
     """
-    try:
-        user = request.user
-        user.delete()
-        logout(request)
-    except ValueError:
-        print(request, "The user not found")
+    user = request.user
+    user.delete()
+    logout(request)
     return render(request, 'account/delete_done.html')
 
 
@@ -189,6 +198,8 @@ def modify_account(request):
     user = request.user
     error_username = False
     account_modificate = False
+    error_formular = False
+    error_method = False
 
     if request.method == "POST":
         form = CountModificationForm(request.POST)
@@ -211,12 +222,17 @@ def modify_account(request):
                 account_modificate = True
             else:
                 error_username = True
+        else:
+            error_formular = True
     else:
+        error_method = True
         form = CountModificationForm()
 
     context = {
         "account_modificate": account_modificate,
         "error_username": error_username,
+        "error_formular": error_formular,
+        "error_method": error_method,
         "form": form
     }
 

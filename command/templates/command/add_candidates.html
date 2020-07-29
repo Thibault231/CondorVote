@@ -1,0 +1,29 @@
+{% extends 'common/base2.html' %}
+{% load static %}
+
+{% block content %}<section id="hero">
+    <div class="hero-container" data-aos="fade-up">
+        <h1><br/><br/>Ajouter les candidats</h1>
+        <article class="container col-lg-12">
+            <br/><br/>
+        <h2 id="message"></h2>
+
+        <h2>Votre bureau compte actuellement {{number_candidate}} candidats</h2>
+        <form  id="form_candidate" class="form1 justify-content-center" action="/command/adding_cand/" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="number" style="display: none;" name="desk_id"  value={{desk_id}} id="item_name">
+            <div id="add_candidate" class="row">
+                <input   class="about-btn5" type="submit" value="Ajouter"  />
+            </div>
+        </form>
+        <br/><br/>
+
+        <button class="about-btn2" id="end_add">
+            <a style="color:black" href="{% url 'desk:create_tickets' desk_id=desk_id %}">J'ai fini d'ajouter des candidats</a>
+        </button>
+        <br/><br/>
+        </article>
+    </div>
+</section>{% endblock %}
+

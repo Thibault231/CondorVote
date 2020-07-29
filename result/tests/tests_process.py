@@ -7,7 +7,7 @@ import numpy as np
 from vote.models import Vote
 from desk.models import Desk
 from common.config import TESTS2, TESTS
-from result.result_process import candidates_duals
+from result.result_process import candidates_duals, lists_for_template
 # from common.config import TESTS
 
 
@@ -61,12 +61,17 @@ class AccountTestCase(TestCase):
             ballot=x5,
             desk_votes=self.desk,
             )
+        self.vote6 = Vote.objects.create(
+            ballot="0",
+            desk_votes=self.desk,
+            )
         self.vote_list = [
             self.vote1,
             self.vote2,
             self.vote3,
             self.vote4,
-            self.vote5
+            self.vote5,
+            self.vote6,
         ]
         self.n_candidates = 6
 
@@ -85,3 +90,24 @@ class AccountTestCase(TestCase):
             victories_matrix,
             TESTS2['victories_matrix'])
         np.testing.assert_array_equal(winner_list, TESTS2['winner_matrix'])
+
+    def test_lists_for_template__args(self):
+        """Tests the transformation of matrix to
+        list for templates.]
+        """
+        vote_list = self.vote_list
+        vote_matrix = TESTS2['vote_matrix']
+        victories_matrix = TESTS2['victories_matrix']
+        candidates_names_list = [
+            TESTS['name1'], TESTS['name1'], TESTS['name1'],
+            TESTS['name1'], TESTS['name1'], TESTS['name1']]
+        template_lists = lists_for_template(
+            victories_matrix,
+            vote_matrix,
+            candidates_names_list)
+        self.assertIsInstance(template_lists[0], list)
+        self.assertIsInstance(template_lists[1], list)
+        self.assertIsInstance(template_lists[2], list)
+        
+
+        

@@ -37,7 +37,7 @@ class AccountTestCase(TestCase):
             )
         self.ticket = Ticket.objects.create(
             ticket_number=TESTS['number1'],
-            ticket_code=TESTS['number1']+1,
+            ticket_code=TESTS['number1'],
             desk_tickets=self.desk
         )
         self.candidate = Candidate.objects.create(
@@ -77,13 +77,8 @@ class AccountTestCase(TestCase):
         """
         response = self.client.post(
             reverse('vote:enter_ticket'),
-            {'ticket': TESTS['number1']+1})
-        self.assertEqual(
-            response.status_code,
-            TESTS['RightStatus'])
-        self.assertEqual(
-            response.context['message'],
-            "Votre ticket est validé. Vous pouvez voter.")
+            {'ticket': TESTS['number1']})
+        self.assertTrue(response.url.__contains__('/vote/vote/'))
 
     def test_wrong_post_log_enter_ticket_page(self):
         """Test access on the page enter_tickets of an
@@ -92,7 +87,20 @@ class AccountTestCase(TestCase):
         """
         response = self.client.post(
             reverse('vote:enter_ticket'),
-            {'ticket': TESTS['number1']})
+            {'ticket': TESTS['number1']+1})
+        self.assertEqual(response.status_code, TESTS['RightStatus'])
+        self.assertEqual(
+            response.context['message'],
+            "Aucun bureau de vote ne correspond à votre ticket.")
+
+    def test_invalidform_post_enter_ticket_page(self):
+        """Test access on the page enter_tickets of an
+        anonymous user with POST method and invalid args.
+        Enter a wrong ticket number.
+        """
+        response = self.client.post(
+            reverse('vote:enter_ticket'),
+            {'tickets': TESTS['number1']+1})
         self.assertEqual(response.status_code, TESTS['RightStatus'])
         self.assertEqual(
             response.context['message'],

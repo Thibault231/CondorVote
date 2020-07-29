@@ -51,11 +51,13 @@ def enter_ticket(request):
                 message = "Votre ticket est validé. Vous pouvez voter."
                 validate_ticket = True
                 right_ticket.delete()
-                return redirect ('/vote/{}/'.format(new_vote.id))
+                return redirect('/vote/vote/{}/'.format(new_vote.id))
             else:
+                form = EnterTicketForm()
                 message = "Aucun bureau de vote ne correspond à votre ticket."
         else:
-                message = "Aucun bureau de vote ne correspond à votre ticket."
+            form = EnterTicketForm()
+            message = "Aucun bureau de vote ne correspond à votre ticket."
     else:
         form = EnterTicketForm()
     context = {

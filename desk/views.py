@@ -61,13 +61,13 @@ def create_desk(request):
                 user.account.save()
                 new_desk_id = new_desk.id
                 desk_complete = True
-                return redirect (
+                return redirect(
                     '/desk/add_candidates/{}/'.format(new_desk.id)
                 )
             else:
                 old_desk = desk_control[0]
                 existing_desk = True
-                return redirect (
+                return redirect(
                     '/desk/add_candidates/{}/'.format(old_desk.id)
                 )
 
@@ -125,18 +125,9 @@ def add_candidates(request, desk_id):
                 desk.save()
                 adding_candidate = True
             else:
-                desk_control = Desk.objects.filter(
-                    candidates=candidate_control[0]
-                )
-                if not desk_control:
-                    new_candidate = candidate_control[0]
-                    desk.candidates.add(new_candidate)
-                    desk.save()
-                    adding_candidate = True
-                else:
-                    new_candidate = candidate_control[0]
-                    double_candidate = True
-                    adding_candidate = False
+                new_candidate = candidate_control[0]
+                double_candidate = True
+                adding_candidate = False
 
     form = AddCandidateForm()
     number_candidates = len(Candidate.objects.all().filter(desk=desk))
@@ -306,7 +297,7 @@ def close_desk(request, desk_id):
 
     user = request.user
     desk_list = Desk.objects.filter(account=user.account.id)
-    
+
     context = {
         "desk_list": desk_list,
         "desk_number": len(desk_list),
@@ -364,11 +355,10 @@ def delete_candidate(request, candidate_id, desk_id):
     """
     candidate = get_object_or_404(Candidate, id=candidate_id)
     candidate.delete()
-    print("ok")
 
     desk = get_object_or_404(Desk, id=desk_id)
     candidates_list = Candidate.objects.filter(desk=desk_id)
-    winners = "Baba, 5: victoires, score: 12"
+    tickets_list = Ticket.objects.filter(desk_tickets=desk_id)
 
     if desk.status == "C":
         status = "Créé/Non ouvert"
@@ -376,10 +366,13 @@ def delete_candidate(request, candidate_id, desk_id):
         status = "Ouvert"
     elif desk.status == "E":
         status = "clôturé"
+
     context = {
         "desk": desk,
-        "winners": winners,
         "status": status,
+        "winners": desk.winners,
+        "tickets_list": tickets_list,
+        "remaining_tickets": len(tickets_list),
         "candidates_list": candidates_list
     }
     return render(request, 'desk/display_active_desk.html', context)
@@ -419,6 +412,7 @@ def add_voters(request, desk_id):
                 message = "Veuillez indiquer un nombre supérieur à zéro"
                 form = AddVotersForm()
         else:
+            message = "Formulaire non valide"
             form = AddVotersForm()
     else:
         form = AddVotersForm()

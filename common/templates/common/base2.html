@@ -43,21 +43,21 @@
             <ul>
                 <li class="active"><a href="{% url 'index' %}">Accueil</a></li>
                 {% if user.is_anonymous %}
-                <li><a href="{% url 'account:connexion' %}">Me connecter</a></li>
-                <li><a href="{% url 'account:account_creation' %}">Créer un compte</a></li>
+                <li><a id="connection" href="{% url 'account:connexion' %}">Me connecter</a></li>
+                <li><a id="create_account" href="{% url 'account:account_creation' %}">Créer un compte</a></li>
                 {% endif %} 
-                <li><a href="{% url 'vote:enter_ticket' %}">Voter</a></li>
+                <li><a id="vote" href="{% url 'vote:enter_ticket' %}">Voter</a></li>
                 <li class="drop-down"><a href="">Documentation</a>
                 <ul>
                     <li><a href="{% url 'documentation:condorcet_infos' %}">Le scrutin de Condorcet</a></li>
                     <li><a href="{% url 'documentation:voter_infos' %}">Comment voter</a></li>
-                    <li><a href="{% url 'documentation:organizer_infos' %}">Créer un bureau de vote</a></li>
+                    <li><a id="create_desk" href="{% url 'documentation:organizer_infos' %}">Créer un bureau de vote</a></li>
                 </ul>
                 </li>
                 {% if user.is_authenticated %}
                 <li><a href="{% url 'desk:create_desk' %}">Créer un bureau</a></li>
-                <li><a href="{% url 'account:deconnexion' %}">Me déconnecter</a></li>
-                <li><a href="{% url 'account:myaccount' %}">Mon compte</a></li>
+                <li><a id="connection" href="{% url 'account:deconnexion' %}">Me déconnecter</a></li>
+                <li><a id="my_account2" href="{% url 'account:myaccount' %}">Mon compte</a></li>
                 {% endif %} 
                
     
@@ -91,6 +91,7 @@
 <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
 
   <!-- Vendor JS Files -->
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="{% static 'common/assets/vendor/jquery/jquery.min.js' %}"></script>
   <script src="{% static 'common/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
   <script src="{% static 'common/assets/vendor/jquery.easing/jquery.easing.min.js' %}"></script>

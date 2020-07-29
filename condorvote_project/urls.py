@@ -26,6 +26,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path(
+        'command/',
+        include(('command.urls', 'app_name'), namespace='command')),
+    path(
         'common/',
         include(('common.urls', 'app_name'), namespace='common')),
     path(

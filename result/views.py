@@ -23,14 +23,11 @@ def result(request, desk_id):
     desk = get_object_or_404(Desk, id=desk_id)
     votes_list = Vote.objects.filter(desk_votes=desk)
     candidates_list = Candidate.objects.filter(desk=desk)
-    id_candidates_list = []
-    for candidate in candidates_list:
-        id_candidates_list.append(candidate.id)
-
     vote_matrix, victories_matrix, winner_list = candidates_duals(
         votes_list, len(candidates_list)
     )
     for candidate in winner_list:
+        
         candidate[1] = "{} _ {}".format(
             candidates_list[candidate[1]].first_name.capitalize(),
             candidates_list[candidate[1]].last_name.upper()
@@ -62,9 +59,6 @@ def result_details(request, desk_id):
     desk = get_object_or_404(Desk, id=desk_id)
     votes_list = Vote.objects.filter(desk_votes=desk)
     candidates_list = Candidate.objects.filter(desk=desk)
-    id_candidates_list = []
-    for candidate in candidates_list:
-        id_candidates_list.append(candidate.id)
 
     vote_matrix, victories_matrix, winner_list = candidates_duals(
         votes_list, len(candidates_list))
@@ -88,7 +82,6 @@ def result_details(request, desk_id):
     template_lists = lists_for_template(
         victories_matrix, vote_matrix, candidates_names_list
         )
-
 
     context = {
         "vote_matrix": template_lists[0],

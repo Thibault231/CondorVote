@@ -1530,16 +1530,18 @@ Section Forms
 .about-btn2 {
   margin-bottom: 30px;
   display: inline-block;
-  background: linear-gradient(#67d175, #026e10);
+  background: linear-gradient(#734fd8, rgb(81, 153, 236));
   padding: 6px 44px 8px 30px;
   color: #fff;
   border-radius: 50px;
   transition: 0.3s;
+  box-shadow:10px 10px 10px #999;
   position: relative;
 }
 
 .about-btn2:hover {
-  background: #1ad889;
+  background: linear-gradient(rgb(81, 153, 236), #734fd8);
+  box-shadow: 0px 0px 0px;
 }
 
 .about-btn2 i {
@@ -1570,15 +1572,17 @@ Section Forms
   margin-bottom: 30px;
   display: inline-block;
   background: linear-gradient(#990202, rgb(252, 40, 40));
-  padding: 6px 44px 8px 30px;
-  color: #fff;
-  border-radius: 50px;
+  border:none;
+	padding:6px 0 6px 0;
+	border-radius:75%;
+	border-bottom:3px solid #0a6647;
+  font:bold 13px Arial;
   transition: 0.3s;
-  position: relative;
+	color:#555;
 }
 
 .about-btn4:hover {
-  background: #f83d3d;
+  background: linear-gradient(rgb(252, 40, 40), #990202);
 }
 
 .about-btn5 {
@@ -1600,7 +1604,22 @@ Section Forms
   top: 9px;
 }
 
-
+.about-btn6 {
+	border-radius:12px 0 12px 0;
+	background: linear-gradient(#919bee, #026e10);
+	border:none;
+	color:rgb(8, 8, 8);
+	font: bold 1rem;
+	padding:6px 0 6px 0;
+  border:1px solid #ccc;
+  transition: 0.3s;
+  box-shadow:10px 10px 10px #999;
+  
+}
+.about-btn6:hover {
+  background: linear-gradient(#026e10, #67d175);
+  box-shadow:0px 0px 0px #999;
+}
 
 .about-info2 {
   margin-bottom: 30px;

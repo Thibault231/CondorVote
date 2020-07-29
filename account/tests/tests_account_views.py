@@ -77,12 +77,44 @@ class AccountTestCase(TestCase):
             password=TESTS['name2'])
         self.assertIsNot(response, True)
 
-    def test_connexion_page(self):
+    def test_get_connexion_page(self):
         """Test account to the page Connexion with
         GET method and right args.
         """
         response = self.client.get(reverse('account:connexion'))
         self.assertEqual(response.status_code, TESTS['RightStatus'])
+        self.assertTrue(response.context['error_method'])
+    
+    def test_wrong_formular_connexion(self):
+        """Test account to the page Connexion with
+        GET method and wrong formular.
+        """
+        user = self.user
+        response = self.client.post(reverse('account:connexion'), {
+            'email': user.email})
+        self.assertEqual(response.status_code, TESTS['RightStatus'])
+        self.assertTrue(response.context['error_formular'])
+
+    def test_wrong_user_connexion(self):
+        """Test account to the page Connexion with
+        POST method and wrong password.
+        """
+        user = self.user
+        response = self.client.post(reverse('account:connexion'), {
+            'email': user.email,
+            'password': user.password+'t'})
+        self.assertEqual(response.status_code, TESTS['RightStatus'])
+        self.assertTrue(response.context['error_user'])
+    
+    def test_right_user_connexion(self):
+        """Test account to the page Connexion with
+        POST method and wrong password.
+        """
+        response = self.client.post(reverse('account:connexion'), {
+            'email': self.user.email,
+            'password': TESTS['name1']})
+        self.assertEqual(response.status_code, TESTS['RightStatus'])
+        self.assertEqual(response.context['message'], 'User connected')
 
     def test_deconnexion_log_page(self):
         """Test deaccount of a loged user with the view deconnexion
@@ -118,23 +150,102 @@ class AccountTestCase(TestCase):
         response = self.client.get('account:deconnexion')
         self.assertEqual(response.status_code, TESTS['UnfoundStatus'])
 
-    def test_account_creation_account_page(self):
+    def test_get_creation_account_page(self):
         """Test account creation on the page Account_creation of an
         anonymous user with GET method and right args.
         """
         response = self.client.get(reverse('account:account_creation'))
         self.assertEqual(response.status_code, TESTS['RightStatus'])
+        self.assertTrue(response.context['error_method'])
 
-    def test_right_account_creation_page(self):
+    def test_right_post_account_creation_(self):
         """Test account creation on the page Account_creation of an
         anonymous user with GET method and wrong args.
         """
         response = self.client.post(reverse('account:account_creation'), {
             'username': TESTS['name2'],
+            'first_name': TESTS['name1'],
+            'last_name': TESTS['name1'],
             'email': TESTS['name2']+'@gmail.com',
+            'school': TESTS['school'],
+            'departement': TESTS['departement'],
+            'password1': TESTS['name1'],
+            'password2': TESTS['name1']})
+        self.assertEqual(response.status_code, TESTS['RightStatus'])
+        self.assertEqual(response.context['message'], 'User create')
+
+    def test_wrong_formular_account_creation(self):
+        """Test account creation on the page Account_creation of an
+        anonymous user with POST method and wrong args.
+        """
+        response = self.client.post(reverse('account:account_creation'), {
+            'username': TESTS['name2'],
             'password1': TESTS['name2'],
             'password2': TESTS['name2']})
         self.assertEqual(response.status_code, TESTS['RightStatus'])
+        self.assertTrue(response.context['error_password'])
+
+    def test_wrong_user_account_creation(self):
+        """Test account creation on the page Account_creation of an
+        anonymous user with POST method and wrong args.
+        """
+        response = self.client.post(reverse('account:account_creation'), {
+            'username': TESTS['name1'],
+            'email': TESTS['name1']+'@gmail.com',
+            'password1': TESTS['name1'],
+            'password2': TESTS['name1']})
+        self.assertEqual(response.status_code, TESTS['RightStatus'])
+        self.assertTrue(response.context['error_password'])
+
+    def test_wrong_password_account_creation(self):
+        """Test account creation on the page Account_creation of an
+        anonymous user with POST method and wrong password.
+        """
+        response = self.client.post(reverse('account:account_creation'), {
+            'username': TESTS['name2'],
+            'first_name': TESTS['name1'],
+            'last_name': TESTS['name1'],
+            'email': TESTS['name2']+'@gmail.com',
+            'school': TESTS['school'],
+            'departement': TESTS['departement'],
+            'password1': TESTS['name1'],
+            'password2': TESTS['name2']})
+        self.assertEqual(response.status_code, TESTS['RightStatus'])
+        self.assertTrue(response.context['error_password'])
+
+    def test_wrong_username_account_creation(self):
+        """Test account creation on the page Account_creation of an
+        anonymous user with POST method and wrong username.
+        """
+        user = self.user
+        response = self.client.post(reverse('account:account_creation'), {
+            'username': user.username,
+            'first_name': TESTS['name1'],
+            'last_name': TESTS['name1'],
+            'email': TESTS['name1']+'@gmail.com',
+            'school': TESTS['school'],
+            'departement': TESTS['departement'],
+            'password1': TESTS['name1'],
+            'password2': TESTS['name1']})
+        self.assertEqual(response.status_code, TESTS['RightStatus'])
+        self.assertTrue(response.context['error_username'])
+
+    def test_wrong_email_account_creation(self):
+        """Test account creation on the page Account_creation of an
+        anonymous user with POST method and wrong username.
+        """
+        user = self.user
+        response = self.client.post(reverse('account:account_creation'), {
+            'username': TESTS['name2'],
+            'first_name': TESTS['name1'],
+            'last_name': TESTS['name1'],
+            'email': user.email,
+            'school': TESTS['school'],
+            'departement': TESTS['departement'],
+            'password1': TESTS['name1'],
+            'password2': TESTS['name1']})
+        self.assertEqual(response.status_code, TESTS['RightStatus'])
+        self.assertTrue(response.context['error_email'])
 
     def test_right_delete_confirmation_page(self):
         """Test account deletion on the page Delete_confirmation of a loged
@@ -170,7 +281,7 @@ class AccountTestCase(TestCase):
         response = self.client.get(reverse('account:delete_user'))
         self.assertEqual(response.status_code, TESTS['RightStatus'])
 
-    def test_modify_account_log_page(self):
+    def test_get_modify_account_log_page(self):
         """Test account creation on the page Account_creation of an
         anonymous user with GET method and right args.
         """
@@ -179,6 +290,7 @@ class AccountTestCase(TestCase):
             password=TESTS['name1'])
         response = self.client.get(reverse('account:modify_account'))
         self.assertEqual(response.status_code, TESTS['RightStatus'])
+        self.assertTrue(response.context['error_method'])
 
     def test_modify_account_unlog_page(self):
         """Test account creation on the page modify_account of an
@@ -203,17 +315,35 @@ class AccountTestCase(TestCase):
         })
         self.assertEqual(response.status_code, TESTS['RightStatus'])
 
-    def test_partial_account_modification_page(self):
+    def test_wrong_formular_account_modification(self):
         """Test account creation on the page modify_account of an
-        connected user with GET method and uncompleted args.
+        connected user with GET method and right args.
         """
         self.client.login(
             email=TESTS['name1']+'@gmail.com',
             password=TESTS['name1'])
         response = self.client.post(reverse('account:modify_account'), {
+            'username': TESTS['name2'],
+            'last_name': TESTS['name2'],
+            'school': TESTS['name1'],
+            'departement': TESTS['departement']+1,
+        })
+        self.assertEqual(response.status_code, TESTS['RightStatus'])
+        self.assertTrue(response.context['error_formular'])
+
+    def test_wrong_username_account_modification(self):
+        """Test account creation on the page modify_account of an
+        connected user with GET method and right args.
+        """
+        self.client.login(
+            email=TESTS['name1']+'@gmail.com',
+            password=TESTS['name1'])
+        response = self.client.post(reverse('account:modify_account'), {
+            'username': TESTS['name1'],
             'first_name': TESTS['name2'],
             'last_name': TESTS['name2'],
             'school': TESTS['name1'],
             'departement': TESTS['departement']+1,
         })
         self.assertEqual(response.status_code, TESTS['RightStatus'])
+        self.assertTrue(response.context['error_username'])

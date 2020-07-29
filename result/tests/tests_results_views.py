@@ -60,7 +60,8 @@ class AccountTestCase(TestCase):
             departement=TESTS['departement'],
             )
         self.vote = Vote.objects.create(
-            ballot="['{cand}', '1'], ['{cand}', '1']".format(cand=self.candidate.id),
+            ballot="['{cand}', '1'], ['{cand}', '1']".format(
+                cand=self.candidate.id),
             desk_votes=self.desk,
             )
 

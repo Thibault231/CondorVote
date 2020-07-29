@@ -27,7 +27,7 @@ def myaccount(request):
     -template -- myaccount.html
     """
     user = request.user
-    desk_list = True 
+    desk_list = True
     context = {
         'user': user,
         'desk_list': desk_list
@@ -82,7 +82,9 @@ def account_creation(request):
                         context = {
                             'message': "User create",
                         }
-                        return render(request, 'account/myaccount.html', context)
+                        return render(
+                            request,
+                            'account/myaccount.html', context)
                     else:
                         error_email = True
                 else:

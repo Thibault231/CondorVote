@@ -84,7 +84,7 @@ class AccountTestCase(TestCase):
         response = self.client.get(reverse('account:connexion'))
         self.assertEqual(response.status_code, TESTS['RightStatus'])
         self.assertTrue(response.context['error_method'])
-    
+
     def test_wrong_formular_connexion(self):
         """Test account to the page Connexion with
         GET method and wrong formular.
@@ -105,7 +105,7 @@ class AccountTestCase(TestCase):
             'password': user.password+'t'})
         self.assertEqual(response.status_code, TESTS['RightStatus'])
         self.assertTrue(response.context['error_user'])
-    
+
     def test_right_user_connexion(self):
         """Test account to the page Connexion with
         POST method and wrong password.

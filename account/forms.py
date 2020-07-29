@@ -10,7 +10,8 @@ class ConnexionForm(forms.Form):
     Used in account templates and views for login.
     """
     email = forms.CharField(label="E-mail:", max_length=30)
-    password = forms.CharField(label="Mot de passe:", widget=forms.PasswordInput)
+    password = forms.CharField(
+        label="Mot de passe:", widget=forms.PasswordInput)
 
 
 class CountCreationForm(forms.Form):

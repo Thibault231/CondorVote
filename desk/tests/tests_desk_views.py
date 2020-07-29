@@ -213,7 +213,7 @@ class AccountTestCase(TestCase):
         of a connected user with POST method and right args.
         """
         desk = self.desk
-        candidate =self.candidate
+        candidate = self.candidate
         candidate.desk = desk.id
         candidate.save()
         self.client.login(
@@ -257,7 +257,8 @@ class AccountTestCase(TestCase):
             reverse('desk:create_tickets', args=(desk.id, ))
         )
         self.assertEqual(response.status_code, TESTS['RightStatus'])
-        self.assertEqual(len(response.context['tickets_list']), TESTS['number1'])
+        self.assertEqual(
+            len(response.context['tickets_list']), TESTS['number1'])
 
     def test_access_unlog_create_tickets_page(self):
         """Test access on the page desk_creation of an

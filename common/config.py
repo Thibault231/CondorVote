@@ -59,7 +59,7 @@ TESTS4 = {
     "UrlCandidates": 'http://127.0.0.1:8000/desk/add_candidates/',
     "UrlTickets": 'http://127.0.0.1:8000/desk/create_tickets/',
     "UrlConnection": 'http://127.0.0.1:8000/account/connexion/',
-    "UrlMyAccount": 'http://127.0.0.1:8000/account/myaccount/' ,
+    "UrlMyAccount": 'http://127.0.0.1:8000/account/myaccount/',
     "UrlDeleteUser": 'http://127.0.0.1:8000/account/delete_user/',
     "UrlDeleteConfirm": 'http://127.0.0.1:8000/account/delete_confirmation/',
 }

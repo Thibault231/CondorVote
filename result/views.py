@@ -27,7 +27,6 @@ def result(request, desk_id):
         votes_list, len(candidates_list)
     )
     for candidate in winner_list:
-        
         candidate[1] = "{} _ {}".format(
             candidates_list[candidate[1]].first_name.capitalize(),
             candidates_list[candidate[1]].last_name.upper()

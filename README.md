@@ -57,7 +57,7 @@ For running it localy:
         EMAIL_HOST_PASSWORD=    "your email password for smtp functionality" for production only.
 
     4-Create tables within your database using the command "python manage.py migrate" in the consol.
-    5-Finally run the program with the command "python manage.py runserver".
+    5-Finally run the program with command "python manage.py runserver".
 The home page is being displayed at local port:8000.
 
 # AUTHOR:

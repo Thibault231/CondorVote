@@ -7,11 +7,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from django.test import LiveServerTestCase, RequestFactory
-from django.contrib.auth.models import User
-from account.models import Account
-from desk.models import Desk, Ticket, Candidate
-from vote.models import Vote
+from django.test import LiveServerTestCase, tag
 from common.config import TESTS4, TESTS
 
 
@@ -37,6 +33,7 @@ class TestUserTakesTheTest(LiveServerTestCase):
         """
         self.driver.quit()
 
+    @tag('fast')
     def test_create_user_desk_vote(self):
         driver = self.driver
 
@@ -47,21 +44,21 @@ class TestUserTakesTheTest(LiveServerTestCase):
         wait.until(EC.element_to_be_clickable((By.ID, "create_account")))
         first_url = driver.current_url
         driver.find_element(By.ID, 'create_account').click()
-        
+
         wait.until(EC.element_to_be_clickable((By.ID, "formular_account")))
         second_url = driver.current_url
         driver.find_element(
-            By.ID, 'id_username').send_keys(TESTS['name2'] )
+            By.ID, 'id_username').send_keys(TESTS['name2'])
         driver.find_element(
             By.ID, 'id_first_name').send_keys(TESTS['name2'])
         driver.find_element(
             By.ID, 'id_last_name').send_keys(TESTS['name2'])
         driver.find_element(
-            By.ID, 'id_email').send_keys(TESTS['name2']+'@gmail.com' )
+            By.ID, 'id_email').send_keys(TESTS['name2']+'@gmail.com')
         driver.find_element(
-            By.ID, 'id_school').send_keys(TESTS['name2'])    
+            By.ID, 'id_school').send_keys(TESTS['name2'])
         driver.find_element(
-            By.ID, 'id_departement').send_keys(TESTS['number1'])   
+            By.ID, 'id_departement').send_keys(TESTS['number1'])
         driver.find_element(
             By.ID, 'id_password1').send_keys(TESTS['name2'])
         driver.find_element(
@@ -81,25 +78,24 @@ class TestUserTakesTheTest(LiveServerTestCase):
         driver.find_element(By.ID, 'id_opening_vote_1').click()
         driver.find_element(
             By.ID, 'id_tickets_amount').send_keys('1' + Keys.RETURN)
-        
+
         wait.until(EC.element_to_be_clickable((By.ID, "end_add_candidate")))
-        fifth_url = driver.current_url 
+        fifth_url = driver.current_url
         driver.find_element(By.ID, 'end_add_candidate').click()
 
         wait.until(EC.presence_of_element_located((By.ID, "ticket_code")))
         sixth_url = driver.current_url
-        ticket = driver.find_element(By.ID, 'ticket_code').get_attribute('value')
+        ticket = driver.find_element(
+            By.ID, 'ticket_code').get_attribute('value')
 
-        #vote
+        # vote
         wait.until(EC.element_to_be_clickable((By.ID, "vote")))
-        seventh_url = driver.current_url
         driver.find_element(By.ID, 'vote').click()
 
         wait.until(EC.element_to_be_clickable((By.ID, "validate_ticket")))
-        eighth_url = driver.current_url
         driver.find_element(
-            By.ID, 'id_ticket').send_keys( ticket + Keys.RETURN)
-        
+            By.ID, 'id_ticket').send_keys(ticket + Keys.RETURN)
+
         wait.until(EC.element_to_be_clickable((By.ID, "validate_ballot")))
         nineth_url = driver.current_url
         driver.find_element(By.ID, "validate_ballot").click()
@@ -116,7 +112,7 @@ class TestUserTakesTheTest(LiveServerTestCase):
         self.assertTrue(nineth_url.__contains__(TESTS4['UrlVote']))
         self.assertTrue(tenth_url.__contains__(TESTS4['UrlVote']))
 
-
+    @tag('fast')
     def test_user_connect_delete(self):
         driver = self.driver
 
@@ -125,7 +121,7 @@ class TestUserTakesTheTest(LiveServerTestCase):
 
         wait.until(EC.element_to_be_clickable((By.ID, "djHideToolBarButton")))
         driver.find_element(By.ID, "djHideToolBarButton").click()
-        
+
         wait.until(EC.element_to_be_clickable((By.ID, "connection")))
         first_url = driver.current_url
         driver.find_element(By.ID, 'connection').click()
@@ -133,7 +129,7 @@ class TestUserTakesTheTest(LiveServerTestCase):
         wait.until(EC.element_to_be_clickable((By.ID, "formular_connection")))
         second_url = driver.current_url
         driver.find_element(
-            By.ID, 'id_email').send_keys(TESTS['name2']+'@gmail.com' ) 
+            By.ID, 'id_email').send_keys(TESTS['name2']+'@gmail.com')
         driver.find_element(
             By.ID, 'id_password').send_keys(TESTS['name2'] + Keys.RETURN)
 

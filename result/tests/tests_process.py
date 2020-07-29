@@ -95,7 +95,6 @@ class AccountTestCase(TestCase):
         """Tests the transformation of matrix to
         list for templates.]
         """
-        vote_list = self.vote_list
         vote_matrix = TESTS2['vote_matrix']
         victories_matrix = TESTS2['victories_matrix']
         candidates_names_list = [
@@ -108,6 +107,3 @@ class AccountTestCase(TestCase):
         self.assertIsInstance(template_lists[0], list)
         self.assertIsInstance(template_lists[1], list)
         self.assertIsInstance(template_lists[2], list)
-        
-
-        

@@ -12,7 +12,7 @@
             {%  if not new_ballot %}
             <p> Le numéro indique l'ordre de préférence<br/></p>
             <div class="d-flex justify-content-center">
-                <form class="col-lg-6 text-right" action="." method="post">
+                <form id="formular_ballot" class="col-lg-6 text-right" action="." method="post">
                     {% csrf_token %}
                     {% for candidate in candidates_list %}
                         <label for={{candidate.id}}>{{candidate.last_name}} {{candidate.first_name}}: </label>
@@ -20,14 +20,14 @@
                         <br/>
                     {% endfor %}
                     <br/> 
-                    <input class="about-btn3" type="submit" value="Valider mon vote">
+                    <input id="validate_ballot" class="about-btn3" type="submit" value="Valider mon vote">
                 </form>
             </div>
             {% endif %}
             {%  if new_ballot %}
                 <h4>Attendez que l'organisateur de l'élection clôture le bureau<br/>pour connaître les résultats.<br/><br/></h4>
-                <a href="{% url 'index' %}" ><div class="about-btn">
-                    <h1>Retourner à l'acceuil</h1>
+                <a id="end_vote" href="{% url 'index' %}" ><div class="about-btn">
+                    <h1 >Retourner à l'acceuil</h1>
                 </div></a>
 
             {% endif %}

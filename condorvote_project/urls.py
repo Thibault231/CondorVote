@@ -26,9 +26,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path(
-        'api/',
-        include(('rest_framework.urls', 'app_name'), namespace='api')),
-    path(
         'command/',
         include(('command.urls', 'app_name'), namespace='command')),
     path(

@@ -28,6 +28,7 @@
                 {% for ticket in tickets_list %}
                 <div class="d-flex flex-column text-center">
                     <p>&emsp;{{ticket.ticket_number}}&emsp;Code ticket:&emsp;{{ticket.ticket_code}}</p>
+                    <input id="ticket_code" style="display:none" value={{ticket.ticket_code}} />
                 </div>
                 {% endfor %}
                 </div>
@@ -35,7 +36,7 @@
         
             <br/><br/>
             <button class="about-btn2" id="end_add">
-                <a style="color:black" href="{% url 'account:myaccount' %}">Retourner sur Mon Compte</a>
+                <a id="see_tickets" style="color:black" href="{% url 'account:myaccount' %}">Retourner sur Mon Compte</a>
             </button>
         {% endif %}
 

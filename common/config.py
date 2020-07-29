@@ -49,3 +49,17 @@ TESTS3 = {
     "StatusOpen": "O",
     "StatusClose": "E",
 }
+
+TESTS4 = {
+    "UrlApp": "http://127.0.0.1:8000/",
+    "UrlTicket": "http://127.0.0.1:8000/vote/enter_ticket/",
+    "UrlVote": "http://127.0.0.1:8000/vote/vote/",
+    "UrlCreateAccount": 'http://127.0.0.1:8000/account/account_creation/',
+    "UrlCreateDesk": 'http://127.0.0.1:8000/desk/create_desk/',
+    "UrlCandidates": 'http://127.0.0.1:8000/desk/add_candidates/',
+    "UrlTickets": 'http://127.0.0.1:8000/desk/create_tickets/',
+    "UrlConnection": 'http://127.0.0.1:8000/account/connexion/',
+    "UrlMyAccount": 'http://127.0.0.1:8000/account/myaccount/' ,
+    "UrlDeleteUser": 'http://127.0.0.1:8000/account/delete_user/',
+    "UrlDeleteConfirm": 'http://127.0.0.1:8000/account/delete_confirmation/',
+}

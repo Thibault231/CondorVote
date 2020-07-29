@@ -89,7 +89,6 @@ def calculate_victories(vote_matrix):
 def calculate_winner(victories_matrix, vote_matrix):
     """[Calculate the list of winners from the number of their
     victories ]
-
     Args:
         victories_matrix ([matrix]): [matrix of candidates
                                     victories vs each others]
@@ -144,6 +143,7 @@ def candidates_duals(votes_list, n_candidates):
 
     return vote_matrix, victories_matrix, winner_list
 
+
 def lists_for_template(victories_matrix, vote_matrix, candidates_names_list):
     """Function that rules transform matrix to list
     and add candidate's names.
@@ -161,13 +161,13 @@ def lists_for_template(victories_matrix, vote_matrix, candidates_names_list):
         [list]: [List of total score for each
         candidate.]
     """
-    
+
     victories_matrix = victories_matrix.tolist()
     for element in victories_matrix:
         candidate_name = candidates_names_list[victories_matrix.index(element)]
         element.insert(0, candidate_name)
-    
-    victories_list=[]
+
+    victories_list = []
     for row in victories_matrix:
         victories_list_element = []
         for element in row:
@@ -181,7 +181,7 @@ def lists_for_template(victories_matrix, vote_matrix, candidates_names_list):
                 victories_list_element.append(element)
         victories_list.append(victories_list_element)
 
-    total_victories_list =[]
+    total_victories_list = []
     for row in victories_list:
         total_victories_list.append(row.count('V'))
 

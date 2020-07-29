@@ -46,6 +46,7 @@ class AccountTestCase(TestCase):
             school=TESTS['school'],
             classroom=TESTS['name2']
         )
+        self.candidate.save()
         self.user = User.objects.create_user(
             username=TESTS['name1'],
             email=TESTS['name1']+'@gmail.com',
@@ -59,7 +60,7 @@ class AccountTestCase(TestCase):
             departement=TESTS['departement'],
             )
         self.vote = Vote.objects.create(
-            ballot="['12', '0'], ['1', '0']",
+            ballot="['{cand}', '1'], ['{cand}', '1']".format(cand=self.candidate.id),
             desk_votes=self.desk,
             )
 
@@ -76,11 +77,16 @@ class AccountTestCase(TestCase):
         anonymous user with GET method and right args.
         """
         desk = self.desk
+        candidate = self.candidate
+        desk.candidates.add(candidate)
+        desk.save()
         self.client.login(
             email=TESTS['name1']+'@gmail.com',
             password=TESTS['name1'])
         response = self.client.get(reverse('result:result', args=(desk.id, )))
         self.assertEqual(response.status_code, TESTS['RightStatus'])
+        self.assertIsInstance(response.context['message'], int)
+        self.assertIsInstance(response.context['winners_list'], list)
 
     def test_access_unlog_result_details_page(self):
         """Test access on the page result_details of a
@@ -100,6 +106,9 @@ class AccountTestCase(TestCase):
         anonymous user with GET method and right args.
         """
         desk = self.desk
+        candidate = self.candidate
+        desk.candidates.add(candidate)
+        desk.save()
         self.client.login(
             email=TESTS['name1']+'@gmail.com',
             password=TESTS['name1'])

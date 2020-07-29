@@ -9,7 +9,7 @@
         <p><br/><br/>Etes vous sûre de vouloir continuer?</p>
         <div class="row d-flex justify-content-around">
             <button class="about-btn2" id="delete2">
-                <p><a style="color:black" href="{% url 'account:delete_user' %}">Supprimer mon compte</a></p>
+                <p><a id="delete_confirm" style="color:black" href="{% url 'account:delete_user' %}">Supprimer mon compte</a></p>
             </button>
             <button class="about-btn2" id="notdelete">
                 <p><a style="color:black" href="{% url 'account:myaccount' %}">Retourner sur Mon compte</a></p>

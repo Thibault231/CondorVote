@@ -17,7 +17,7 @@ $("#form_candidate").submit(function (event) {
                 }
             });
             return false;
-    
+
 });
 
 

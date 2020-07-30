@@ -140,7 +140,7 @@ def add_candidates(request, desk_id):
         "desk_id": desk_id,
         "number_candidate": number_candidates,
     }
-    return render(request, 'desk/add_candidates.html', context)
+    return render(request, 'command/add_candidates.html', context)
 
 
 @login_required

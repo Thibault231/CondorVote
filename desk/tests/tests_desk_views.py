@@ -438,7 +438,7 @@ class AccountTestCase(TestCase):
         )
         self.assertEqual(response.status_code, TESTS['WrongStatus'])
 
-    def test_access_log_add_voters_page(self):
+    def test_access_get_add_voters_page(self):
         """Test access on the page add_voters of a
         loged user with GET method and right args.
         """
@@ -451,7 +451,7 @@ class AccountTestCase(TestCase):
         )
         self.assertEqual(response.status_code, TESTS['RightStatus'])
 
-    def test_access_unlog_add_voters_page(self):
+    def test_access_post_unlog_add_voters(self):
         """Test access on the page add_voters of an
         anonymous user with GET method and right args.
         """

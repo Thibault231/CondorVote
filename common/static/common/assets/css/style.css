@@ -90,6 +90,16 @@ h1, h2, h3, h4, h5, h6 {
   text-transform: uppercase;
 }
 
+#header .logo #picture_logo {
+  transform: rotate(-360deg);
+  transition: transform 500ms ease-in-out;
+}
+
+#header .logo #picture_logo:hover {
+  -webkit-transform: rotate(0deg);
+  transform: rotate(0deg);
+}
+
 #header .logo h1 a, #header .logo h1 a:hover {
   color: #fff;
   text-decoration: none;
@@ -686,12 +696,25 @@ section {
   border: 2rem ridge rgb(17, 5, 88);
 }
 
+.services2 .close:hover {
+  border: 1.5rem ridge rgba(14, 63, 153, 0.884);
+}
+
 .services2 .create{
   border: 2rem ridge rgb(2, 58, 20);
 }
 
+.services2 .create:hover {
+  border: 1.5rem ridge rgba(4, 138, 47, 0.884);
+}
+
 .services2 .open{
   border: 2rem ridge rgb(80, 2, 60);
+  transition: all 0.45s ease-in-out;
+}
+
+.services2 .open:hover {
+  border: 1.5rem ridge rgba(226, 37, 179, 0.884);
 }
 
 .services2 .icon-box::before {
@@ -1516,12 +1539,21 @@ Section Forms
   border: solid blue;
   border-radius: 10%;
   box-shadow: rgba(0,0,0,0.4) 10px 10px;
+  transition: all 0.45s ease-in-out;
+}
+.frame1:hover {
+  border: solid rgba(51, 198, 243, 0.925);
 }
 
 .frame2 {
   border: solid blue;
   border-radius: 10%;
   box-shadow: rgba(0,0,0,0.4) 10px 10px inset;
+  transition: all 0.45s ease-in-out;
+}
+
+.frame2:hover {
+  border: solid rgba(51, 198, 243, 0.925);
 }
 
 /*--------------------------------------------------------------

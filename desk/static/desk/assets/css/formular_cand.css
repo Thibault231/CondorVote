@@ -88,3 +88,23 @@ form input[type=submit]:hover {
 .hidden {
   display: none;
 }
+
+.hide_tickets {
+  text-align: center;
+  box-shadow:10px 10px 10px rgb(51, 48, 48);
+  color: white;
+  border: solid white;
+  border-radius: 100%;
+  transition-property: transform;
+  transition-duration: 1.5s;
+}
+
+.hide_tickets:hover {
+  box-shadow: 0 0 0 white;
+  transform: scale(1.15);
+  background: linear-gradient(rgb(236, 230, 230), #97cfe5);
+}
+
+#ul_tickets {
+  margin-top: 4%;
+}

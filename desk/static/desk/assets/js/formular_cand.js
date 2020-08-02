@@ -1,12 +1,23 @@
 $( document ).ready(function() {
     $(".addingc").click(function() {
-         $("form").slideDown(250);
-         // if form is visible
+        if ($("form").is(":visible")) {
+            $(".formc").slideUp(250); 
+        } else {
+           $(".formc").slideDown(250);
+           $(".addingc").css('cursor', 'default');
+        }
+     });
+});
+
+$( document ).ready(function() {
+    $(".addingt").click(function() {
          if ($("form").is(":visible")) {
-             // change .addingc cursor to default
-             $(".addingc").css('cursor', 'default');
+             $(".formt").slideUp(250); 
+         } else {
+            $(".formt").slideDown(250);
+            $(".addingt").css('cursor', 'default');
          }
-         $("#email").focus();
+        
      });
 });
 
@@ -28,6 +39,26 @@ $("#form_cand").submit(function (event) {
             });
             return false;
 });
+
+$("#form_adding_tickets").submit(function (event) {
+    event.preventDefault();
+    var donnees = $(this).serialize();
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: donnees,
+
+                success: function(data) {
+                    var resp = $.parseJSON(data);
+                    alert(resp.message);
+                },
+                error: function(resultat, status, erreur) {
+                    alert(resultat + status + erreur);
+                }
+            });
+            return false;
+});
+
 
 $(".hide_tickets").click(function() {
     if ($("#ul_tickets").hasClass("visible")) {

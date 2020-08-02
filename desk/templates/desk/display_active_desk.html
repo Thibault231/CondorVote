@@ -72,7 +72,9 @@
         </article>
     </div>
     <br/><br/>
-    <article class="container d-flex flex-column col-lg-10 frame1">
+
+    <div class="row">
+    <article class="container d-flex flex-column col-lg-9 col-md-12 frame1">
         <div class="section-title" data-aos="fade-in" data-aos-delay="100">
             <h2><br/>Modifier le bureau<br/><br/></h2>
         </div>
@@ -84,9 +86,6 @@
             <button class="about-btn2 col-lg-2 col-md-6">
                 <a style="color:black" href="{% url 'desk:open_desk' desk_id=desk.id %}">Ouvrir le bureau</a>
             </button>
-            <div class="float col-lg-2 col-md-6">
-                {% include 'desk/formular_tickets.html' %}
-            </div>
             {% endif %}
             {% if desk.status == "O" %}
             <button class="about-btn2">
@@ -99,6 +98,14 @@
         </div>
         <br/><br/>
     </article>
+
+    {% if desk.status == "C" %}
+    <div class="form_tk col-lg-2 col-md-10">
+        {% include 'desk/formular_tickets.html' %}
+    </div>
+    {% endif %}
+    </div>
+    <br/><br/>
 
     <article class="container d-flex flex-column col-lg-10 frame1">
         <div class="section-title" data-aos="fade-in" data-aos-delay="100">

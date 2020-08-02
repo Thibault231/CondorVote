@@ -85,6 +85,33 @@ form input[type=submit]:hover {
   }
 }
 
+.addingt {
+  background: linear-gradient(#2e1392, #3979d8);
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  display: block;
+  font-size: 2rem;
+  line-height: 1;
+  padding: 1.75rem 1rem;
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+  border-radius: 50%;
+  transition: all 0.45s ease-in-out;
+}
+.addingt:hover {
+  background: linear-gradient(#4e87dc, #2e1392);
+  box-shadow: 0 0 0, 0 0 0;
+}
+@media screen and (max-width: 600px) {
+  .addingt {
+    line-height: 1.4;
+    padding: 1.25rem 1rem;
+  }
+}
+
+
 .hidden {
   display: none;
 }

@@ -1,18 +1,12 @@
 {% extends 'common/base2.html' %}
 {% load static %}
 
-{% block content %}<section class="cta ">
+{% block content %}<section class="hero ">
     <div class="text-center" data-aos="fade-up">
         <h1>Vos tickets de vote</h1>
         <article class="container center-block col-lg-12">
             <br/>        
-        {% if not zero_ticket %}  
-            <h2>Voici la liste de vos tickets de vote</h2>
-            {% if not to_much__tickets %}
-            <h2>Pour des raisons de confidentialité cette liste ne vous sera pas envoyée par mail.</h2>
-            <h2>Réalisez un copier/coller à partir de l'écran<br/><br/></h2>
-            {% endif %}
-
+        {% if not zero_ticket %}
             <button class="about-btn2" id="end_add">
                 <a style="color:black" href="{% url 'account:myaccount' %}">Retourner sur Mon Compte</a>
             </button>
@@ -23,15 +17,29 @@
             {% endif %}
             <div class="row justify-content-center">
                 <h3>Total tickets:&emsp;{{existing_tickets}}</h3>
-                <div class="frame1 col-lg-4">
-                <br/>
-                {% for ticket in tickets_list %}
-                <div class="d-flex flex-column text-center">
-                    <p>&emsp;{{ticket.ticket_number}}&emsp;Code ticket:&emsp;{{ticket.ticket_code}}</p>
-                    <input id="ticket_code" style="display:none" value={{ticket.ticket_code}} />
-                </div>
-                {% endfor %}
-                </div>
+            </div>
+            <div class="row col-lg-12 services justify-content-around">
+                    <div class="col-md-6 col-lg-3 d-flex align-items-center mb-5 mb-lg-0">
+                        <div class="icon-box" data-aos="fade-up">
+                            <div class="icon"><i class="bx bx-walk"></i></div>
+                            <h4 class="title" >1/3 Créer le bureau de vote.</h4>
+                            <h4 class="title">2/3 Ajouter les candidats.</h4>
+                            <h4 class="title" style="background: linear-gradient(rgba(39, 82, 177, 0.774), rgba(137, 167, 231, 0.774));">
+                                 <strong>3/3 Récupérer les tickets électeurs.</strong></h4>
+                            <p class="description"> Voici les tickets que vous devrez donner à vos électeurs pour
+                                qu'ils puissent accéder à leur bulletin de vote en ligne.<br/>
+                                Pour des raisons de confidentialité cette liste ne vous sera pas envoyée par mail.<br/>
+                                Réalisez un copier/coller à partir de cet écran ou de votre espace "mon compte".</p>
+                        </div>
+                    </div>
+                    <div class='col-md-12 col-lg-6 row frame2 text-center align-items-center'>
+                        {% for ticket in tickets_list %}
+                        <div class="d-flex flex-column text-center col-lg-12">
+                            <p>&emsp;{{ticket.ticket_number}}&emsp;Code ticket:&emsp;{{ticket.ticket_code}}</p>
+                            <input id="ticket_code" style="display:none" value={{ticket.ticket_code}} />
+                        </div>
+                        {% endfor %}
+                    </div>
             </div>
         
             <br/><br/>

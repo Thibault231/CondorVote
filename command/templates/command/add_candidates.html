@@ -9,20 +9,36 @@
         <h2 id="message"></h2>
 
         <h2 id="number_cand">Votre bureau compte actuellement {{number_candidate}} candidats</h2>
-        <form  id="form_candidate" class="form1 justify-content-center" action="/command/adding_cand/" method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="number" style="display: none;" name="desk_id"  value={{desk_id}} id="item_name">
-            <div id="add_candidate" class="row">
-                <input   class="about-btn5" type="submit" value="Ajouter"  />
+        <div class="row col-lg-12 services">
+            <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+                <div class="icon-box" data-aos="fade-up">
+                    <div class="icon"><i class="bx bx-walk"></i></div>
+                    <h4 class="title" >1/3 Créer le bureau de vote.</h4>
+                    <h4 class="title" style="background: linear-gradient(rgba(39, 82, 177, 0.774), rgba(137, 167, 231, 0.774));">
+                        <strong>2/3 Ajouter les candidats.</strong></h4>
+                    <h4 class="title">3/3 Récupérer les tickets électeurs.</h4>
+                    <p class="description">Ajoutez les candidats de votre élection.<br/>
+                        Vous pourrez les modifier ultérieurement si votre bureau n'est pas ouvert au vote.</p>
+                </div>
+                </div>
+            <div class='col-md-12 col-lg-6 '>
+                <form  id="form_candidate" class="form1 justify-content-center" action="/command/adding_cand/" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="number" style="display: none;" name="desk_id"  value={{desk_id}} id="item_name">
+                    <div id="add_candidate" class="row">
+                        <input   class="about-btn5" type="submit" value="Ajouter"  />
+                    </div>
+                </form> 
+                <br/><br/>
+                <button class="about-btn2" id="end_add">
+                    <a style="color:black" href="{% url 'desk:create_tickets' desk_id=desk_id %}">J'ai fini d'ajouter des candidats</a>
+                </button>
+               
             </div>
-        </form>
         <br/><br/>
 
-        <button class="about-btn2" id="end_add">
-            <a style="color:black" href="{% url 'desk:create_tickets' desk_id=desk_id %}">J'ai fini d'ajouter des candidats</a>
-        </button>
-        <br/><br/>
+       
         </article>
     </div>
 </section>{% endblock %}

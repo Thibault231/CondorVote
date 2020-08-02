@@ -1536,13 +1536,15 @@ Section Forms
 }
 
 .frame1 {
-  border: solid blue;
   border-radius: 10%;
   box-shadow: rgba(0,0,0,0.4) 10px 10px;
-  transition: all 0.45s ease-in-out;
+  transition: all 0.65s ease-in-out;
+  z-index: 1;
 }
 .frame1:hover {
   border: solid rgba(51, 198, 243, 0.925);
+  top: 0;
+  background: #67b0d1;
 }
 
 .frame2 {

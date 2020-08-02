@@ -1,13 +1,13 @@
 <div class="optin-container text-center">
-    <div class="addingc">Gérer mes tickets</div>
+    <div class="addingt col-lg-10">Gérer mes tickets</div>
 
-    <form id="form_add_tickets" class="form hidden flex-column" action="/command/adding_cand/" method="post">
+    <form id="form_adding_tickets" class="form formt hidden flex-column" action="/command/adding_tickets/" method="post">
             {% csrf_token %}
-            <input type="number" id="first_name" name="first_name" placeholder="ajouter" />
-            <input type="number" style="display: none;" name="desk_id"  value={{desk.id}} id="item_name">
+            <input type="number" id="new_amount" name="new_amount" min="1"/>
+            <input type="number" style="display: none;"  name="desk_id"  value={{desk.id}} id="item_name">
             <input type="submit" value="Ajouter" />
     </form>
-    <form id="form_delete_tickets" class="form hidden flex-column" action="/command/adding_cand/" method="post">
+    <form id="form_delete_tickets" class="form formt hidden flex-column" action="/command/adding_cand/" method="post">
         {% csrf_token %}
         <input type="number" id="first_name" name="first_name" placeholder="supprimer" />
         <input type="number" style="display: none;" name="desk_id"  value={{desk.id}} id="item_name">

@@ -11,4 +11,8 @@ urlpatterns = [
         'adding_cand/',
         views.adding_cand,
         name='adding_cand'),
+    path(
+        'adding_tickets/',
+        views.adding_tickets,
+        name='adding_tickets')
 ]

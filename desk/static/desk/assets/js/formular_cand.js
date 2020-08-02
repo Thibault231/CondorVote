@@ -28,3 +28,11 @@ $("#form_cand").submit(function (event) {
             });
             return false;
 });
+
+$(".hide_tickets").click(function() {
+    if ($("#ul_tickets").hasClass("visible")) {
+        $("#ul_tickets").removeClass('visible').addClass('hidden');
+    } else if ($("#ul_tickets").hasClass("hidden")) {
+        $("#ul_tickets").removeClass('hidden').addClass('visible');
+    };
+});

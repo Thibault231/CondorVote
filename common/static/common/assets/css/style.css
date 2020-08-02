@@ -1537,9 +1537,12 @@ Section Forms
   transition: 0.3s;
   box-shadow:10px 10px 10px #999;
   position: relative;
+  transition-property: transform;
+  transition-duration: 400ms;
 }
 
 .about-btn2:hover {
+  transform: scale(1.15);
   background: linear-gradient(rgb(81, 153, 236), #734fd8);
   box-shadow: 0px 0px 0px;
 }
@@ -1578,10 +1581,13 @@ Section Forms
 	border-bottom:3px solid #0a6647;
   font:bold 13px Arial;
   transition: 0.3s;
-	color:#555;
+  color:#555;
+  transition-property: transform;
+  transition-duration: 400ms;
 }
 
 .about-btn4:hover {
+  transform: scale(1.5);
   background: linear-gradient(rgb(252, 40, 40), #990202);
 }
 

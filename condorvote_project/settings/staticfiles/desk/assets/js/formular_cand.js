@@ -1,7 +1,20 @@
-// API
-$("#form_candidate").submit(function (event) {
+$( document ).ready(function() {
+    $(".addingc").click(function() {
+         $("form").slideDown(250);
+         // if form is visible
+         if ($("form").is(":visible")) {
+             // change .addingc cursor to default
+             $(".addingc").css('cursor', 'default');
+         }
+         $("#email").focus();
+     });
+});
+
+$("#form_cand").submit(function (event) {
+    alert('OK1!')
     event.preventDefault();
     var donnees = $(this).serialize();
+    alert('OK!')
             $.ajax({
                 type: 'POST',
                 url: $(this).attr('action'),
@@ -9,16 +22,12 @@ $("#form_candidate").submit(function (event) {
 
                 success: function(data) {
                     var resp = $.parseJSON(data);
-                    $('#message').text(resp.message);
-                    $('#number_cand').empty().text('Votre bureau compte actuellement '+resp.number_candidate+' candidats');
+                    alert(resp.message)
                 },
                 error: function(resultat, status, erreur) {
                     alert(resultat + status + erreur);
                 }
             });
             return false;
-
 });
-
-
 

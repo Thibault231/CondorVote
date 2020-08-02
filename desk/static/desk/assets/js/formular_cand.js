@@ -59,6 +59,25 @@ $("#form_adding_tickets").submit(function (event) {
             return false;
 });
 
+$("#form_deleting_tickets").submit(function (event) {
+    event.preventDefault();
+    var donnees = $(this).serialize();
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: donnees,
+
+                success: function(data) {
+                    var resp = $.parseJSON(data);
+                    alert(resp.message);
+                },
+                error: function(resultat, status, erreur) {
+                    alert(resultat + status + erreur);
+                }
+            });
+            return false;
+});
+
 
 $(".hide_tickets").click(function() {
     if ($("#ul_tickets").hasClass("visible")) {

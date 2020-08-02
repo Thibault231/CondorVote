@@ -14,5 +14,9 @@ urlpatterns = [
     path(
         'adding_tickets/',
         views.adding_tickets,
-        name='adding_tickets')
+        name='adding_tickets'),
+    path(
+        'deleting_tickets/',
+        views.deleting_tickets,
+        name='deleting_tickets')
 ]

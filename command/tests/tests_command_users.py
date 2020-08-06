@@ -85,7 +85,7 @@ class AccountTestCase(TestCase):
         message = json.loads(response.content)
         self.assertEqual(response.status_code, TESTS['RightStatus'])
         self.assertEqual(message['message'], 'Methode not allowed')
-    
+
     def test_post_right_adding_tickets(self):
         """Test access on API adding_tickets with POST
         method and no formular.
@@ -126,11 +126,11 @@ class AccountTestCase(TestCase):
         self.assertEqual(response.status_code, TESTS['RightStatus'])
         self.assertTrue(
             message['message'].__contains__(
-            'Les tickets ont bien été supprimés.\n'))
+                'Les tickets ont bien été supprimés.\n'))
 
     def test_post_wrong_desk_adding_tickets(self):
         """Test access on API adding_tickets with POST
-        method and no formular.
+        method and no attibuted desk.
         """
         desk = self.desk
         self.client.login(
@@ -149,9 +149,9 @@ class AccountTestCase(TestCase):
             message['message'].__contains__(
                 'Les tickets ont bien été ajoutés.\nVous disposez de'))
 
-    def test_post_wrong_desk_adding_tickets(self):
-        """Test access on API adding_tickets with POST
-        method and no formular.
+    def test_post_wrong_amount_deleting_tickets(self):
+        """Test access on API deleting_tickets with POST
+        method and no attibuted desk.
         """
         desk = self.desk
         self.client.login(
@@ -172,7 +172,7 @@ class AccountTestCase(TestCase):
 
     def test_post_wrong_desk_deleting_tickets(self):
         """Test access on API deleting_tickets with POST
-        method and no formular.
+        method and a wrong amount of tickets.
         """
         desk = self.desk
         self.client.login(
@@ -210,4 +210,5 @@ class AccountTestCase(TestCase):
         self.assertEqual(response.status_code, TESTS['RightStatus'])
         self.assertTrue(
             message['message'].__contains__(
-            "La quantité à supprimer dépasse la quantité disponible."))
+                "La quantité à supprimer dépasse la quantité disponible.")
+        )

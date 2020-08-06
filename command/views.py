@@ -60,6 +60,7 @@ def adding_cand(request):
             'number_candidate': number_candidate})
     return HttpResponse(message)
 
+
 @login_required
 def adding_tickets(request):
     number_tickets = ""
@@ -100,7 +101,7 @@ def adding_tickets(request):
                     Ticket.objects.all().filter(desk_tickets=desk))
             desk.tickets_amount = number_tickets
             desk.save()
-            message = "Les tickets ont bien été ajoutés.\n"+\
+            message = "Les tickets ont bien été ajoutés.\n" + \
                 "Vous disposez de {} tickets pour ce bureau".format(
                     number_tickets)
     else:
@@ -110,6 +111,7 @@ def adding_tickets(request):
             'message': message,
             'number_tickets': number_tickets})
     return HttpResponse(message)
+
 
 @login_required
 def deleting_tickets(request):
@@ -127,7 +129,7 @@ def deleting_tickets(request):
             ticket_control = Ticket.objects.filter(desk_tickets=desk)
             tickets_number = len(ticket_control)
             if new_amount > tickets_number:
-                message = "Suppression impossible"+\
+                message = "Suppression impossible" + \
                     "La quantité à supprimer dépasse la quantité disponible."
             else:
                 for ticket in range(new_amount):
@@ -136,7 +138,7 @@ def deleting_tickets(request):
                 number_tickets = len(Ticket.objects.filter(desk_tickets=desk))
                 desk.tickets_amount = number_tickets
                 desk.save()
-                message = "Les tickets ont bien été supprimés.\n"+\
+                message = "Les tickets ont bien été supprimés.\n" + \
                     "Vous disposez de {} tickets pour ce bureau".format(
                         number_tickets)
     else:

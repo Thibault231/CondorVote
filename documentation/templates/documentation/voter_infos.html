@@ -1,4 +1,4 @@
-{% extends 'common/base2.html' %}  
+{% extends 'common/base2.html' %}
 {% load static %}
 
 {% block content %}
@@ -8,10 +8,10 @@
             <h1>Comment voter?</h1>
             <article>
                 <h2>Le ticket de vote:</h2>
-                <p>&emsp; &emsp;Pour voter à un bureau de voter vous devez disposer d'un ticket de vote.<br/>
+                <p>&emsp; &emsp;Pour voter à une élection (dans un bureau de vote) vous devez disposer d'un ticket de vote.<br/>
                     Ce ticket, généré automatiquement lors de la création du bureau,
                     vous est remis par l'organisateur de l'élection. Il permet d'identifier
-                    les électeurs de manière unique et spécifique.</p>
+                    les électeurs de manière unique et spécifique tout en restant anonyme.</p>
             </article>
 
             <article>
@@ -23,12 +23,11 @@
                 <p><img src="{% static 'documentation/img/vot_info_1.png' %}" alt="ticket acceuil" class="index-ticket"></p>
                 Dans ce dernier cas un formulaire s'affichera à l'écran.
                 <p><img src="{% static 'documentation/img/vot_info_2.png' %}" alt="ticket menu" class="menu-ticket"></p>
-                Taper le code de votre ticket puis cliquez sur <strong>"Valider"</strong>.<br/><br/>
+                Tapez le code de votre ticket puis cliquez sur <strong>"Valider"</strong>.<br/><br/>
                 <h3>Etape 2: Et bien votez maintenant!</h3>
                 Si le code du ticket correspond bien à un bureau de vote et qu'il n'a jamais été utilisé, il sera détruit et un bulletin de vote s'affichera.
-                (Et oui le ticket est détruit. :) Vous ne pensiez pas voter plusieurs fois quand tout de même?!)<br/>
-                Pour remplir un bulletin de vote de type "scrutin de Condorcet" vous devez ranger les candidats par ordre de préférence puis valider.<br/><br/>
-                Si le bulletin est correctement rempli, un message de validatio s'affichera à l'écran.<br/><br/>
+                (Et oui le ticket est détruit. :) Vous ne pensiez pas voter plusieurs fois tout de même?!)<br/>
+                Pour remplir un bulletin de vote de type "scrutin de Condorcet" vous devez ranger les candidats par ordre de préférence puis valider.<br/><br/>                                                      Si le bulletin est correctement rempli, un message de validatio s'affichera à l'écran.<br/><br/>
                 <p><img src="{% static 'documentation/img/vot_info_3.png' %}" alt="bulletin" class="ballot"></p>
                 Et voilà! Vous avez fini de voter. Il n'y a plus qu'à attendre les résultats.</p>
             </article>
@@ -37,18 +36,18 @@
                 <h2>Comment remplir un bulletin de Condorcet:</h2>
                 <p>&emsp; &emsp;C'est simple et  flexible.<br/>
                 Vous devez ranger les candidats par ordre de préférences.<br/>
-                Les égalités de rangement sont autorisés et l'odre des candidats n'est pas obligé de se suivre.<br/><br/>
+                Les égalités de rangement sont autorisées et l'ordre des candidats n'est pas obligé d'être continu.<br/><br/>
                 Exemple de bulletin valides:<br/>
                 Dans l'ordre:&emsp;Candidat 1: 1, Candidat 2: 2, Candidat 3: 3, Candidat 4: 4, Candidat 5: 5<br/>
-                <p><img src="{% static 'documentation/img/vot_info_4.png' %}" alt="bulletin-ordonné" class="ordered-ballot"></p> 
+                <p><img src="{% static 'documentation/img/vot_info_4.png' %}" alt="bulletin-ordonné" class="ordered-ballot"></p>
                 Dans le désordre:&emsp;Candidat 1: 2, Candidat 2: 4, Candidat 3: 1, Candidat 4: 5, Candidat 5: 3<br/>
-                <p><img src="{% static 'documentation/img/vot_info_5.png' %}" alt="bulletin-desordonné" class="disordered-ballot"></p> 
+                <p><img src="{% static 'documentation/img/vot_info_5.png' %}" alt="bulletin-desordonné" class="disordered-ballot"></p>
                 Avec des égalités:&emsp;Candidat 1: 1, Candidat 2:  1, Candidat 3: 2, Candidat 4:  3, Candidat 5:  4<br/>
-                <p><img src="{% static 'documentation/img/vot_info_6.png' %}" alt="bulletin-repété" class="repaet-ballot"></p> 
+                <p><img src="{% static 'documentation/img/vot_info_6.png' %}" alt="bulletin-repété" class="repaet-ballot"></p>
                 Avec des égalités et des trous dans les valeurs:&emsp;Candidat 1: ,1 Candidat 2: 5, Candidat 3: 5, Candidat 4: 5, Candidat 5: 2<br/><br/>
-                <p><img src="{% static 'documentation/img/vot_info_7.png' %}" alt="bulletin-incompleté" class="uncomplete-ballot"></p><br/> 
-                Rmq: Il est normalement possible dans un bulletin de Condorcet de ne pas classer un candidat. 
-                Chez Condorvote nous avons cependant  fait le choix de contraindre les bulletins à donner un rang
+                <p><img src="{% static 'documentation/img/vot_info_7.png' %}" alt="bulletin-incompleté" class="uncomplete-ballot"></p><br/>
+                Rmq: Il est normalement possible dans un bulletin de Condorcet de ne pas classer un candidat.
+                Chez Condorvote nous avons cependant  fait le choix de contraindre les bulletins à contenir un rang
                 pour chaque candidat. Nous pensons en effet qu'il est important pour un électeur de connaître (au moins un peu)
                 chaque candidat afin de fournir un vote le plus éclairé possible.</p>
             </article>
